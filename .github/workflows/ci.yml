@@ -1,11 +1,12 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - master
   pull_request:
-    branches: [main]
+    branches:
+      - '**'
 
 concurrency:
   group: ${{ github.head_ref || github.ref_name }}
@@ -55,9 +56,10 @@ jobs:
           CI: true
 
   push-changes:
+    name: Push changes
     runs-on: ubuntu-latest
     needs: [monorepo, examples]
-    name: Push changes
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       fail-fast: true
       matrix:
