@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://js.ipfs.io" title="JS IPFS">
+  <a href="https://github.com/ipfs/helia" title="Helia">
     <img src="https://raw.githubusercontent.com/ipfs/helia/feat/initial-implementation/assets/helia.png" alt="Helia logo" width="300" />
   </a>
 </p>

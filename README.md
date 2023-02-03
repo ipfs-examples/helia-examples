@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://js.ipfs.io" title="JS IPFS">
-    <img src="https://ipfs.io/ipfs/Qme6KJdKcp85TYbLxuLV7oQzMiLremD7HMoXLZEmgo6Rnh/js-ipfs-sticker.png" alt="IPFS in JavaScript logo" width="244" />
+  <a href="https://github.com/ipfs/helia" title="Helia">
+    <img src="https://raw.githubusercontent.com/ipfs/helia/feat/initial-implementation/assets/helia.png" alt="Helia logo" width="300" />
   </a>
 </p>
 
