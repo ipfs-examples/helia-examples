@@ -21,6 +21,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-webpack
     defaults:
       run:
         working-directory: examples/${{ matrix.project }}
@@ -65,6 +66,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-webpack
     steps:
       - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
         with:
