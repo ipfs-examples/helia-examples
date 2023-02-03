@@ -67,9 +67,12 @@ jobs:
           - helia-101
     steps:
       - uses: actions/checkout@v3
-      - name: Pull from another repository
+        with:
+          fetch-depth: 0
+      - name: Push to another repository
         uses: ipfs-examples/actions-push-directory-to-repo@main
         with:
+          source-branch: main
           source-directory: examples/${{ matrix.project }}
           target-repo: ipfs-examples/${{ matrix.project }}
           target-branch: main
