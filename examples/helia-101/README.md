@@ -4,12 +4,9 @@
   </a>
 </p>
 
-<h3 align="center"><b>Tutorial 101</b></h3>
+<h3 align="center"><b>Getting started with Helia</b></h3>
 
 <p align="center">
-  <b><i>Getting started with Helia</i></b>
-  <br />
-  <br />
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>

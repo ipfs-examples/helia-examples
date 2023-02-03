@@ -21,6 +21,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-browser-webpack
     defaults:
       run:
         working-directory: examples/${{ matrix.project }}
