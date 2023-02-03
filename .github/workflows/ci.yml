@@ -20,6 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         project:
+          - browser-webpack
           - helia-101
     defaults:
       run:
@@ -71,5 +72,5 @@ jobs:
           owner: ipfs-examples
           repo: ${{ matrix.project }}
           github_token: ${{ secrets.REPO_PULL_TOKEN }}
-          workflow_file_name: pull.yml
+          workflow_file_name: sync.yml
 
