@@ -66,10 +66,10 @@ jobs:
         project:
           - helia-101
     steps:
-      - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
         with:
           owner: ipfs-examples
           repo: ${{ matrix.project }}
-          github_token: ${{ secrets.GITHUB_PULL_TOKEN }}
+          github_token: ${{ secrets.REPO_PULL_TOKEN }}
           workflow_file_name: pull.yml
 
