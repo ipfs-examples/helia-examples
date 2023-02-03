@@ -1,0 +1,31 @@
+{
+  "name": "helia-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "reset": "aegir run clean && aegir clean **/node_modules **/package-lock.json",
+    "test": "aegir run test",
+    "clean": "aegir run clean",
+    "build": "aegir run build",
+    "lint": "aegir run lint",
+    "dep-check": "aegir run dep-check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ipfs-examples/helia-examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ipfs-examples/helia-examples/issues"
+  },
+  "homepage": "https://github.com/ipfs-examples/helia-examples#readme",
+  "devDependencies": {
+    "aegir": "^38.1.0"
+  },
+  "workspaces": [
+    "examples/*"
+  ],
+  "private": true
+}
