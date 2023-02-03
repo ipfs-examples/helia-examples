@@ -20,7 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         project:
-          - browser-webpack
           - helia-101
     defaults:
       run:
@@ -73,4 +72,3 @@ jobs:
           repo: ${{ matrix.project }}
           github_token: ${{ secrets.REPO_PULL_TOKEN }}
           workflow_file_name: sync.yml
-
