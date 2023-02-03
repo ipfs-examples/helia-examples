@@ -65,6 +65,8 @@ jobs:
           - helia-101
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Push to another repository
         uses: ipfs-examples/actions-push-directory-to-repo@main
         with:
