@@ -66,15 +66,10 @@ jobs:
         project:
           - helia-101
     steps:
-      - uses: actions/checkout@v3
+      - uses: convictional/trigger-workflow-and-wait@v1.6.1
         with:
-          fetch-depth: 0
-      - name: Push to another repository
-        uses: ipfs-examples/actions-push-directory-to-repo@main
-        with:
-          source-branch: main
-          source-directory: examples/${{ matrix.project }}
-          target-repo: ipfs-examples/${{ matrix.project }}
-          target-branch: main
-          git-username: github-actions
-          git-email: github-actions@github.com
+          owner: ipfs-examples
+          repo: ${{ matrix.project }}
+          github_token: ${{ secrets.GITHUB_PULL_TOKEN }}
+          workflow_file_name: pull.yml
+
