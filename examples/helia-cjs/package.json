@@ -1,15 +1,15 @@
 {
-  "name": "helia-101",
+  "name": "helia-cjs",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "description": "Getting started with Helia",
+  "type": "commonjs",
+  "description": "Using Helia from CommonJS",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "serve": "npm run start",
-    "test": "node test.js"
+    "test": "node test.mjs"
   },
   "dependencies": {
     "@chainsafe/libp2p-noise": "^11.0.0",
