@@ -11,9 +11,9 @@ jobs:
       - name: Pull from another repository
         uses: ipfs-examples/actions-pull-directory-from-repo@main
         with:
-          source-repo: "ipfs-examples/helia-examples"
-          source-folder-path: "examples/helia-101"
-          source-branch: "main"
-          target-branch: "main"
+          source-repo: ipfs-examples/helia-examples
+          source-folder-path: examples/${{ github.event.repository.name }}
+          source-branch: main
+          target-branch: main
           git-username: github-actions
           git-email: github-actions@github.com
