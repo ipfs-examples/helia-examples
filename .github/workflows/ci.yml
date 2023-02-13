@@ -52,7 +52,7 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
-      - name:  Run tests
+      - name: Run tests
         run: npm run test
         env:
           CI: true
