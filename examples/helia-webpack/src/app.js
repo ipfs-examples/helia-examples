@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import ipfsLogo from './ipfs-logo.svg'
 import { getHelia } from './get-helia.js'
 import { unixfs } from '@helia/unixfs'
-import { importContent }  from 'ipfs-unixfs-importer'
+import { importFile }  from 'ipfs-unixfs-importer'
 
 function App() {
   const [output, setOutput] = useState([]);
@@ -46,8 +46,6 @@ function App() {
     const info = await node.info()
     showStatus(`Connecting to ${info.peerId}...`, COLORS.active, info.peerId)
 
-    const fs = unixfs(node)
-
     const encoder = new TextEncoder()
 
     const fileToAdd = {
@@ -56,11 +54,12 @@ function App() {
     }
 
     showStatus(`Adding file ${fileToAdd.path}...`, COLORS.active)
-    const { cid } = await importContent(fileToAdd)
+    const { cid } = await importFile(fileToAdd, node.blockstore)
 
     showStatus(`Added to ${cid}`, COLORS.success, cid)
     showStatus('Reading file...', COLORS.active)
 
+    const fs = unixfs(node)
     const decoder = new TextDecoder()
     let text = ''
 
