@@ -178,7 +178,7 @@ const fs = unixfs(helia)
 const encoder = new TextEncoder()
 
 // add the bytes to your Helia node and receive a CID
-const cid = await fs.add(encoder.encode('Hello World 101'))
+const cid = await fs.addBytes(encoder.encode('Hello World 101'))
 
 // let's see what it looks like
 console.log('Added file:', cid)
