@@ -7,7 +7,6 @@ import { bootstrap } from '@libp2p/bootstrap'
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
-import { importBytes } from 'ipfs-unixfs-importer'
 
 // the blockstore is where we store the blocks that make up files
 const blockstore = new MemoryBlockstore()
@@ -56,8 +55,8 @@ const fs = unixfs(helia)
 // we will use this TextEncoder to turn strings into Uint8Arrays
 const encoder = new TextEncoder()
 
-// add the bytes to your node and receive a unique content identifer
-const { cid } = await importBytes(encoder.encode('Hello World 101'), helia.blockstore)
+// add the bytes to your node and receive a unique content identifier
+const cid = await fs.addBytes(encoder.encode('Hello World 101'), helia.blockstore)
 
 console.log('Added file:', cid.toString())
 

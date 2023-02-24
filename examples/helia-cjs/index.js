@@ -10,7 +10,6 @@ async function main () {
   const { unixfs } = await import('@helia/unixfs')
   const { MemoryBlockstore } = await import('blockstore-core')
   const { MemoryDatastore } = await import('datastore-core')
-  const { importBytes } = await import('ipfs-unixfs-importer')
 
   // the blockstore is where we store the blocks that make up files
   const blockstore = new MemoryBlockstore()
@@ -59,8 +58,8 @@ async function main () {
   // we will use this TextEncoder to turn strings into Uint8Arrays
   const encoder = new TextEncoder()
 
-  // add the bytes to your node and receive a unique content identifer
-  const { cid } = await importBytes(encoder.encode('Hello World 101'), helia.blockstore)
+  // add the bytes to your node and receive a unique content identifier
+  const cid = await fs.addBytes(encoder.encode('Hello World 101'), helia.blockstore)
 
   console.log('Added file:', cid.toString())
 
