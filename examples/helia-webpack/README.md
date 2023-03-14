@@ -60,7 +60,7 @@ Now open your browser at `http://localhost:3000`
 
 ## Usage
 
-In this example, you will find a boilerplate you can use to guide yourself into bundling js-ipfs with webpack, so that you can use it in your own web app!
+In this example, you will find a boilerplate you can use to guide yourself into bundling helia with webpack, so that you can use it in your own web app!
 
 You should see the following:
 
