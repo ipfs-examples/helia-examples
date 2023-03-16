@@ -8,8 +8,10 @@ const play = test.extend({
 
 play.describe('using script tag:', () => {
   // DOM
-  const status = "#status"
-  const node = "#node"
+  const status = "#statusValue"
+  const node = "#nodeId"
+  const startHelia = ".e2e-startHelia"
+  const stopHelia = ".e2e-stopHelia"
 
   play.beforeEach(async ({servers, page}) => {
     await page.goto(`http://localhost:${servers[0].port}/`);
@@ -17,9 +19,17 @@ play.describe('using script tag:', () => {
 
   play('should properly initialized a IPFS node and print the status', async ({ page }) => {
     await page.waitForSelector(status)
-    expect(await page.textContent(status)).toContain("offline");
+    expect(await page.textContent(status)).toContain("Not Started");
+    expect(await page.textContent(node)).toContain("unknown");
 
-    expect(await page.textContent(node)).toContain("ID: ");
-    expect(await page.textContent(status)).toContain("online");
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+
+    expect(await page.textContent(status)).toContain("Online");
+    expect(await page.textContent(node)).not.toContain("unknown");
+
+    await page.click(stopHelia)
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    expect(await page.textContent(status)).toContain("Offline");
+
   });
 });
