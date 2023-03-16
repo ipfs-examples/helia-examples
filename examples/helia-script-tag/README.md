@@ -1,24 +1,21 @@
 <p align="center">
-  <a href="https://js.ipfs.io" title="JS IPFS">
-    <img src="https://ipfs.io/ipfs/Qme6KJdKcp85TYbLxuLV7oQzMiLremD7HMoXLZEmgo6Rnh/js-ipfs-sticker.png" alt="IPFS in JavaScript logo" width="244" />
+  <a href="https://github.com/ipfs/helia" title="Helia">
+    <img src="https://raw.githubusercontent.com/ipfs/helia/main/assets/helia.png" alt="Helia logo" width="300" />
   </a>
 </p>
 
-<h3 align="center"><b>js-ipfs CDN</b></h3>
+<h3 align="center"><b>Using Helia via script tags from CDN</b></h3>
 
 <p align="center">
-  <b><i>Use IPFS in the browser using CDN</i></b>
-  <br />
-  <br />
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
   <br>
-  <a href="https://github.com/ipfs/js-ipfs/tree/master/docs">Explore the docs</a>
+  <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
+  .
+  <a href="https://codesandbox.io/p/sandbox/helia-script-tag-g420c3">View codesandbox Demo</a>
   ·
-  <a href="https://codesandbox.io/">View Demo</a>
+  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/js-ipfs-examples/issues">Report Bug</a>
-  ·
-  <a href="https://github.com/ipfs-examples/js-ipfs-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## Table of Contents
@@ -29,16 +26,14 @@
   - [Prerequisites](#prerequisites)
   - [Installation and Running example](#installation-and-running-example)
 - [Usage](#usage)
-- [References](#references)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
 
 ## About The Project
 
-- Read the [docs](https://github.com/ipfs/js-ipfs/tree/master/docs)
-- Look into other [examples](https://github.com/ipfs-examples/js-ipfs-examples) to learn how to spawn an IPFS node in Node.js and in the Browser
-- Consult the [Core API docs](https://github.com/ipfs/js-ipfs/tree/master/docs/core-api) to see what you can do with an IPFS node
+- Read the [docs](https://ipfs.github.io/helia/modules/helia.html)
+- Look into other [examples](https://github.com/ipfs-examples/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
 - Visit https://dweb-primer.ipfs.io to learn about IPFS and the concepts that underpin it
 - Head over to https://proto.school to take interactive tutorials that cover core IPFS APIs
 - Check out https://docs.ipfs.io for tips, how-tos and more
@@ -61,33 +56,48 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm start
 ```
 
-Now open your browser at `http://localhost:8888`
+Then open your browser to http://localhost:8888.
 
 ## Usage
 
-You can use IPFS in your in-browser JavaScript code with just a `<script>` tag.
+This tutorial is a port & enhancement of [js-ipfs example 'browser-script-tag'](https://github.com/ipfs-examples/js-ipfs-examples/examples/browser-script-tag) but using Helia instead of js-ipfs.
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
-```
+If you are seeing errors like `ERR_REQUIRE_ESM` or `ERR_PACKAGE_PATH_NOT_EXPORTED` when trying to use this example, please check out `/examples/helia-cjs` instead.
 
-This exposes a global `Ipfs`; you can get a node by making a `new Ipfs()`.
+The main areas of focus should be two files: `index.html` and `src/index.js`.
+
+If you're confused about what the different methods under 'Some Suggestions' are doing, you may want to check out [helia-101](https://github.com/ipfs-examples/helia-101) for a full breakdown of the code.
+
+### Using the example
+
+The page you will see is broken up into 4 sections:
+
+1. The intro: title and global variables you can play with in your browser console
+2. Node Status: The status of the helia node, which is updated every 500ms
+   * Helia will start up on page load. You can use the 'Start Helia' and 'Stop Helia' to call `helia.start()` and `helia.stop()` respectively.
+   * Updated content (look for `nodeUpdateInterval = ` in `src/index.js` to change or edit what's updated):
+      * Node Status - shows either "Online" or "Offline".
+      * ID - Shows the PeerId of your Helia node.
+      * Discovered Peers - The count of peers discovered. Check the event log at the bottom of the page to see their IDs.
+      * Connected Peers - The count of peers your helia node is connected to. A list of their IDs will render if the value is > 0.
+3. Suggestions: Try out these code snippets in your browser terminal, in order.
+4. Event Log: Elapsed-TimeStamped messages showing you some of what Helia and it's managed libp2p node are doing. This event log shows:
+   * instantiation of the libp2p instance passed to helia
+   * instantiation of the Helia node
+   * peer discovery
+   * peer connection
+   * peer disconnection
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
-## References
-
-- Documentation:
-  - [IPFS CONFIG](https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md)
-  - [MISCELLANEOUS](https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/MISCELLANEOUS.md)
-
 ## Documentation
 
-- [Config](https://docs.ipfs.io/)
-- [Core API](https://github.com/ipfs/js-ipfs/tree/master/docs/core-api)
-- [Examples](https://github.com/ipfs-examples/js-ipfs-examples)
-- [Development](https://github.com/ipfs/js-ipfs/blob/master/docs/DEVELOPMENT.md)
+- [IPFS Primer](https://dweb-primer.ipfs.io/)
+- [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
+- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
+- [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 
 ## Contributing
 
@@ -107,11 +117,14 @@ The IPFS implementation in JavaScript needs your help! There are a few things yo
 
 Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md) and [JavaScript Contributing Guidelines](https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md).
 
-- **Check out existing issues** The [issue list](https://github.com/ipfs/js-ipfs/issues) has many that are marked as ['help wanted'](https://github.com/ipfs/js-ipfs/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22help+wanted%22) or ['difficulty:easy'](https://github.com/ipfs/js-ipfs/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Adifficulty%3Aeasy) which make great starting points for development, many of which can be tackled with no prior IPFS knowledge
-- **Look at the [IPFS Roadmap](https://github.com/ipfs/roadmap)** This are the high priority items being worked on right now
+- **Check out existing issues** The [issue list](https://github.com/ipfs/helia/issues) has many that are marked as ['help wanted'](https://github.com/ipfs/helia/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22help+wanted%22) or ['difficulty:easy'](https://github.com/ipfs/helia/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Adifficulty%3Aeasy) which make great starting points for development, many of which can be tackled with no prior IPFS knowledge
+- **Look at the [Helia Roadmap](https://github.com/ipfs/helia/blob/main/ROADMAP.md)** This are the high priority items being worked on right now
 - **Perform code reviews** More eyes will help
   a. speed the project along
   b. ensure quality, and
-  c. reduce possible future bugs.
-- **Add tests**. There can never be enough tests.
-- **Join the [Weekly Core Implementations Call](https://github.com/ipfs/team-mgmt/issues/992)** it's where everyone discusses what's going on with IPFS and what's next
+  c. reduce possible future bugs
+- **Add tests**. There can never be enough tests
+
+[cid]: https://docs.ipfs.tech/concepts/content-addressing  "Content Identifier"
+[Uint8Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
+[libp2p]: https://libp2p.io

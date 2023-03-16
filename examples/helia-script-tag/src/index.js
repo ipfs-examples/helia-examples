@@ -1,6 +1,6 @@
 /** global Helia, Libp2P, ChainsafeLibp2PYamux, Libp2PWebsockets, Libp2PBootstrap, BlockstoreCore, DatastoreCore */
 
-// not imported from skypack nor unpkg because of issues.
+// not imported from skypack,jsdelivr, nor unpkg because of issues.
 import { noise } from 'https://esm.sh/v111/@chainsafe/libp2p-noise@11.0.1/es2022/libp2p-noise.js'
 
 const statusEl = document.getElementById('status')
@@ -9,6 +9,7 @@ const discoveredPeerCount = document.getElementById('discoveredPeerCount')
 const connectedPeerCount = document.getElementById('connectedPeerCount')
 const connectedPeersList = document.getElementById('connectedPeersList')
 
+let nodeUpdateInterval = null
 document.addEventListener('DOMContentLoaded', async () => {
   window.helia = await createHelia()
   window.heliaFs = await HeliaUnixfs.unixfs(helia)
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addToLog(`Disconnected from ${evt.detail.remotePeer.toString()}`)
   })
 
-  setInterval(() => {
+  nodeUpdateInterval = setInterval(() => {
     statusValueEl.innerHTML = window.helia.libp2p.started ? 'Online' : 'Offline'
     updateConnectedPeers()
     updateDiscoveredPeers()
@@ -90,19 +91,50 @@ const createHelia = async () => {
 
   if (libp2pInstance == null) {
 
+    /**
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-libp2p
+     */
     libp2pInstance = await Libp2P.createLibp2p({
+      /**
+       * @see https://github.com/ipfs/js-ipfs-interfaces/tree/master/packages/interface-datastore
+       */
       datastore,
-      dht: Libp2PKadDht.kadDHT(),
+      /**
+       * @see https://github.com/libp2p/js-libp2p-kad-dht
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-dht
+       */
+      dht: Libp2PKadDht.kadDHT({                        // The DHT options (and defaults) can be found in its documentation
+        kBucketSize: 5,
+        clientMode: true,
+        enabled: true,
+        randomWalk: {
+          enabled: true,            // Allows to disable discovery (enabled by default)
+          interval: 300e3,
+          timeout: 10e3
+        }
+      }),
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#transport
+       */
       transports: [
         Libp2PWebsockets.webSockets(),
       ],
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption
+       */
       connectionEncryption: [
         noise()
       ],
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing
+       */
       streamMuxers: [
         ChainsafeLibp2PYamux.yamux(),
         Libp2PMplex.mplex(),
       ],
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-peer-discovery
+       */
       peerDiscovery: [
         Libp2PBootstrap.bootstrap({
           list: [
@@ -113,9 +145,25 @@ const createHelia = async () => {
           ],
         }),
       ],
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-dialing
+       */
       dialer: {
         dialTimeout: 120000,
       },
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-manager
+       */
+      connectionManager: {
+        // Auto connect to discovered peers (limited by ConnectionManager minConnections)
+        autoDial: true,
+        maxConnections: 10,
+        minConnections: 0,
+        pollInterval: 2000,
+      },
+      /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-peerstore
+       */
       peerStore: {
         persistence: true,
         /**
@@ -123,21 +171,9 @@ const createHelia = async () => {
          * are not updated in the datastore. In this context, browser nodes should use a threshold of 1, since they
          * might not "stop" properly in several scenarios and the PeerStore might end up with unflushed records when the
          * window is closed.
-         * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-peerstore
          */
         threshold: 1
       },
-      config: {
-        dht: {                        // The DHT options (and defaults) can be found in its documentation
-          kBucketSize: 5,
-          enabled: true,
-          randomWalk: {
-            enabled: true,            // Allows to disable discovery (enabled by default)
-            interval: 300e3,
-            timeout: 10e3
-          }
-        }
-      }
     })
     addToLog('Created LibP2P instance')
 

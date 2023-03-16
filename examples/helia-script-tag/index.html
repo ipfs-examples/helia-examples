@@ -14,12 +14,11 @@
     <p>
       This page creates an IPFS Helia node in your browser and sets a few other useful components into the
       global Javascript namespace:
-      <ol>
+      <ul>
         <li><b><em style="background-color:#d7d6d6">helia</em></b> - A helia instance. You can access the <a href="https://www.npmjs.com/package/libp2p" target="_blank">libp2p</a> instance used by helia with <b><em style="background-color:#d7d6d6">helia.libp2p</em></b></li>
         <li><b><em style="background-color:#d7d6d6">heliaFs</em></b> - A <a href="https://www.npmjs.com/package/@helia/unixfs" target="_blank">@helia/unixFS</a> instance</li>
         <li><b><em style="background-color:#d7d6d6">discoveredPeers</em></b> - A <b><em style="background-color:#d7d6d6">Map&lt;peerIdString, peerDiscoveryEventDetail&gt;</em></b> that is filled as we discover peers</li>
-
-      </ol>
+      </ul>
       Open the console to play around with them.
     </p>
     <p>
@@ -38,7 +37,7 @@
       <h3>ID: <span id="nodeId">unknown</span></h3>
       <h3>Discovered Peers: <span id="discoveredPeerCount">0</span></h3>
       <h3>Connected Peers: <span id="connectedPeerCount">0</span></h3>
-      <ol id="connectedPeersList"></ol>
+      <ul id="connectedPeersList"></ul>
     </div>
 
     <hr />
