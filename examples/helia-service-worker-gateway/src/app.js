@@ -3,12 +3,12 @@ import React, { useState, useRef } from 'react';
 import ipfsLogo from './ipfs-logo.svg'
 import { getHelia } from './get-helia.js'
 import { unixfs } from '@helia/unixfs'
+import { CID } from 'multiformats/cid'
 
 function App() {
   const [output, setOutput] = useState([]);
   const [helia, setHelia] = useState(null);
-  const [fileContent, setFileContent] = useState('');
-  const [fileName, setFileName] = useState('');
+  const [fileCid, setFileCid] = useState('');
 
   const terminalEl = useRef(null);
 
@@ -32,7 +32,7 @@ function App() {
     terminalEl.current.scroll({ top: terminal.scrollHeight, behavior: 'smooth' })
   }
 
-  const store = async (name, content) => {
+  const getFile = async (fileCid) => {
     let node = helia;
 
     if (!helia) {
@@ -45,22 +45,12 @@ function App() {
 
     const peerId = node.libp2p.peerId
     console.log(peerId)
-    showStatus(`Connecting to ${peerId}...`, COLORS.active, peerId)
-
-    const encoder = new TextEncoder()
-
-    const fileToAdd = {
-      path: `${name}`,
-      content: encoder.encode(content)
-    }
+    showStatus(`My ID is ${peerId}`, COLORS.active, peerId)
 
     const fs = unixfs(node)
+    const cid = CID.parse(fileCid)
 
-    showStatus(`Adding file ${fileToAdd.path}...`, COLORS.active)
-    const cid = await fs.addFile(fileToAdd, node.blockstore)
-
-    showStatus(`Added to ${cid}`, COLORS.success, cid)
-    showStatus('Reading file...', COLORS.active)
+    showStatus(`Reading UnixFS text file ${cid}...`, COLORS.active)
     const decoder = new TextDecoder()
     let text = ''
 
@@ -70,7 +60,7 @@ function App() {
       })
     }
 
-    showStatus(`\u2514\u2500 ${name} ${text}`)
+    showStatus(`\u2514\u2500 CID: ${cid}`)
     showStatus(`Preview: https://ipfs.io/ipfs/${cid}`, COLORS.success)
   }
 
@@ -78,15 +68,11 @@ function App() {
     e.preventDefault();
 
     try {
-      if (fileName == null || fileName.trim() === '') {
-        throw new Error('File name is missing...')
+      if (fileCid == null || fileCid.trim() === '') {
+        throw new Error('File CID is missing...')
       }
 
-      if ((fileContent == null || fileContent.trim() === '')) {
-        throw new Error('File content is missing...')
-      }
-
-      await store(fileName, fileContent)
+      await getFile(fileCid)
     } catch (err) {
       showStatus(err.message, COLORS.error)
     }
@@ -112,18 +98,7 @@ function App() {
             type="text"
             placeholder="file.txt"
             required
-            value={fileName} onChange={(e) => setFileName(e.target.value)}
-          />
-
-          <label htmlFor="file-content" className="f5 ma0 pb2 aqua fw4 db">Content</label>
-          <input
-            className="input-reset bn black-80 bg-white pa3 w-100 mb3 ft"
-            id="file-content"
-            name="file-content"
-            type="text"
-            placeholder="Hello world"
-            required
-            value={fileContent} onChange={(e) => setFileContent(e.target.value)}
+            value={fileCid} onChange={(e) => setFileCid(e.target.value)}
           />
 
           <button
@@ -131,7 +106,7 @@ function App() {
             id="add-submit"
             type="submit"
           >
-            Add file
+            Fetch
           </button>
         </form>
 

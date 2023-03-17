@@ -30,6 +30,7 @@
     "helia": "next",
     "kubo-rpc-client": "^3.0.1",
     "libp2p": "^0.42.2",
+    "multiformats": "^11.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
