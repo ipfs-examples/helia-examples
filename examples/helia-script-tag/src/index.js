@@ -157,9 +157,6 @@ const createHelia = async () => {
       connectionManager: {
         // Auto connect to discovered peers (limited by ConnectionManager minConnections)
         autoDial: true,
-        maxConnections: 10,
-        minConnections: 0,
-        pollInterval: 2000,
       },
       /**
        * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-peerstore
