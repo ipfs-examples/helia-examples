@@ -4,7 +4,7 @@
 
 The contents of this repository are automatically synced from the parent [Helia Examples Project](https://github.com/ipfs-examples/helia-examples) so any changes made to the standalone repository will be lost after the next sync.
 
-Please open a PR against [IPFS Examples](https://github.com/ipfs-examples/helia-examples) instead.
+Please open a PR against [Helia Examples](https://github.com/ipfs-examples/helia-examples) instead.
 
 ## Contributing
 
