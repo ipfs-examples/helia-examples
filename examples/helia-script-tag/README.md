@@ -79,7 +79,7 @@ The page you will see is broken up into 4 sections:
       * Node Status - shows either "Online" or "Offline".
       * ID - Shows the PeerId of your Helia node.
       * Discovered Peers - The count of peers discovered. Check the event log at the bottom of the page to see their IDs.
-      * Connected Peers - The count of peers your helia node is connected to. A list of their IDs will render if the value is > 0.
+      * Connected Peers - The count of peers your helia node is connected to. Also, a list of their `PeerId`s will render if the count is > 0.
 3. Suggestions: Try out these code snippets in your browser terminal, in order.
 4. Event Log: Elapsed-TimeStamped messages showing you some of what Helia and it's managed libp2p node are doing. This event log shows:
    * instantiation of the libp2p instance passed to helia
