@@ -17,6 +17,7 @@ function App() {
   return (
     <div className="App">
       <div
+        id="heliaStatus"
         style={{
           border: `4px solid ${
             error ? 'red':
@@ -26,18 +27,25 @@ function App() {
         }}
       >Helia Status</div> 
       <input
+        id="textInput"
         value={text}
         onChange={(event) => setText(event.target.value)}
         type="text" />
       <button
+        id="commitTextButton"
         onClick={() => commitText(text)}
       >Add Text To Node</button>
-      <div>textCid: {cidString}</div>
+      <div
+        id="cidOutput"
+      >textCid: {cidString}</div>
       { cidString && (<>
         <button
+          id="fetchCommitedTextButton"
           onClick={() => fetchCommitedText()}
         >Fetch Commited Text</button>
-          <div>Commited Text: {commitedText}</div>
+          <div
+            id="commitedTextOutput"
+          >Commited Text: {commitedText}</div>
         </>) 
       }
 

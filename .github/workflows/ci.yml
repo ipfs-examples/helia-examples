@@ -69,6 +69,7 @@ jobs:
           - helia-101
           - helia-cjs
           - helia-webpack
+          - helia-vite-react
     steps:
       - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
         with:
