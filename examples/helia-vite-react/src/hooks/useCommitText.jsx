@@ -14,7 +14,6 @@ export const useCommitText = () => {
   const commitText = useCallback(async (text) => {
     if (!error && !starting) {
       try {
-        console.log('text', text)
         const cid = await fs.addBytes(
           encoder.encode(text),
           helia.blockstore
@@ -31,31 +30,23 @@ export const useCommitText = () => {
   }, [error, starting, helia])
 
   const fetchCommitedText = useCallback(async () => {
-    console.log('hi')
     let text = ''
     if (!error && !starting) {
-    console.log('hi2')
       try {
-        console.log('hi2.5')
-        console.log(cid)
         for await (const chunk of fs.cat(cid)) {
           console.log('hmmm')
           text += decoder.decode(chunk, {
             stream: true
           })
-          console.log('hi3')
         }
-          console.log('hi4')
-        console.log(text)
         setCommitedText(text)
       } catch (e) {
-        console.log('hmmm')
         console.error(e)
       }
     } else {
       console.log('please wait for helia to start')
     }
-  }, [error, starting, cid, helia])
+  }, [error, starting, cid, helia]) // make sure to add helia in the dependencies array of the fs will suspend
 
   return { cidString, commitedText, commitText, fetchCommitedText }
 }

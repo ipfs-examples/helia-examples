@@ -48,6 +48,7 @@ export const HeliaProvider = ({children}) => {
         const datastore = new MemoryDatastore()
 
         // libp2p is the networking layer that underpins Helia
+        // Make sure to stick libp2p here when running react in strict mode
         const libp2p = await createLibp2p({
           datastore,
           transports: [
@@ -77,11 +78,8 @@ export const HeliaProvider = ({children}) => {
           libp2p
         })
         setHelia(helia)
-        console.log('helia set')
         setFs(unixfs(helia))
-        console.log('unixfs set')
         setStarting(false)
-        console.log('hi')
       } catch (e) {
         console.error(e)
         setError(true)
