@@ -68,7 +68,7 @@ Explore [ProtoSchool's IPFS tutorials](https://proto.school/#/tutorials?course=i
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the IPFS Examples Project (`https://github.com/ipfs-examples/js-ipfs-examples`)
+1. Fork the IPFS Examples Project (`https://github.com/ipfs-examples/helia-examples`)
 2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
 3. Commit your Changes (`git commit -a -m 'feat: add some amazing feature'`)
 4. Push to the Branch (`git push origin feature/amazing-feature`)
@@ -82,7 +82,7 @@ Contributions are what make the open source community such an amazing place to b
 1. Add the folder name to the `project-list` lists in the `examples` and `push-changes` jobs in this repositories `./github/ci.yml`
 1. Fork the [example-template-fork-&-go](https://github.com/ipfs-examples/example-fork-go-template) into the `ipfs-examples` org with the same name as the example folder, e.g. `https://github.com/ipfs-examples/helia-transfer-files`
    - Turn off issues/wiki/discussions etc in the new fork
-   - If you do not have permssions to do this, please say so in the PR you open to `ipfs-examples/helia` and someone will help you
+   - If you do not have permssions to do this, please say so in the PR you open to `ipfs-examples/helia-examples` and someone will help you
 
 #### Examples must
 
@@ -113,7 +113,7 @@ Search `.github/workflows/test.yml` for the `test-examples` section and add a bl
   deps: helia@$PWD/packages/helia/dist
 ```
 
-The value of the `deps` key will vary depending on which modules from js-ipfs your example uses. Above we override the `helia` module, but your example may different deps.
+The value of the `deps` key will vary depending on which modules from helia your example uses. Above we override the `helia` module, but your example may different deps.
 
 Please see the existing setup in `.github/workflows/test.yml` for how to ensure you are overriding the correct modules.
 
