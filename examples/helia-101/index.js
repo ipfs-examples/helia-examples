@@ -45,7 +45,7 @@ const helia = await createHelia({
   libp2p
 })
 
-// print out our Node's Peer Id
+// print out our node's PeerId
 const peerId = helia.libp2p.peerId
 console.log(peerId)
 
