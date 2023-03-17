@@ -38,8 +38,37 @@ export async function getHelia () {
     streamMuxers: [
       yamux()
     ],
-    peerRouting: [delegatedPeerRouting(delegatedClient)],
-    contentRouting: [delegatedContentRouting(delegatedClient)],
+    peerRouters: [delegatedPeerRouting(delegatedClient)],
+    contentRouters: [delegatedContentRouting(delegatedClient)],
+    /**
+       * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-dialing
+       */
+    dialer: {
+      dialTimeout: 120000,
+    },
+    /**
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-manager
+     */
+    connectionManager: {
+      // Auto connect to discovered peers (limited by ConnectionManager minConnections)
+      autoDial: true,
+      // maxConnections: 10,
+      // minConnections: 0,
+      // pollInterval: 2000,
+    },
+    /**
+     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-peerstore
+     */
+    peerStore: {
+      persistence: true,
+      /**
+       * The threshold number represents the maximum number of "dirty peers" allowed in the PeerStore, i.e. peers that
+       * are not updated in the datastore. In this context, browser nodes should use a threshold of 1, since they
+       * might not "stop" properly in several scenarios and the PeerStore might end up with unflushed records when the
+       * window is closed.
+       */
+      threshold: 1,
+    },
   })
 
   // create a Helia node
