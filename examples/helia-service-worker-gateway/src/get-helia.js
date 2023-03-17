@@ -23,7 +23,7 @@ export async function getHelia () {
   // use default api settings
   protocol: "https",
   port: 443,
-  host: "node0.delegate.ipfs.io",
+  host: "node3.delegate.ipfs.io",
 })
 
   // libp2p is the networking layer that underpins Helia
