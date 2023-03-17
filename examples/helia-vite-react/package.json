@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "rimraf ./dist",
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "npm run build && playwright test tests"
@@ -20,7 +22,8 @@
     "helia": "next",
     "libp2p": "^0.42.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rimraf": "^4.4.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.31.2",
