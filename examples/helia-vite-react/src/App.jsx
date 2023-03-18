@@ -1,11 +1,10 @@
 import { useState, useContext } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { useHelia } from '@/hooks/useHelia'
 import { useCommitText } from '@/hooks/useCommitText'
 
 function App() {
+  const [text, setText] = useState("")
   const { error, starting } = useHelia()
   const {
     cidString,
@@ -13,7 +12,7 @@ function App() {
     fetchCommitedText,
     commitedText,
   } = useCommitText()
-  const [text, setText] = useState("")
+
   return (
     <div className="App">
       <div

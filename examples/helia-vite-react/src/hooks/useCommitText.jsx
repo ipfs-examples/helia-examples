@@ -7,8 +7,8 @@ const decoder = new TextDecoder()
 
 export const useCommitText = () => {
   const {helia, fs, error, starting } = useHelia()
-  const [cidString, setCidString] = useState("")
   const [cid, setCid] = useState(null)
+  const [cidString, setCidString] = useState("")
   const [commitedText, setCommitedText] = useState("")
 
   const commitText = useCallback(async (text) => {
@@ -34,7 +34,6 @@ export const useCommitText = () => {
     if (!error && !starting) {
       try {
         for await (const chunk of fs.cat(cid)) {
-          console.log('hmmm')
           text += decoder.decode(chunk, {
             stream: true
           })

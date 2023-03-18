@@ -31,7 +31,6 @@ export const HeliaProvider = ({children}) => {
   const [error, setError] = useState(null)
 
   const startHelia = useCallback(async () => {
-    console.log('helia', helia)
     if (helia) {
       console.info("helia already started")
     } else if (window.helia) {
