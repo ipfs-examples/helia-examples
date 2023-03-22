@@ -18,14 +18,14 @@ play.describe('using script tag:', () => {
   })
 
   play('should properly initialized a IPFS node and print the status', async ({ page }) => {
-    await page.waitForSelector(status)
     expect(await page.textContent(status)).toContain("Not Started");
-    expect(await page.textContent(node)).toContain("unknown");
+    await page.waitForSelector(status)
 
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     expect(await page.textContent(status)).toContain("Online");
     expect(await page.textContent(node)).not.toContain("unknown");
+    expect(await page.textContent(node)).toContain("12D3");
 
     await page.click(stopHelia)
     await new Promise((resolve) => setTimeout(resolve, 600))
