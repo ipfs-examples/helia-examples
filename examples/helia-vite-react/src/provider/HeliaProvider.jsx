@@ -7,7 +7,6 @@ import { bootstrap  } from '@libp2p/bootstrap'
 import { unixfs  } from '@helia/unixfs'
 import { MemoryBlockstore  } from 'blockstore-core'
 import { MemoryDatastore  } from 'datastore-core'
-
 import {
   useEffect,
   useState,
@@ -15,7 +14,6 @@ import {
   createContext,
   useContext
 } from 'react'
-
 
 export const HeliaContext = createContext({
   helia: null,

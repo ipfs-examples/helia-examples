@@ -57,6 +57,12 @@ Make sure you have installed all of the following prerequisites on your developm
 or
 > npm run dev
 ```
+To run the test
+
+```console
+npx playwright install
+npm run test
+```
 
 Now open your browser at `http://localhost:3000`
 

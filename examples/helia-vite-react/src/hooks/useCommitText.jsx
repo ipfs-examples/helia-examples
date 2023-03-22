@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useContext } from 'react'
-
 import { useHelia } from '@/hooks/useHelia'
 
 const encoder = new TextEncoder()
@@ -27,7 +26,7 @@ export const useCommitText = () => {
     } else {
       console.log('please wait for helia to start')
     }
-  }, [error, starting, helia])
+  }, [error, starting, helia, fs])
 
   const fetchCommitedText = useCallback(async () => {
     let text = ''
@@ -45,7 +44,8 @@ export const useCommitText = () => {
     } else {
       console.log('please wait for helia to start')
     }
-  }, [error, starting, cid, helia]) // make sure to add helia in the dependencies array of the fs will suspend
+  }, [error, starting, cid, helia, fs])
+  // If one forgets to add helia in the dependency array, additions to the blockstore will not be picked up by react, leading to operations on fs to hang indefinitely in the generator <suspend> state.
 
   return { cidString, commitedText, commitText, fetchCommitedText }
 }
