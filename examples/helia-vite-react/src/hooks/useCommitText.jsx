@@ -45,7 +45,7 @@ export const useCommitText = () => {
       console.log('please wait for helia to start')
     }
   }, [error, starting, cid, helia, fs])
-  // If one forgets to add helia in the dependency array, additions to the blockstore will not be picked up by react, leading to operations on fs to hang indefinitely in the generator <suspend> state.
+  // If one forgets to add helia in the dependency array in commitText, additions to the blockstore will not be picked up by react, leading to operations on fs to hang indefinitely in the generator <suspend> state. As such it would be good practice to ensure to include helia inside the dependency array of all hooks to tell react that the useCallback needs the most up to date helia state
 
   return { cidString, commitedText, commitText, fetchCommitedText }
 }
