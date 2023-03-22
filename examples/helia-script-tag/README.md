@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center"><b>Using Helia via script tags from CDN</b></h3>
+<h3 align="center"><b>Using Helia via <code><script></code> tag from CDN</b></h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
