@@ -60,7 +60,7 @@ Then open your browser to http://localhost:8888.
 
 ## Usage
 
-This tutorial is a port & enhancement of [js-ipfs example 'browser-script-tag'](https://github.com/ipfs-examples/js-ipfs-examples/examples/browser-script-tag) but using Helia instead of js-ipfs.
+This example is basic demo and proof of concept for using helia via script tags. Other examples use build-scripts that may be too complicated for your needs. If you have a website where you manage your dependencies via script tags in an HTML file, you may benefit from looking at this example instead of the others at https://github.com/ipfs-examples/helia-examples/tree/main/examples.
 
 If you are seeing errors like `ERR_REQUIRE_ESM` or `ERR_PACKAGE_PATH_NOT_EXPORTED` when trying to use this example, please check out `/examples/helia-cjs` instead.
 
