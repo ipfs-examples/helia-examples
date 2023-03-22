@@ -150,9 +150,7 @@ const helia = await createHelia({
   blockstore
 })
 
-const info = await helia.info()
-
-console.info(info.peerId)
+console.info(helia.libp2p.peerId)
 ```
 
 #### Putting it all together
