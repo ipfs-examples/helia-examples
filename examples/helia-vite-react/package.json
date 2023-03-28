@@ -1,0 +1,36 @@
+{
+  "name": "helia-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "npm run build && playwright test tests"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^11.0.1",
+    "@chainsafe/libp2p-yamux": "^3.0.7",
+    "@helia/unixfs": "^1.2.0",
+    "@libp2p/bootstrap": "^6.0.2",
+    "@libp2p/websockets": "^5.0.6",
+    "blockstore-core": "^4.0.1",
+    "datastore-core": "^9.0.3",
+    "helia": "next",
+    "libp2p": "^0.42.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^4.4.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.31.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "test-util-ipfs-example": "^1.0.2",
+    "vite": "^4.2.0"
+  }
+}
