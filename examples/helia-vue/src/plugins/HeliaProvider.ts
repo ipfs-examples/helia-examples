@@ -17,13 +17,16 @@ const datastore = new MemoryDatastore()
 
 export default {
     install: async (app, options) => {
-    const provider = reactive({
-      loading: true,
-      error: "",
-      helia: {},
-      fs: {}
-    }) 
-    app.provide('HeliaProvider', provider)
+    const loading = ref(true)
+    const error = ref("")
+    const helia = ref()
+    const fs = ref()
+    app.provide('HeliaProvider', {
+      loading,
+      error,
+      helia,
+      fs
+    })
     try {
       const libp2p = await createLibp2p({
         datastore,
@@ -52,14 +55,14 @@ export default {
         blockstore,
         libp2p
       })
-      provider.loading = false
-      provider.fs = unixfs(instance)
-      provider.helia = instance
+      loading.value = false
+      helia.value = instance
+      fs.value = unixfs(instance)
 
     } catch (e) {
       console.log('e', e)
-      provider.error = e.toString()
-      provider.loading = false
+      error.value = e.toString()
+      loading.value = false
     }
   }
 }

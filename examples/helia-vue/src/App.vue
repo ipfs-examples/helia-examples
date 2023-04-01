@@ -1,22 +1,30 @@
 <script setup lang="ts">
 import { ref, inject, computed  } from 'vue';
-const helia  = inject('HeliaProvider')
-const statusColor = computed(() => {
-  if (helia.loading == true) return 'yellow'
-  if (helia.loading == false && helia.error.length == 0) return 'green'
-  return 'red'
+import TextCommiter from './components/TextCommiter.vue';
 
+const {loading, error}  = inject('HeliaProvider')
+
+const statusColor = computed(() => {
+  if (loading.value == true) return 'yellow'
+  if (loading.value == false && error.value.length == 0) return 'green'
+  return 'red'
+})
+const readyMessage = computed(() => {
+  if (loading.value == true) return 'Loading...'
+  if (loading.value == false && error.value.length == 0) return 'Ready'
+  return 'Failing'
 })
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      {{ helia.loading }}
+      Helia is: {{ readyMessage }}
     </div>
   </header>
 
   <main>
+    <TextCommiter />
   </main>
 </template>
 
