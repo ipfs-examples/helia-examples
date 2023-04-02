@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, inject, computed  } from 'vue';
 import TextCommiter from './components/TextCommiter.vue';
-import MFSManager from './components/MFSManager.vue'
+import MFSManager from './components/MFSManager.vue';
+
 const {loading, error}  = inject('HeliaProvider')
 
 const statusColor = computed(() => {
