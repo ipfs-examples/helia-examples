@@ -12,6 +12,7 @@ const handleCommitText = async () => {
 </script>
 
 <template>
+    <h1>Text Commiter</h1>
     <div>
         <input type="text" v-model="textToCommit"/>
         <button @click="handleCommitText">Commit Text</button>
