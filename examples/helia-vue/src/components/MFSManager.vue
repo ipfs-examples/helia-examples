@@ -1,4 +1,4 @@
-<script setup type="ts">
+<script setup>
 import { ref, computed } from 'vue'
 import { useUnixFS } from '@/HeliaApi/useUnixFS'
 

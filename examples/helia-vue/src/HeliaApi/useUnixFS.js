@@ -1,5 +1,5 @@
-import { inject, ref, reactive } from 'vue'
-import all from 'it-all'
+import { inject } from 'vue'
+
 
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
@@ -7,7 +7,6 @@ const decoder = new TextDecoder()
 export const useUnixFS = () => {
     const { loading, error, helia, fs } = inject("HeliaProvider")
 
-    
     const getStat = async (dirCid, path) => {
         if (error.value.length == 0 && !loading.value) {
             try {
@@ -64,7 +63,6 @@ export const useUnixFS = () => {
                 const res = await fs.value.addFile({
                     content: encoder.encode(content)
                 })
-                //const  res = await fs.value.addBytes(encoder.encode(content))
                 const updatedCid = await fs.value.cp(res, dirCid, name )
                 return {status: 'success', data:{dirCid: updatedCid, fileCid: res} }
             } catch (e) {
@@ -74,7 +72,6 @@ export const useUnixFS = () => {
     }
 
     const getFile = async (cid) => {
-
         if (error.value.length == 0 && !loading.value) {
             let txt = ''
             try {

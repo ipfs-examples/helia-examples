@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref, inject, computed  } from 'vue';
 import TextCommiter from './components/TextCommiter.vue';
 import MFSManager from './components/MFSManager.vue';

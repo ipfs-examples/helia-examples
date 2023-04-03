@@ -1,4 +1,3 @@
-
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
 import { noise } from '@chainsafe/libp2p-noise'
@@ -9,12 +8,12 @@ import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
-
-
-export default {
-  install: async (app, options) => {
+export const HeliaProviderPlugin = {
+  install: async (
+    app
+  ) => {
     const loading = ref(true)
     const error = ref("")
     const helia = ref()
@@ -60,7 +59,7 @@ export default {
       fs.value = unixfs(instance)
 
     } catch (e) {
-      console.log('e', e)
+      console.error(e)
       error.value = e.toString()
       loading.value = false
     }
