@@ -19,6 +19,7 @@
     "blockstore-core": "^4.1.0",
     "datastore-core": "^9.1.1",
     "helia": "next",
+    "it-all": "^3.0.1",
     "libp2p": "^0.43.3",
     "vue": "^3.2.47"
   },

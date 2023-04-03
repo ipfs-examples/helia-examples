@@ -1,5 +1,5 @@
 <script setup type="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUnixFS } from '@/HeliaApi/useUnixFS'
 
 const {
@@ -16,33 +16,36 @@ const handleNewDir = async () => {
 }
 const stat = ref()
 const handleGetStat = async () => {
-    const response = await getStat(dirCid.value)
+    const response = await getStat(dirCid.value, dirPathName.value)
     stat.value = response.data
 }
 
 const lsOutput = ref()
 const ls = ref()
-const handleGetDirectory = async () => {
-    const response = await getDirectory(dirCid.value)
-    ls.value = response.data
-    lsOutput.value = {
-        cid: response.data[0].cid,
-        path: response.data[0].path,
-        name: response.data[0].name
-    }
+const handleGetDirectory = async (cid, pathName) => {
+    const response = await getDirectory(cid, pathName)
+    lsOutput.value = response.data.map((item) => {
+        return {
+            cid: item.cid,
+            path: item.path,
+            name: item.name
+        }
+    })
 }
 
 const fileName = ref()
 const fileContent = ref()
 const fileCid = ref()
+const fileDirCid = ref()
 const handleAddFile = async () => {
     const response = await addFile(
-        lsOutput.value.path,
         fileName.value,
+        lsOutput.value[0].cid,
         fileContent.value
     )
-    console.log(response.data)
-    fileCid.value = response.data
+    fileCid.value = response.data.fileCid
+    fileDirCid.value = response.data.dirCid
+
 }
 
 const fileData = ref()
@@ -50,9 +53,21 @@ const handleGetFile = async () => {
     const response = await getFile(
         fileCid.value
     )
-    console.log(response)
     fileData.value = response.data
+}
 
+const directoryContents = ref()
+const handleGetDirectoryContents = async () => {
+    const response = await getDirectory(
+        fileDirCid.value
+    )
+    directoryContents.value = response.data.map((item) => {
+        return {
+            cid: item.cid,
+            name: item.name,
+            path: item.path
+        }
+    })
 }
 </script>
 <template>
@@ -67,16 +82,21 @@ const handleGetFile = async () => {
         <p>{{ stat }}</p>
     </div>
     <div v-if="dirCid">
-        <button @click="handleGetDirectory">list Directory</button>
-        <p>{{ lsOutput }}</p>
+        <button @click="handleGetDirectory(dirCid, '')">list Directory</button>
+        <p v-for="(item, index) in lsOutput">{{ item }}</p>
     </div>
     <div v-if="lsOutput">
         <input type="text" v-model="fileName" placeholder="File Name" />
         <input type="text" v-model="fileContent" placeholder="File Content" />
         <button @click="handleAddFile">Add File</button>
         <p>file cid: {{ fileCid }}</p>
+        <p>updated directory cid: {{ fileDirCid }}</p>
     </div>
-    <div v-if="fileCid">
+    <div v-if="fileDirCid">
+        <button @click="handleGetDirectoryContents">Get Directory Contents</button>
+        <p v-for="(item, index) in directoryContents">directory contents: {{ item }}</p>
+    </div>
+    <div v-if="directoryContents">
         <button @click="handleGetFile">Get File</button>
         <p>file contents: {{ fileData }}</p>
     </div>

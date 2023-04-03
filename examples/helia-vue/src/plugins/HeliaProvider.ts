@@ -11,12 +11,10 @@ import { MemoryDatastore } from 'datastore-core'
 
 import { ref, reactive } from 'vue'
 
-const blockstore = new MemoryBlockstore()
-const datastore = new MemoryDatastore()
 
 
 export default {
-    install: async (app, options) => {
+  install: async (app, options) => {
     const loading = ref(true)
     const error = ref("")
     const helia = ref()
@@ -28,6 +26,8 @@ export default {
       fs
     })
     try {
+      const blockstore = new MemoryBlockstore()
+      const datastore = new MemoryDatastore()
       const libp2p = await createLibp2p({
         datastore,
         transports: [
