@@ -11,9 +11,7 @@ import { MemoryDatastore } from 'datastore-core'
 import { ref } from 'vue'
 
 export const HeliaProviderPlugin = {
-  install: async (
-    app
-  ) => {
+  install: async (app) => {
     const loading = ref(true)
     const error = ref("")
     const helia = ref()

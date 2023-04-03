@@ -1,11 +1,10 @@
 import { inject } from 'vue'
 
-
 const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
 export const useUnixFS = () => {
-    const { loading, error, helia, fs } = inject("HeliaProvider")
+    const { loading, error, fs } = inject("HeliaProvider")
 
     const getStat = async (dirCid, path) => {
         if (error.value.length == 0 && !loading.value) {
@@ -18,21 +17,24 @@ export const useUnixFS = () => {
             } catch (e) {
                 console.error(e)
             }
+        } else {
+            console.log('please wait for helia to start')
         }
     }
 
     const addDirectory = async (path) => {
         if (error.value.length == 0 && !loading.value) {
             try {
-               const emptyDirCid =  await fs.value.addDirectory(path)
-               const res = await fs.value.mkdir(emptyDirCid, path)
-               return {status: 'success', data: res}
+                const emptyDirCid = await fs.value.addDirectory(path)
+                const res = await fs.value.mkdir(emptyDirCid, path)
+                return { status: 'success', data: res }
             } catch (e) {
                 console.error(e)
             }
+        } else {
+            console.log('please wait for helia to start')
         }
     }
-
 
     const getDirectory = async (dirCid, path) => {
         let output = []
@@ -49,25 +51,29 @@ export const useUnixFS = () => {
                         output.push(entry)
                     }
                 }
-               return {status: 'success', data: output}
+                return { status: 'success', data: output }
             } catch (e) {
                 console.error(e)
             }
+        } else {
+            console.log('please wait for helia to start')
         }
     }
 
     const addFile = async (name, dirCid, content) => {
         if (error.value.length == 0 && !loading.value) {
             try {
-                
+
                 const res = await fs.value.addFile({
                     content: encoder.encode(content)
                 })
-                const updatedCid = await fs.value.cp(res, dirCid, name )
-                return {status: 'success', data:{dirCid: updatedCid, fileCid: res} }
+                const updatedCid = await fs.value.cp(res, dirCid, name)
+                return { status: 'success', data: { dirCid: updatedCid, fileCid: res } }
             } catch (e) {
                 console.error(e)
             }
+        } else {
+            console.log('please wait for helia to start')
         }
     }
 
@@ -80,10 +86,12 @@ export const useUnixFS = () => {
                         stream: true
                     })
                 }
-                return {status: 'success', data: txt}
+                return { status: 'success', data: txt }
             } catch (e) {
                 console.error(e)
             }
+        } else {
+            console.log('please wait for helia to start')
         }
     }
     return {

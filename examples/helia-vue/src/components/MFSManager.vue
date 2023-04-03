@@ -73,32 +73,32 @@ const handleGetDirectoryContents = async () => {
 <template>
     <h1>UnixFS Manager</h1>
     <div>
-        <input type="text" v-model="dirPathName" />
-        <button @click="handleNewDir">Create New Directory</button>
-        <p>directory Cid: {{ dirCid }}</p>
+        <input id="newDirInput" type="text" v-model="dirPathName" />
+        <button id="newDirButton" @click="handleNewDir">Create New Directory</button>
+        <p id="newDirOutput">directory Cid: {{ dirCid }}</p>
     </div>
     <div v-if="dirCid">
-        <button @click="handleGetStat">stat directory</button>
-        <p>{{ stat }}</p>
+        <button id="statDirButton" @click="handleGetStat">stat directory</button>
+        <p id="statDirOutput">{{ stat }}</p>
     </div>
     <div v-if="dirCid">
-        <button @click="handleGetDirectory(dirCid, '')">list Directory</button>
-        <p v-for="(item, index) in lsOutput">{{ item }}</p>
+        <button id="getDirButton" @click="handleGetDirectory(dirCid, '')">list Directory</button>
+        <p id="dirListOutput" v-for="(item, index) in lsOutput">{{ item }}</p>
     </div>
     <div v-if="lsOutput">
-        <input type="text" v-model="fileName" placeholder="File Name" />
-        <input type="text" v-model="fileContent" placeholder="File Content" />
-        <button @click="handleAddFile">Add File</button>
-        <p>file cid: {{ fileCid }}</p>
-        <p>updated directory cid: {{ fileDirCid }}</p>
+        <input id="fileNameInput" type="text" v-model="fileName" placeholder="File Name" />
+        <input id="fileContentInput" type="text" v-model="fileContent" placeholder="File Content" />
+        <button id="newFileButton" @click="handleAddFile">Add File</button>
+        <p id="fileCidOutput">file cid: {{ fileCid }}</p>
+        <p id="updatedDirOutput">updated directory cid: {{ fileDirCid }}</p>
     </div>
     <div v-if="fileDirCid">
-        <button @click="handleGetDirectoryContents">Get Directory Contents</button>
-        <p v-for="(item, index) in directoryContents">directory contents: {{ item }}</p>
+        <button id="dirContentsButton" @click="handleGetDirectoryContents">Get Directory Contents</button>
+        <p id="dirContentsOutput" v-for="(item, index) in directoryContents">directory contents: {{ item }}</p>
     </div>
     <div v-if="directoryContents">
-        <button @click="handleGetFile">Get File</button>
-        <p>file contents: {{ fileData }}</p>
+        <button id="fileContentsButton" @click="handleGetFile">Get File</button>
+        <p id="fileContentsOutput">file contents: {{ fileData }}</p>
     </div>
 </template>
 <style scoped></style>

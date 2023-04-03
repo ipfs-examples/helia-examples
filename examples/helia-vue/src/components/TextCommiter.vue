@@ -14,13 +14,13 @@ const handleCommitText = async () => {
 <template>
     <h1>Text Commiter</h1>
     <div>
-        <input type="text" v-model="textToCommit"/>
-        <button @click="handleCommitText">Commit Text</button>
-        <p>cid: {{ cid }}</p>
+        <input id="commitText" type="text" v-model="textToCommit"/>
+        <button id="commitTextButton" @click="handleCommitText">Commit Text</button>
+        <p id="commitTextCidOutput">cid: {{ cid }}</p>
     </div>
     <div v-if="cid">
-        <button @click="fetchCommitedText">Fetch Commited Text</button>
-        <p>commited Text: {{ commitedText }}</p>
+        <button id="fetchCommitedTextButton" @click="fetchCommitedText">Fetch Commited Text</button>
+        <p id="fetchedCommitedTextOutput">commited Text: {{ commitedText }}</p>
 
     </div>
 </template>

@@ -18,7 +18,7 @@ const readyMessage = computed(() => {
 </script>
 
 <template>
-  <header>
+  <header id="heliaStatus">
     <div class="wrapper">
       Helia is: {{ readyMessage }}
     </div>
