@@ -1,13 +1,14 @@
 {
   "name": "helia-vue",
   "version": "0.0.0",
+  "description": "Using Helia with vue",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "playwright test",
-    "test": " vite build && playwright test",
+    "test": "vite build && playwright test",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },

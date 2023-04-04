@@ -1,5 +1,5 @@
-const { test, expect } = require('@playwright/test');
 import { playwright } from 'test-util-ipfs-example'
+const { test, expect } = require('@playwright/test');
 
 const play = test.extend({
   ...playwright.servers()
