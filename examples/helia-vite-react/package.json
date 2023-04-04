@@ -1,5 +1,5 @@
 {
-  "name": "helia-vite",
+  "name": "helia-vite-react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -19,8 +19,8 @@
     "@libp2p/websockets": "^5.0.6",
     "blockstore-core": "^4.0.1",
     "datastore-core": "^9.0.3",
-    "helia": "next",
-    "libp2p": "^0.42.2",
+    "helia": "^1.0.0",
+    "libp2p": "^0.43.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^4.4.0"
