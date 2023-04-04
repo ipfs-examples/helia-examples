@@ -1,10 +1,10 @@
-import { test, expect } from '@playwright/test'
+import { test } from '@playwright/test'
 import { playwright } from 'test-util-ipfs-example'
 
 // Setup
 const play = test.extend({
-  ...playwright.servers(),
-});
+  ...playwright.servers()
+})
 
 play.describe('using script tag:', () => {
   // DOM
@@ -12,7 +12,7 @@ play.describe('using script tag:', () => {
   const node = '#nodeId'
   const stopHelia = '.e2e-stopHelia'
 
-  play.beforeEach(async ({servers, page}) => {
+  play.beforeEach(async ({ servers, page }) => {
     await page.goto(`http://localhost:${servers[0].port}/`)
   })
 
