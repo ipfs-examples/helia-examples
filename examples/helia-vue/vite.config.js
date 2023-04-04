@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   optimizeDeps: {
-    exclude: ['interface-datastore/key']
+    disabled: true
   },
   resolve: {
     alias: {
