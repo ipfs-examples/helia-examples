@@ -1,6 +1,7 @@
 {
-  "name": "example-browser-nextjs",
+  "name": "helia-nextjs",
   "version": "1.0.0",
+  "description": "Using Helia with nextjs",
   "private": true,
   "type": "module",
   "scripts": {
