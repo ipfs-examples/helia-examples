@@ -1,4 +1,4 @@
-/** global Helia, Libp2P, ChainsafeLibp2PYamux, Libp2PWebsockets, Libp2PBootstrap, BlockstoreCore, DatastoreCore, Libp2PKadDht */
+/* global Libp2P, ChainsafeLibp2PYamux, Libp2PWebsockets, Libp2PBootstrap, Libp2PKadDht */
 // not imported from skypack,jsdelivr, nor unpkg because of issues. see https://github.com/ChainSafe/js-libp2p-noise/issues/296
 import { noise } from 'https://esm.sh/v111/@chainsafe/libp2p-noise@11.0.1/es2022/libp2p-noise.js'
 
@@ -7,7 +7,7 @@ import { noise } from 'https://esm.sh/v111/@chainsafe/libp2p-noise@11.0.1/es2022
  * @param {object} param0
  * @param {import('libp2p').Libp2pOptions['datastore']} param0.datastore
  */
-export async function createLibp2pInstance ({datastore}) {
+export async function createLibp2pInstance ({ datastore }) {
   /** @type {Partial<import('libp2p').Libp2pOptions>} */
   const libp2pInit = {
     /**
@@ -18,12 +18,12 @@ export async function createLibp2pInstance ({datastore}) {
      * @see https://github.com/libp2p/js-libp2p-kad-dht
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-dht
      */
-    dht: /** @type {import('libp2p').Libp2pOptions['dht']} */(Libp2PKadDht.kadDHT({                        // The DHT options (and defaults) can be found in its documentation
+    dht: /** @type {import('libp2p').Libp2pOptions['dht']} */(Libp2PKadDht.kadDHT({ // The DHT options (and defaults) can be found in its documentation
       kBucketSize: 5,
       clientMode: true,
       enabled: true,
       randomWalk: {
-        enabled: true,            // Allows to disable discovery (enabled by default)
+        enabled: true, // Allows to disable discovery (enabled by default)
         interval: 300e3,
         timeout: 10e3
       }
@@ -32,7 +32,7 @@ export async function createLibp2pInstance ({datastore}) {
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#transport
      */
     transports: /** @type {import('libp2p').Libp2pOptions['transports']} */([
-      Libp2PWebsockets.webSockets(),
+      Libp2PWebsockets.webSockets()
     ]),
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption
@@ -44,7 +44,7 @@ export async function createLibp2pInstance ({datastore}) {
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing
      */
     streamMuxers: /** @type {import('libp2p').Libp2pOptions['streamMuxers']} */([
-      ChainsafeLibp2PYamux.yamux(),
+      ChainsafeLibp2PYamux.yamux()
     ]),
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-peer-discovery
@@ -52,19 +52,19 @@ export async function createLibp2pInstance ({datastore}) {
     peerDiscovery: /** @type {import('libp2p').Libp2pOptions['peerDiscovery']} */([
       Libp2PBootstrap.bootstrap({
         list: [
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
-        ],
-      }),
+          '/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
+          '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+          '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
+          '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
+        ]
+      })
     ]),
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-connection-manager
      */
     connectionManager: /** @type {import('libp2p').Libp2pOptions['connectionManager']} */({
       // Auto connect to discovered peers (limited by ConnectionManager minConnections)
-      autoDial: true,
+      autoDial: true
     }),
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#configuring-peerstore
@@ -78,8 +78,8 @@ export async function createLibp2pInstance ({datastore}) {
        * window is closed.
        */
       threshold: 1
-    }),
-  };
+    })
+  }
 
   /** @type {import('libp2p').Libp2p} */
   const libp2pInstance = await Libp2P.createLibp2p(libp2pInit)

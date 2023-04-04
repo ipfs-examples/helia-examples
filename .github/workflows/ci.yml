@@ -22,10 +22,11 @@ jobs:
         project:
           - helia-101
           - helia-cjs
-          - helia-webpack
-          - helia-vite-react
+          - helia-nextjs
           - helia-script-tag
+          - helia-vite-react
           - helia-vue
+          - helia-webpack
     defaults:
       run:
         working-directory: examples/${{ matrix.project }}
@@ -55,6 +56,10 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+      - name: Run linting
+        run: npm run lint
+        env:
+          CI: true
       - name: Run tests
         run: npm run test
         env:
@@ -71,10 +76,11 @@ jobs:
         project:
           - helia-101
           - helia-cjs
-          - helia-webpack
+          - helia-nextjs
+          - helia-script-tag
           - helia-vite-react
           - helia-vue
-          - helia-script-tag
+          - helia-webpack
     steps:
       - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
         with:

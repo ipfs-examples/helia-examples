@@ -1,21 +1,11 @@
-import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { webSockets } from '@libp2p/websockets'
 import { bootstrap } from '@libp2p/bootstrap'
-import { MemoryBlockstore } from 'blockstore-core'
-import { MemoryDatastore } from 'datastore-core'
 
-export async function getHelia () {
-  // the blockstore is where we store the blocks that make up files
-  const blockstore = new MemoryBlockstore()
-
-  // application-specific data lives in the datastore
-  const datastore = new MemoryDatastore()
-
-  // libp2p is the networking layer that underpins Helia
-  const libp2p = await createLibp2p({
+export default async function getLibp2p ({ datastore }) {
+  return await createLibp2p({
     datastore,
     transports: [
       webSockets()
@@ -36,12 +26,5 @@ export async function getHelia () {
         ]
       })
     ]
-  })
-
-  // create a Helia node
-  return await createHelia({
-    datastore,
-    blockstore,
-    libp2p
   })
 }
