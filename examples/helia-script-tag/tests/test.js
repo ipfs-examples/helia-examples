@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { playwright } from 'test-util-ipfs-example';
+import { test, expect } from '@playwright/test'
+import { playwright } from 'test-util-ipfs-example'
 
 // Setup
 const play = test.extend({
@@ -8,28 +8,24 @@ const play = test.extend({
 
 play.describe('using script tag:', () => {
   // DOM
-  const status = "#statusValue"
-  const node = "#nodeId"
-  const startHelia = ".e2e-startHelia"
-  const stopHelia = ".e2e-stopHelia"
+  const status = '#statusValue'
+  const node = '#nodeId'
+  const stopHelia = '.e2e-stopHelia'
 
   play.beforeEach(async ({servers, page}) => {
-    await page.goto(`http://localhost:${servers[0].port}/`);
+    await page.goto(`http://localhost:${servers[0].port}/`)
   })
 
   play('should properly initialized a IPFS node and print the status', async ({ page }) => {
-    expect(await page.textContent(status)).toContain("Not Started");
-    await page.waitForSelector(status)
+    // wait for page to init
+    await page.waitForSelector(`${status}:has-text("Not Started")`)
 
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    // wait for helia to start
+    await page.waitForSelector(`${status}:has-text("Online")`)
+    await page.waitForSelector(`${node}:has-text("12D3")`)
 
-    expect(await page.textContent(status)).toContain("Online");
-    expect(await page.textContent(node)).not.toContain("unknown");
-    expect(await page.textContent(node)).toContain("12D3");
-
+    // wait for helia to stop
     await page.click(stopHelia)
-    await new Promise((resolve) => setTimeout(resolve, 600))
-    expect(await page.textContent(status)).toContain("Offline");
-
-  });
-});
+    await page.waitForSelector(`${status}:has-text("Offline")`)
+  })
+})
