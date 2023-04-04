@@ -1,7 +1,7 @@
 <script setup>
 import { ref, inject, computed  } from 'vue';
 import TextCommiter from './components/TextCommiter.vue';
-import MFSManager from './components/MFSManager.vue';
+import UnixFSManager from './components/UnixFSManager.vue';
 
 const {loading, error}  = inject('HeliaProvider')
 
@@ -26,7 +26,7 @@ const readyMessage = computed(() => {
 
   <main>
     <TextCommiter />
-    <MFSManager />
+    <UnixFSManager />
   </main>
 </template>
 

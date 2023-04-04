@@ -18,6 +18,7 @@
     "@libp2p/websockets": "^5.0.8",
     "blockstore-core": "^4.1.0",
     "datastore-core": "^9.1.1",
+    "events": "^3.3.0",
     "helia": "next",
     "it-all": "^3.0.1",
     "libp2p": "^0.43.3",
