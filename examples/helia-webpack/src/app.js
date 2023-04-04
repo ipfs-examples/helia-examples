@@ -42,8 +42,7 @@ function App() {
       setHelia(node)
     }
 
-    const info = await node.info()
-    showStatus(`Connecting to ${info.peerId}...`, COLORS.active, info.peerId)
+    showStatus(`Connecting to ${node.libp2p.peerId}...`, COLORS.active, node.libp2p.peerId)
 
     const encoder = new TextEncoder()
 

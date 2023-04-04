@@ -49,8 +49,7 @@ async function main () {
   })
 
   // print out our node's PeerId
-  const info = await helia.info()
-  console.log(info.peerId)
+  console.log(helia.libp2p.peerId)
 
   // create a filesystem on top of Helia, in this case it's UnixFS
   const fs = unixfs(helia)
