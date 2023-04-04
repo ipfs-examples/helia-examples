@@ -16,11 +16,11 @@
     "@chainsafe/libp2p-yamux": "^3.0.5",
     "@helia/unixfs": "^1.0.2",
     "@libp2p/bootstrap": "^6.0.0",
-    "@libp2p/websockets": "^5.0.3",
-    "blockstore-core": "^3.0.0",
-    "datastore-core": "^8.0.4",
-    "helia": "next",
-    "libp2p": "^0.42.2"
+    "@libp2p/tcp": "^6.1.2",
+    "blockstore-core": "^4.0.1",
+    "datastore-core": "^9.0.3",
+    "helia": "^1.0.0",
+    "libp2p": "^0.43.3"
   },
   "devDependencies": {
     "test-util-ipfs-example": "^1.0.2"
