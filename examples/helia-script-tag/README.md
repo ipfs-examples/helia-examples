@@ -4,14 +4,14 @@
   </a>
 </p>
 
-<h3 align="center">A collection of Helia examples</h3>
+<h3 align="center"><b>Using Helia via <code><script/></code> tags from CDN</b></h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
-  ·
-  <a href="https://codesandbox.io/">View Demo</a>
+  .
+  <a href="https://codesandbox.io/p/sandbox/helia-script-tag-g420c3">View codesandbox Demo</a>
   ·
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·
@@ -20,16 +20,13 @@
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-- [IPFS Tutorials at ProtoSchool](#ipfs-tutorials-at-protoschool)
+  - [Installation and Running example](#installation-and-running-example)
+- [Usage](#usage)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
-  - [How to add a new example](#how-to-add-a-new-example)
-    - [Examples must](#examples-must)
-    - [Update `helia` to run tests against the repo](#update-helia-to-run-tests-against-the-repo)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
 
 ## About The Project
@@ -51,9 +48,46 @@ Make sure you have installed all of the following prerequisites on your developm
 - Git - [Download & Install Git](https://git-scm.com/downloads). OSX and Linux machines typically have this already installed.
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 
-## IPFS Tutorials at ProtoSchool
+### Installation and Running example
 
-Explore [ProtoSchool's IPFS tutorials](https://proto.school/#/tutorials?course=ipfs) for interactive Helia coding challenges, deep dives into DWeb concepts like content addressing, and more.
+```console
+> npm install
+> npm start
+```
+
+Then open your browser to http://localhost:8888.
+
+## Usage
+
+This example is basic demo and proof of concept for using helia via script tags. Other examples use build-scripts that may be too complicated for your needs. If you have a website where you manage your dependencies via script tags in an HTML file, you may benefit from looking at this example instead of the others at https://github.com/ipfs-examples/helia-examples/tree/main/examples.
+
+If you are seeing errors like `ERR_REQUIRE_ESM` or `ERR_PACKAGE_PATH_NOT_EXPORTED` when trying to use this example, please check out `/examples/helia-cjs` instead.
+
+The main areas of focus should be two files: `index.html` and `src/index.js`.
+
+If you're confused about what the different methods under 'Some Suggestions' are doing, you may want to check out [helia-101](https://github.com/ipfs-examples/helia-101) for a full breakdown of the code.
+
+### Using the example
+
+The page you will see is broken up into 4 sections:
+
+1. The intro: title and global variables you can play with in your browser console
+2. Node Status: The status of the helia node, which is updated every 500ms
+   * Helia will start up on page load. You can use the 'Start Helia' and 'Stop Helia' to call `helia.start()` and `helia.stop()` respectively.
+   * Updated content (look for `nodeUpdateInterval = ` in `src/index.js` to change or edit what's updated):
+      * Node Status - shows either "Online" or "Offline".
+      * ID - Shows the PeerId of your Helia node.
+      * Discovered Peers - The count of peers discovered. Check the event log at the bottom of the page to see their IDs.
+      * Connected Peers - The count of peers your helia node is connected to. Also, a list of their `PeerId`s will render if the count is > 0.
+3. Suggestions: Try out these code snippets in your browser terminal, in order.
+4. Event Log: Elapsed-TimeStamped messages showing you some of what Helia and it's managed libp2p node are doing. This event log shows:
+   * instantiation of the libp2p instance passed to helia
+   * instantiation of the Helia node
+   * peer discovery
+   * peer connection
+   * peer disconnection
+
+_For more examples, please refer to the [Documentation](#documentation)_
 
 ## Documentation
 
@@ -68,55 +102,11 @@ Explore [ProtoSchool's IPFS tutorials](https://proto.school/#/tutorials?course=i
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the IPFS Examples Project (`https://github.com/ipfs-examples/helia-examples`)
+1. Fork the IPFS Project
 2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
 3. Commit your Changes (`git commit -a -m 'feat: add some amazing feature'`)
 4. Push to the Branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-### How to add a new example
-
-1. Decide on a pithy folder name for your example, it should start with `helia-` and ideally be one or two words that describe what it's about - e.g. `helia-transfer-files`
-1. Create a folder in this repo under `examples`, eg. `./examples/helia-transfer-files`
-1. Add the files and tests that make up the example
-1. Add the folder name to the `project-list` lists in the `examples` and `push-changes` jobs in this repositories `./github/ci.yml`
-1. Fork the [example-template-fork-&-go](https://github.com/ipfs-examples/example-fork-go-template) into the `ipfs-examples` org with the same name as the example folder, e.g. `https://github.com/ipfs-examples/helia-transfer-files`
-   - Turn off issues/wiki/discussions etc in the new fork
-   - If you do not have permissions to do this, please say so in the PR you open to `ipfs-examples/helia-examples` and someone will help you
-   - Set Actions > General > Workflow permissions to "Read and write permissions" if not already
-
-#### Examples must
-
-- Live inside the `/examples/` folder
-- Have tests and should make use of `test-util-ipfs-example` library
-- Implement the following scripts:
- - `clean`: used to clean all the unnecessary code (e.g.: files generated by bundlers and package managers)
- - `build`: used to build the example
- - `start`: used to start the example
- - `test`: used to test the example
-- The `README.md` must have (see example inside `example-template`):
-  - Link to `Codesandbox.com` for one-click running demonstration
-  - References for documentation/tutorials used to build the example
-  - _Optional:_ Screenshots, gifs, etc... under `img/` folder
-- Update the CI to run the tests of the new example as standalone
-  - Edit `github/workflows/ci.yml`
-  - Add the test name to `project` under `matrix`
-
-#### Update `helia` to run tests against the repo
-
-Open a PR to the [ipfs/helia](https://github.com/ipfs/helia) project that edits the `.github/workflows/examples.yml` in order to make sure a Helia release does not break your new example.
-
-Search `.github/workflows/test.yml` for the `test-examples` section and add a block at the end of the `example` matrix key similar to:
-
-```yml
-- name: my super fun new example
-  repo: https://github.com/ipfs-examples/helia-my-super-fun-new-example.git
-  deps: helia@$PWD/packages/helia/dist
-```
-
-The value of the `deps` key will vary depending on which modules from helia your example uses. Above we override the `helia` module, but your example may different deps.
-
-Please see the existing setup in `.github/workflows/test.yml` for how to ensure you are overriding the correct modules.
 
 ## Want to hack on IPFS?
 
@@ -133,3 +123,7 @@ Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of
   b. ensure quality, and
   c. reduce possible future bugs
 - **Add tests**. There can never be enough tests
+
+[cid]: https://docs.ipfs.tech/concepts/content-addressing  "Content Identifier"
+[Uint8Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
+[libp2p]: https://libp2p.io

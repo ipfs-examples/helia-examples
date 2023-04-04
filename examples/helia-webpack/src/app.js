@@ -1,15 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react'
 import ipfsLogo from './ipfs-logo.svg'
 import { getHelia } from './get-helia.js'
 import { unixfs } from '@helia/unixfs'
 
-function App() {
-  const [output, setOutput] = useState([]);
-  const [helia, setHelia] = useState(null);
-  const [fileContent, setFileContent] = useState('');
-  const [fileName, setFileName] = useState('');
+function App () {
+  const [output, setOutput] = useState([])
+  const [helia, setHelia] = useState(null)
+  const [fileContent, setFileContent] = useState('')
+  const [fileName, setFileName] = useState('')
 
-  const terminalEl = useRef(null);
+  const terminalEl = useRef(null)
 
   const COLORS = {
     active: '#357edd',
@@ -21,18 +21,18 @@ function App() {
     setOutput((prev) => {
       return [...prev,
         {
-        'content': text,
-        'color': color,
-        'id': id
+          content: text,
+          color,
+          id
         }
       ]
     })
 
-    terminalEl.current.scroll({ top: terminal.scrollHeight, behavior: 'smooth' })
+    terminalEl.current.scroll({ top: window.terminal.scrollHeight, behavior: 'smooth' })
   }
 
   const store = async (name, content) => {
-    let node = helia;
+    let node = helia
 
     if (!helia) {
       showStatus('Creating Helia node...', COLORS.active)
@@ -42,9 +42,7 @@ function App() {
       setHelia(node)
     }
 
-    const peerId = node.libp2p.peerId
-    console.log(peerId)
-    showStatus(`Connecting to ${peerId}...`, COLORS.active, peerId)
+    showStatus(`Connecting to ${node.libp2p.peerId}...`, COLORS.active, node.libp2p.peerId)
 
     const encoder = new TextEncoder()
 
@@ -74,7 +72,7 @@ function App() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       if (fileName == null || fileName.trim() === '') {
@@ -142,7 +140,7 @@ function App() {
             { output.length > 0 &&
               <div id="output">
                 { output.map((log, index) =>
-                  <p key={index} style={{'color': log.color}} id={log.id}>
+                  <p key={index} style={{ color: log.color }} id={log.id}>
                     {log.content}
                   </p>)
                 }
@@ -152,7 +150,7 @@ function App() {
         </div>
       </main>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

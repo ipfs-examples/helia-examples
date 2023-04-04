@@ -26,13 +26,13 @@
   - [Prerequisites](#prerequisites)
   - [Installation and Running example](#installation-and-running-example)
 - [Usage](#usage)
-  - [Code analysis](#code-analysis)
+  - [101 - Basics](#101---basics)
+  - [202 - Storage](#202---storage)
     - [Blockstore](#blockstore)
     - [Datastore](#datastore)
+  - [301 - Networking](#301---networking)
     - [libp2p](#libp2p)
-    - [Helia](#helia)
-    - [Putting it all together](#putting-it-all-together)
-    - [File systems](#file-systems)
+  - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
@@ -65,11 +65,70 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ## Usage
 
-In this tutorial, we go through spawning a Helia node, adding a file and cat'ing the file [CID][] locally and through the gateway.
+In this tutorial, we go through spawning a Helia node, adding a file and cating the file [CID][] locally and through the gateway.
 
-You can find a complete version of this tutorial in [index.js](./index.js). For this tutorial, you need to install all dependencies in the `package.json` using `npm install`.
+It it split into three parts, each part builds on the previous one - basics, storage and finally networking.
 
-### Code analysis
+For this tutorial, you need to install all dependencies in the `package.json` using `npm install`.
+
+### 101 - Basics
+
+In the [101-basics.js](./101-basics.js) example the first thing we do is create a Helia node:
+
+```js
+import { createHelia } from 'helia'
+
+// create a Helia node
+const helia = await createHelia()
+```
+
+This node allows us to add blocks and later to retrieve them.
+
+Next we use `@helia/unixfs` to add some data to our node:
+
+```js
+import { unixfs } from '@helia/unixfs'
+
+// create a filesystem on top of Helia, in this case it's UnixFS
+const fs = unixfs(helia)
+
+// we will use this TextEncoder to turn strings into Uint8Arrays
+const encoder = new TextEncoder()
+const bytes = encoder.encode('Hello World 101')
+
+// add the bytes to your node and receive a unique content identifier
+const cid = await fs.addBytes(bytes)
+
+console.log('Added file:', cid.toString())
+```
+
+The `bytes` value we have passed to `unixfs` has now been turned into a UnixFS DAG and stored in the helia node.
+
+We can access it by using the `cat` API and passing the [CID][] that was returned from the invocation of `addBytes`:
+
+```js
+// this decoder will turn Uint8Arrays into strings
+const decoder = new TextDecoder()
+let text = ''
+
+for await (const chunk of fs.cat(cid)) {
+  text += decoder.decode(chunk, {
+    stream: true
+  })
+}
+
+console.log('Added file contents:', text)
+```
+
+That's it!  We've created a Helia node, added a file to it, and retrieved that file.
+
+Next we will look at where the bytes that make up the file go.
+
+### 202 - Storage
+
+Out of the box Helia will store all data in-memory.  This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
+
+Take a look at [201-storage.js](./201-storage.js) where we explore how to configure different types of persistent storage for your Helia node.
 
 #### Blockstore
 
@@ -87,6 +146,12 @@ import { MemoryBlockstore } from 'blockstore-core'
 const blockstore = new MemoryBlockstore()
 ```
 
+There are many blockstore implementations available. Some common ones are:
+
+- [blockstore-fs](https://www.npmjs.com/package/blockstore-fs) - store blocks in a directory on the filesystem using Node.js
+- [blockstore-idb](https://www.npmjs.com/package/blockstore-idb) - store blocks in [IndexedDB][] in the browser
+- [blockstore-s3](https://www.npmjs.com/package/blockstore-s3) - store blocks in an AWS [S3][] bucket
+
 #### Datastore
 
 Some facility to store information is required, this needs a [datastore](https://www.npmjs.com/package/interface-datastore).
@@ -98,6 +163,20 @@ import { MemoryDatastore } from 'datastore-core'
 
 const datastore = new MemoryDatastore()
 ```
+
+Commonly used datastore implementations are:
+
+- [datastore-level](https://www.npmjs.com/package/datastore-level) - store key/value pairs in a [LevelDB](https://github.com/google/leveldb) instance
+- [datastore-idb](https://www.npmjs.com/package/datastore-idb) - store key/value pairs in [IndexedDB][] in the browser
+- [blockstore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
+
+### 301 - Networking
+
+The final example is [301-networking.js](./301-networking.js).
+
+Adding blocks to your local blockstore is great but when you add a libp2p instance to your Helia config you unlock the full power of the distributed web.
+
+With libp2p configured you can retrieve blocks from remote peers, and those peers can retrieve blocks from you.
 
 #### libp2p
 
@@ -137,75 +216,16 @@ const libp2p = await createLibp2p({
 })
 ```
 
-#### Helia
+### Putting it all together
 
-Now we have the components we need, we can create our Helia instance and print out some information about the node:
-
-```js
-import { createHelia } from 'helia'
-
-const helia = await createHelia({
-  libp2p,
-  datastore,
-  blockstore
-})
-
-console.info(helia.libp2p.peerId)
-```
-
-#### Putting it all together
-
-Running the code above gets you:
-
-```console
-> node index.js
-PeerId(12D3KooW...)
-```
-
-#### File systems
-
-Blocks are all good and well, but to really get moving we need a filesystem.  Add the `@helia/unixfs` dependency to your project, create an instance and add some data:
-
-```js
-import { unixfs } from '@helia/unixfs`
-
-// create an UnixFS instance by passing the Helia node to the factory function
-const fs = unixfs(helia)
-
-// we will use the `TextEncoder` to turn a string into a Uint8Array
-const encoder = new TextEncoder()
-
-// add the bytes to your Helia node and receive a CID
-const cid = await fs.addBytes(encoder.encode('Hello World 101'))
-
-// let's see what it looks like
-console.log('Added file:', cid)
-```
-
-You can now go to an IPFS Gateway and load the printed hash from a gateway. Go ahead and try it!
+Once your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
 
 ```bash
-> node 1.js
-Version: 0.31.2
+> node 301-networking.js
 
 Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 # Copy that hash and load it on the gateway, here is a prefiled url:
 # https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
-```
-
-The last step of this tutorial is retrieving the file back using the `cat` 😺 call.
-
-```js
-const decoder = new TextDecoder()
-let text = ''
-
-for await (const chunk of fs.cat(cid)) {
-  text += decoder.decode(chunk, {
-    stream: true
-  })
-}
-
-console.log('Added file contents:', text)
 ```
 
 That's it! You just added and retrieved a file from the Distributed Web!
@@ -250,3 +270,5 @@ Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of
 [cid]: https://docs.ipfs.tech/concepts/content-addressing  "Content Identifier"
 [Uint8Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
 [libp2p]: https://libp2p.io
+[IndexedDB]: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+[S3]: https://aws.amazon.com/s3/

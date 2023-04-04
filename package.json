@@ -8,7 +8,7 @@
     "test": "aegir run test",
     "clean": "aegir run clean",
     "build": "aegir run build",
-    "lint": "aegir run lint",
+    "lint": "aegir lint --files examples/*/**/*.js --files !**/node_modules/** --files !**/dist/*",
     "dep-check": "aegir run dep-check"
   },
   "repository": {
@@ -22,10 +22,20 @@
   },
   "homepage": "https://github.com/ipfs-examples/helia-examples#readme",
   "devDependencies": {
-    "aegir": "^38.1.0"
+    "aegir": "^38.1.0",
+    "eslint-plugin-react": "^7.32.2"
   },
   "workspaces": [
     "examples/*"
   ],
-  "private": true
+  "private": true,
+  "eslintConfig": {
+    "extends": [
+      "ipfs",
+      "plugin:react/recommended"
+    ],
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  }
 }
