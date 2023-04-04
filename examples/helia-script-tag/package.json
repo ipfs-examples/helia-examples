@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Using IPFS in the browser via a script tag",
+  "description": "Using Helia in the browser via a script tag",
   "keywords": [],
   "license": "MIT",
   "scripts": {

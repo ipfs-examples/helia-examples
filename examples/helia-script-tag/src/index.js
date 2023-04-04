@@ -1,4 +1,4 @@
-/** global Helia, Libp2P, ChainsafeLibp2PYamux, Libp2PWebsockets, Libp2PBootstrap, BlockstoreCore, DatastoreCore */
+/* global Helia, BlockstoreCore, DatastoreCore, HeliaUnixfs */
 
 import { createLibp2pInstance } from './createLibp2pInstance.js'
 
@@ -7,15 +7,14 @@ const discoveredPeerCountEl = document.getElementById('discoveredPeerCount')
 const connectedPeerCountEl = document.getElementById('connectedPeerCount')
 const connectedPeersListEl = document.getElementById('connectedPeersList')
 const logEl = document.getElementById('runningLog')
-const nodeIdEl = document.getElementById('nodeId');
+const nodeIdEl = document.getElementById('nodeId')
 
-let nodeUpdateInterval = null
 document.addEventListener('DOMContentLoaded', async () => {
-  window.helia = await instantiateHeliaNode()
+  const helia = window.helia = await instantiateHeliaNode()
   window.heliaFs = await HeliaUnixfs.unixfs(helia)
 
   helia.libp2p.addEventListener('peer:discovery', (evt) => {
-    discoveredPeers.set(evt.detail.id.toString(), evt.detail)
+    window.discoveredPeers.set(evt.detail.id.toString(), evt.detail)
     addToLog(`Discovered peer ${evt.detail.id.toString()}`)
   })
 
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     addToLog(`Disconnected from ${evt.detail.remotePeer.toString()}`)
   })
 
-  nodeUpdateInterval = setInterval(() => {
+  setInterval(() => {
     statusValueEl.innerHTML = helia.libp2p.started ? 'Online' : 'Offline'
     updateConnectedPeers()
     updateDiscoveredPeers()
@@ -51,17 +50,16 @@ document.addEventListener('DOMContentLoaded', async () => {
    */
 })
 
+function ms2TimeString (a) {
+  const k = a % 1e3
+  const s = a / 1e3 % 60 | 0
+  const m = a / 6e4 % 60 | 0
+  const h = a / 36e5 % 24 | 0
 
-function ms2TimeString(a){
-  const k=a%1e3
-  const s=a/1e3%60|0
-  const m=a/6e4%60|0
-  const h=a/36e5%24|0
-
-  return (h ? (h<10?'0'+h:h)+':':'00:')+
-    (m<10?0:'')+m+':'+
-    (s<10?0:'')+s+':'+
-    (k<100?k<10?'00':0:'')+k
+  return (h ? (h < 10 ? '0' + h : h) + ':' : '00:') +
+    (m < 10 ? 0 : '') + m + ':' +
+    (s < 10 ? 0 : '') + s + ':' +
+    (k < 100 ? k < 10 ? '00' : 0 : '') + k
 }
 
 const getLogLineEl = (msg) => {
@@ -77,7 +75,6 @@ const addToLog = (msg) => {
 let heliaInstance = null
 let libp2pInstance = null
 const instantiateHeliaNode = async () => {
-
   // application-specific data lives in the datastore
   const datastore = new DatastoreCore.MemoryDatastore()
   const blockstore = new BlockstoreCore.MemoryBlockstore()
@@ -87,13 +84,11 @@ const instantiateHeliaNode = async () => {
   }
 
   if (libp2pInstance == null) {
-
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-libp2p
      */
     libp2pInstance = await createLibp2pInstance({ datastore })
     addToLog('Created LibP2P instance')
-
   }
 
   heliaInstance = await Helia.createHelia({
@@ -109,7 +104,7 @@ const instantiateHeliaNode = async () => {
 window.discoveredPeers = new Map()
 
 const updateConnectedPeers = () => {
-  const peers = helia.libp2p.getPeers()
+  const peers = window.helia.libp2p.getPeers()
   connectedPeerCountEl.innerHTML = peers.length
   connectedPeersListEl.innerHTML = ''
   for (const peer of peers) {
@@ -120,6 +115,5 @@ const updateConnectedPeers = () => {
 }
 
 const updateDiscoveredPeers = () => {
-  discoveredPeerCountEl.innerHTML = discoveredPeers.size
+  discoveredPeerCountEl.innerHTML = window.discoveredPeers.size
 }
-
