@@ -25,6 +25,7 @@ jobs:
           - helia-webpack
           - helia-vite-react
           - helia-script-tag
+          - helia-vue
     defaults:
       run:
         working-directory: examples/${{ matrix.project }}
