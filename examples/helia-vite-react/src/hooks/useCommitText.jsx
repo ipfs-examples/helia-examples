@@ -8,7 +8,7 @@ export const useCommitText = () => {
   const {helia, fs, error, starting } = useHelia()
   const [cid, setCid] = useState(null)
   const [cidString, setCidString] = useState("")
-  const [commitedText, setCommitedText] = useState("")
+  const [committedText, setCommittedText] = useState("")
 
   const commitText = useCallback(async (text) => {
     if (!error && !starting) {
@@ -28,7 +28,7 @@ export const useCommitText = () => {
     }
   }, [error, starting, helia, fs])
 
-  const fetchCommitedText = useCallback(async () => {
+  const fetchCommittedText = useCallback(async () => {
     let text = ''
     if (!error && !starting) {
       try {
@@ -37,7 +37,7 @@ export const useCommitText = () => {
             stream: true
           })
         }
-        setCommitedText(text)
+        setCommittedText(text)
       } catch (e) {
         console.error(e)
       }
@@ -47,5 +47,5 @@ export const useCommitText = () => {
   }, [error, starting, cid, helia, fs])
   // If one forgets to add helia in the dependency array in commitText, additions to the blockstore will not be picked up by react, leading to operations on fs to hang indefinitely in the generator <suspend> state. As such it would be good practice to ensure to include helia inside the dependency array of all hooks to tell react that the useCallback needs the most up to date helia state
 
-  return { cidString, commitedText, commitText, fetchCommitedText }
+  return { cidString, committedText, commitText, fetchCommittedText }
 }

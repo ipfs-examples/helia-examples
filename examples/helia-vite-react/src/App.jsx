@@ -9,8 +9,8 @@ function App() {
   const {
     cidString,
     commitText,
-    fetchCommitedText,
-    commitedText,
+    fetchCommittedText,
+    committedText,
   } = useCommitText()
 
   return (
@@ -24,7 +24,7 @@ function App() {
           }`,
           paddingBottom: '4px'
         }}
-      >Helia Status</div> 
+      >Helia Status</div>
       <input
         id="textInput"
         value={text}
@@ -39,13 +39,13 @@ function App() {
       >textCid: {cidString}</div>
       { cidString && (<>
         <button
-          id="fetchCommitedTextButton"
-          onClick={() => fetchCommitedText()}
-        >Fetch Commited Text</button>
+          id="fetchCommittedTextButton"
+          onClick={() => fetchCommittedText()}
+        >Fetch Committed Text</button>
           <div
-            id="commitedTextOutput"
-          >Commited Text: {commitedText}</div>
-        </>) 
+            id="committedTextOutput"
+          >Committed Text: {committedText}</div>
+        </>)
       }
 
     </div>
