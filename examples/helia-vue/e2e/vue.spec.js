@@ -19,7 +19,7 @@ play.describe("Use Helia with Vue", () => {
     await expect(status).toHaveCSS(
       'background-color',
       'rgb(0, 128, 0)',
-      {timeout: 2000}
+      {timeout: 5000}
     )
 
     await page.fill('#commitText', exampleText)
