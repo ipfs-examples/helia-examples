@@ -4,14 +4,14 @@
   </a>
 </p>
 
-<h3 align="center"><b>Bundle Helia with Webpack</b></h3>
+<h3 align="center"><b>Helia with React+Vite</b></h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
   ·
-  <a href="https://codesandbox.io/">View Demo</a>
+  <a href="https://codesandbox.io/p/sandbox/infallible-haibt-e3lcd4">View Demo</a>
   ·
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·
@@ -54,17 +54,25 @@ Make sure you have installed all of the following prerequisites on your developm
 ```console
 > npm install
 > npm start
+or
+> npm run dev
+```
+To run the test
+
+```console
+npx playwright install
+npm run test
 ```
 
 Now open your browser at `http://localhost:3000`
 
 ## Usage
 
-In this example, you will find a boilerplate you can use to guide yourself into bundling helia with webpack, so that you can use it in your own web app!
+In this example, you will find a boilerplate you can use to guide yourself into creating a react+vite app with helia, this provides a pattern to reuse the same client across components with the context API and suggests how to integrate it with custom hooks
 
 You should see the following:
 
-![](./img/1.png)
+![](./public/hello-helia.gif)
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
