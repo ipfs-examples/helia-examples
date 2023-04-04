@@ -20,7 +20,7 @@
 
 ## Table of Contents
 
-See https://github.com/ipfs-examples/helia-examples#table-of-contents for more information about helia examples.
+See https://github.com/ipfs-examples/helia-examples#table-of-contents for more information about Helia examples.
 
 ## Getting Started
 
@@ -83,12 +83,35 @@ _For more examples, please refer to the [Documentation](https://github.com/ipfs-
 
 ## Documentation
 
-See https://github.com/ipfs-examples/helia-examples#documentation
+- [IPFS Primer](https://dweb-primer.ipfs.io/)
+- [IPFS Docs](https://docs.ipfs.io/)
+- [Tutorials](https://proto.school)
+- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
+- [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 
 ## Contributing
 
-See https://github.com/ipfs-examples/helia-examples#contributing
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the IPFS Project
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit your Changes (`git commit -a -m 'feat: add some amazing feature'`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## Want to hack on IPFS?
 
-See https://github.com/ipfs-examples/helia-examples#want-to-hack-on-ipfs
+[![](https://cdn.rawgit.com/jbenet/contribute-ipfs-gif/master/img/contribute.gif)](https://github.com/ipfs/community/blob/master/CONTRIBUTING.md)
+
+The IPFS implementation in JavaScript needs your help! There are a few things you can do right now to help out:
+
+Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md) and [JavaScript Contributing Guidelines](https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md).
+
+- **Check out existing issues** The [issue list](https://github.com/ipfs/helia/issues) has many that are marked as ['help wanted'](https://github.com/ipfs/helia/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22help+wanted%22) or ['difficulty:easy'](https://github.com/ipfs/helia/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Adifficulty%3Aeasy) which make great starting points for development, many of which can be tackled with no prior IPFS knowledge
+- **Look at the [Helia Roadmap](https://github.com/ipfs/helia/blob/main/ROADMAP.md)** This are the high priority items being worked on right now
+- **Perform code reviews** More eyes will help
+  a. speed the project along
+  b. ensure quality, and
+  c. reduce possible future bugs
+- **Add tests**. There can never be enough tests

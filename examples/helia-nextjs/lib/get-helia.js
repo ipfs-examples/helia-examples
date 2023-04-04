@@ -1,9 +1,9 @@
 import { createHelia } from 'helia'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
-import getLibp2p from './getLibp2p'
+import getLibp2p from './get-libp2p.js'
 
-export default async function getHelia() {
+export default async function getHelia () {
   const blockstore = new MemoryBlockstore()
   const datastore = new MemoryDatastore()
 
