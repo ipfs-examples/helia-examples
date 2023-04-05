@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
 import { noise } from '@chainsafe/libp2p-noise'

@@ -9,5 +9,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <HeliaProvider>
       <App />
     </HeliaProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

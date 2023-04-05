@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { inject } from 'vue'
 
 const encoder = new TextEncoder()
@@ -7,13 +9,13 @@ export const useUnixFS = () => {
     const { loading, error, fs } = inject("HeliaProvider")
 
     const getStat = async (dirCid, path) => {
-        if (error.value.length == 0 && !loading.value) {
+        if (error.value.length === 0 && !loading.value) {
             try {
                 const res = await fs.value.stat(dirCid, {
-                    path: path
+                    path
                 })
                 const data = { cid: res.cid, blocks: res.blocks }
-                return { status: 'success', data: data }
+                return { status: 'success', data }
             } catch (e) {
                 console.error(e)
             }
@@ -23,7 +25,7 @@ export const useUnixFS = () => {
     }
 
     const addDirectory = async (path) => {
-        if (error.value.length == 0 && !loading.value) {
+        if (error.value.length === 0 && !loading.value) {
             try {
                 const emptyDirCid = await fs.value.addDirectory(path)
                 const res = await fs.value.mkdir(emptyDirCid, path)
@@ -37,12 +39,12 @@ export const useUnixFS = () => {
     }
 
     const getDirectory = async (dirCid, path) => {
-        let output = []
-        if (error.value.length == 0 && !loading.value) {
+        const output = []
+        if (error.value.length === 0 && !loading.value) {
             try {
                 if (typeof path !== 'undefined') {
                     for await (const entry of fs.value.ls(dirCid, {
-                        path: path
+                        path
                     })) {
                         output.push(entry)
                     }
@@ -61,7 +63,7 @@ export const useUnixFS = () => {
     }
 
     const addFile = async (name, dirCid, content) => {
-        if (error.value.length == 0 && !loading.value) {
+        if (error.value.length === 0 && !loading.value) {
             try {
 
                 const res = await fs.value.addFile({
@@ -78,7 +80,7 @@ export const useUnixFS = () => {
     }
 
     const getFile = async (cid) => {
-        if (error.value.length == 0 && !loading.value) {
+        if (error.value.length === 0 && !loading.value) {
             let txt = ''
             try {
                 for await (const buf of fs.value.cat(cid)) {

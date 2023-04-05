@@ -4,7 +4,7 @@
   "description": "Using Helia with vue",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test:e2e": "playwright test",

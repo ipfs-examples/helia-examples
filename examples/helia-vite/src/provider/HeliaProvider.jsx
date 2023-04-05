@@ -1,4 +1,10 @@
-import { React } from 'react'
+import {
+  React,
+  useEffect,
+  useState,
+  useCallback,
+  createContext
+} from 'react'
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
 import { noise } from '@chainsafe/libp2p-noise'
@@ -8,12 +14,6 @@ import { bootstrap } from '@libp2p/bootstrap'
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
-import {
-  useEffect,
-  useState,
-  useCallback,
-  createContext
-} from 'react'
 import PropTypes from 'prop-types'
 
 export const HeliaContext = createContext({
@@ -23,7 +23,7 @@ export const HeliaContext = createContext({
   starting: true
 })
 
-export const HeliaProvider = ({children}) => {
+export const HeliaProvider = ({ children }) => {
   const [helia, setHelia] = useState(null)
   const [fs, setFs] = useState(null)
   const [starting, setStarting] = useState(true)
@@ -31,9 +31,9 @@ export const HeliaProvider = ({children}) => {
 
   const startHelia = useCallback(async () => {
     if (helia) {
-      console.info("helia already started")
+      console.info('helia already started')
     } else if (window.helia) {
-      console.info("found a windowed instance of helia, populating ...")
+      console.info('found a windowed instance of helia, populating ...')
       setHelia(window.helia)
       setFs(unixfs(helia))
       setStarting(false)
@@ -61,10 +61,10 @@ export const HeliaProvider = ({children}) => {
           peerDiscovery: [
             bootstrap({
               list: [
-                "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
-                "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
-                "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
-                "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
+                '/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
+                '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+                '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
+                '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
               ]
             })
           ]

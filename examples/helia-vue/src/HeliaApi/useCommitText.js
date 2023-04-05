@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { inject, ref } from 'vue'
 
 const encoder = new TextEncoder()
@@ -10,7 +12,7 @@ export const useCommitText = () => {
 
     const commitText = async (text) => {
         console.log('text', text)
-        if (error.value.length == 0 && !loading.value) {
+        if (error.value.length === 0 && !loading.value) {
             try {
                 const res = await fs.value.addBytes(
                     encoder.encode(text),
@@ -28,12 +30,12 @@ export const useCommitText = () => {
     const fetchCommitedText = async () => {
         let text = ''
         console.log(cid)
-        if (error.value.length == 0 && !loading.value && cid.value) {
+        if (error.value.length === 0 && !loading.value && cid.value) {
             try {
                 for await (const chunk of fs.value.cat(cid.value)) {
                     text += decoder.decode(chunk, {
                         stream: true
-                    }) 
+                    })
                 }
                 commitedText.value = text
             } catch (e) {
@@ -42,7 +44,7 @@ export const useCommitText = () => {
         } else {
             console.log('please wait for helia to start')
         }
-        
+
     }
 
     return {cid, commitText, commitedText, fetchCommitedText}
