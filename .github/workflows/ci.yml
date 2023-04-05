@@ -24,7 +24,7 @@ jobs:
           - helia-cjs
           - helia-nextjs
           - helia-script-tag
-          - helia-vite-react
+          - helia-vite
           - helia-vue
           - helia-webpack
     defaults:
@@ -78,7 +78,7 @@ jobs:
           - helia-cjs
           - helia-nextjs
           - helia-script-tag
-          - helia-vite-react
+          - helia-vite
           - helia-vue
           - helia-webpack
     steps:
