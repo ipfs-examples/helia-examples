@@ -1,17 +1,16 @@
-import { React } from 'react'
-import { useState } from 'react'
+import { React, useState } from 'react'
 import './App.css'
 import { useHelia } from '@/hooks/useHelia'
 import { useCommitText } from '@/hooks/useCommitText'
 
-function App() {
-  const [text, setText] = useState("")
+function App () {
+  const [text, setText] = useState('')
   const { error, starting } = useHelia()
   const {
     cidString,
     commitText,
     fetchCommittedText,
-    committedText,
+    committedText
   } = useCommitText()
 
   return (
@@ -20,8 +19,9 @@ function App() {
         id="heliaStatus"
         style={{
           border: `4px solid ${
-            error ? 'red':
-            starting ? 'yellow' : 'green'
+            error
+? 'red'
+            : starting ? 'yellow' : 'green'
           }`,
           paddingBottom: '4px'
         }}

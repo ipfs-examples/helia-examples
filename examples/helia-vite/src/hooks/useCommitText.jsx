@@ -5,10 +5,10 @@ const encoder = new TextEncoder()
 const decoder = new TextDecoder()
 
 export const useCommitText = () => {
-  const {helia, fs, error, starting } = useHelia()
+  const { helia, fs, error, starting } = useHelia()
   const [cid, setCid] = useState(null)
-  const [cidString, setCidString] = useState("")
-  const [committedText, setCommittedText] = useState("")
+  const [cidString, setCidString] = useState('')
+  const [committedText, setCommittedText] = useState('')
 
   const commitText = useCallback(async (text) => {
     if (!error && !starting) {
