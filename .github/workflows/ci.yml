@@ -24,7 +24,7 @@ jobs:
           - helia-cjs
           - helia-nextjs
           - helia-script-tag
-          - helia-vite-react
+          - helia-vite
           - helia-webpack
     defaults:
       run:
@@ -77,7 +77,7 @@ jobs:
           - helia-cjs
           - helia-nextjs
           - helia-script-tag
-          - helia-vite-react
+          - helia-vite
           - helia-webpack
     steps:
       - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
