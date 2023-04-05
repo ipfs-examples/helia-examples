@@ -8,7 +8,7 @@
     "test": "aegir run test",
     "clean": "aegir run clean",
     "build": "aegir run build",
-    "lint": "aegir lint --files examples/*/**/*.js --files !**/node_modules/** --files !**/dist/*",
+    "lint": "aegir exec aegir -- lint --files '**/*.js' --files '!node_modules' --files '!dist'",
     "dep-check": "aegir run dep-check"
   },
   "repository": {
