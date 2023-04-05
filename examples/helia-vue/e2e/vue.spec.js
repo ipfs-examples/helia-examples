@@ -33,7 +33,7 @@ play.describe("Use Helia with Vue", () => {
     await page.click('#fetchCommitedTextButton')
     const textOutput = page.locator('#fetchedCommitedTextOutput')
     await expect(textOutput).toHaveText(
-      `commited Text: ${exampleText}`,
+      `added text: ${exampleText}`,
       {timeout: 2000}
     )
 
@@ -42,7 +42,7 @@ play.describe("Use Helia with Vue", () => {
     const dirOutput = page.locator('#newDirOutput')
     await expect(dirOutput).toHaveText(
       'directory Cid: bafybeif5hfzip34o7ocwfg4ge537g7o3nbh3auc3s54l3gsaantucqyyra',
-      {timeout: 2000} 
+      {timeout: 2000}
     )
 
     await page.click("#statDirButton")
