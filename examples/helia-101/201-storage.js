@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { createHelia } from 'helia'
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'

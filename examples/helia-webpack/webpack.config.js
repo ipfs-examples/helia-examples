@@ -146,7 +146,7 @@ const common = {
       // Fonts and SVGs: Inline files
       { test: /\.(woff(2)?|eot|ttf|otf|svg|)$/, type: 'asset/inline' },
 
-      { test: /\.(css)$/, use: ['style-loader','css-loader'] }
+      { test: /\.(css)$/, use: ['style-loader', 'css-loader'] }
     ]
   },
 

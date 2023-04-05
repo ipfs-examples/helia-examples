@@ -12,7 +12,7 @@ export default defineConfig({
   },
   define: {
     'process.env.NODE_DEBUG': 'false',
-    'global': 'globalThis'
+    global: 'globalThis'
   },
   optimizeDeps: {
     // enable esbuild dep optimization during build https://github.com/vitejs/vite/issues/9703#issuecomment-1216662109
