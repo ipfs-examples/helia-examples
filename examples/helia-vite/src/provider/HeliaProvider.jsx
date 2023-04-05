@@ -1,19 +1,20 @@
-import { createHelia  } from 'helia'
-import { createLibp2p  } from 'libp2p'
-import { noise  } from '@chainsafe/libp2p-noise'
-import { yamux  } from '@chainsafe/libp2p-yamux'
-import { webSockets  } from '@libp2p/websockets'
-import { bootstrap  } from '@libp2p/bootstrap'
-import { unixfs  } from '@helia/unixfs'
-import { MemoryBlockstore  } from 'blockstore-core'
-import { MemoryDatastore  } from 'datastore-core'
+import { React } from 'react'
+import { createHelia } from 'helia'
+import { createLibp2p } from 'libp2p'
+import { noise } from '@chainsafe/libp2p-noise'
+import { yamux } from '@chainsafe/libp2p-yamux'
+import { webSockets } from '@libp2p/websockets'
+import { bootstrap } from '@libp2p/bootstrap'
+import { unixfs } from '@helia/unixfs'
+import { MemoryBlockstore } from 'blockstore-core'
+import { MemoryDatastore } from 'datastore-core'
 import {
   useEffect,
   useState,
   useCallback,
-  createContext,
-  useContext
+  createContext
 } from 'react'
+import PropTypes from 'prop-types'
 
 export const HeliaContext = createContext({
   helia: null,
@@ -98,4 +99,8 @@ export const HeliaProvider = ({children}) => {
       }}
     >{children}</HeliaContext.Provider>
   )
+}
+
+HeliaProvider.propTypes = {
+  children: PropTypes.any
 }

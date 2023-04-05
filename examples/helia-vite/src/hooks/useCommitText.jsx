@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from 'react'
+import { useState, useCallback } from 'react'
 import { useHelia } from '@/hooks/useHelia'
 
 const encoder = new TextEncoder()

@@ -2,13 +2,13 @@
   "name": "helia-examples",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "reset": "aegir run clean && aegir clean **/node_modules **/package-lock.json",
     "test": "aegir run test",
     "clean": "aegir run clean",
     "build": "aegir run build",
-    "lint": "aegir exec aegir -- lint --files '**/*.js' --files '!node_modules' --files '!dist'",
+    "lint": "aegir exec aegir -- lint --files '**/*.{js,ts,jsx}' '!**/node_modules/**' '!**/dist/**'",
     "dep-check": "aegir run dep-check"
   },
   "repository": {
@@ -35,7 +35,13 @@
       "plugin:react/recommended"
     ],
     "parserOptions": {
-      "sourceType": "module"
+      "sourceType": "module",
+      "ecmaVersion": 2023
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
     }
   }
 }
