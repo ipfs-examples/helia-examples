@@ -23,6 +23,7 @@ jobs:
           - helia-101
           - helia-cjs
           - helia-electron
+          - helia-esbuild
           - helia-nextjs
           - helia-script-tag
           - helia-vite
@@ -78,6 +79,7 @@ jobs:
           - helia-101
           - helia-cjs
           - helia-electron
+          - helia-esbuild
           - helia-nextjs
           - helia-script-tag
           - helia-vite
