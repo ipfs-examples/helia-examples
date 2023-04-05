@@ -1,7 +1,8 @@
 {
-  "name": "helia-vite-react",
-  "private": true,
+  "name": "helia-vite",
   "version": "0.0.0",
+  "description": "Using Helia with vite",
+  "private": true,
   "type": "module",
   "scripts": {
     "clean": "rimraf ./dist",
