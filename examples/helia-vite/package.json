@@ -22,6 +22,7 @@
     "datastore-core": "^9.0.3",
     "helia": "^1.0.0",
     "libp2p": "^0.43.3",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^4.4.0"
