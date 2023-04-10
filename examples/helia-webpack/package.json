@@ -40,7 +40,7 @@
     "html-webpack-plugin": "^5.3.2",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "playwright": "^1.12.3",
-    "rimraf": "^4.1.2",
+    "rimraf": "^5.0.0",
     "style-loader": "^3.1.0",
     "test-util-ipfs-example": "^1.0.2",
     "webpack": "^5.45.1",
