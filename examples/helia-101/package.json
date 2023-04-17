@@ -20,7 +20,7 @@
     "blockstore-core": "^4.0.1",
     "datastore-core": "^9.0.3",
     "helia": "^1.0.0",
-    "libp2p": "^0.43.3"
+    "libp2p": "^0.44.0"
   },
   "devDependencies": {
     "test-util-ipfs-example": "^1.0.2"

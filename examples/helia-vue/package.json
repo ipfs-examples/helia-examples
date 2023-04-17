@@ -23,7 +23,7 @@
     "events": "^3.3.0",
     "helia": "next",
     "it-all": "^3.0.1",
-    "libp2p": "^0.43.3",
+    "libp2p": "^0.44.0",
     "vue": "^3.2.47"
   },
   "devDependencies": {

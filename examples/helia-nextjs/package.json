@@ -21,7 +21,7 @@
     "blockstore-core": "^4.1.0",
     "datastore-core": "^9.1.0",
     "helia": "^1.0.0",
-    "libp2p": "^0.43.3",
+    "libp2p": "^0.44.0",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
