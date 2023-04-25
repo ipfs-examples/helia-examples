@@ -16,7 +16,7 @@
     "@chainsafe/libp2p-noise": "^11.0.1",
     "@chainsafe/libp2p-yamux": "^3.0.7",
     "@helia/unixfs": "^1.2.0",
-    "@libp2p/bootstrap": "^6.0.2",
+    "@libp2p/bootstrap": "^7.0.0",
     "@libp2p/websockets": "^5.0.6",
     "blockstore-core": "^4.0.1",
     "datastore-core": "^9.0.3",
