@@ -9,20 +9,20 @@
   "scripts": {
     "start": "node index.js",
     "serve": "npm run start",
-    "test": "node test.js"
+    "test": "test-node-example test/*"
   },
   "dependencies": {
-    "@chainsafe/libp2p-noise": "^11.0.0",
-    "@chainsafe/libp2p-yamux": "^3.0.5",
-    "@helia/unixfs": "^1.0.2",
-    "@libp2p/bootstrap": "^6.0.0",
-    "@libp2p/tcp": "^6.1.2",
-    "blockstore-core": "^4.0.1",
-    "datastore-core": "^9.0.3",
+    "@chainsafe/libp2p-noise": "^12.0.0",
+    "@chainsafe/libp2p-yamux": "^4.0.1",
+    "@helia/unixfs": "^1.2.1",
+    "@libp2p/bootstrap": "^8.0.0",
+    "@libp2p/tcp": "^7.0.1",
+    "blockstore-core": "^4.1.0",
+    "datastore-core": "^9.1.1",
     "helia": "^1.0.0",
-    "libp2p": "^0.43.3"
+    "libp2p": "^0.45.0"
   },
   "devDependencies": {
-    "test-util-ipfs-example": "^1.0.2"
+    "test-ipfs-example": "^1.0.0"
   }
 }

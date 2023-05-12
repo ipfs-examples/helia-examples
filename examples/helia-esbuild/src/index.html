@@ -13,31 +13,31 @@
     />
     <link
       rel="stylesheet"
-      href="https://unpkg.com/ipfs-css@0.12.0/ipfs.css"
+      href="https://unpkg.com/@helia/css@1.0.1/helia.css"
       crossorigin
     />
-    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="shortcut icon" href="https://unpkg.com/@helia/css@1.0.1/logos/favicon.ico" />
     <link rel="stylesheet" href="./style.css" />
 
     <script type="module" defer src="./index.js"></script>
   </head>
   <body class="montserrat f5">
-    <header class="flex items-center pa3 bg-navy bb bw3 b--aqua">
-      <a href="https://ipfs.io" title="home">
+    <header class="flex items-center pa3 bg-navy">
+      <a href="https://github.com/ipfs/helia" title="home">
         <img
-          alt="IPFS logo"
-          src="./ipfs-logo.svg"
-          style="height: 50px"
+          alt="Helia logo"
+          src="https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-wordmark.svg"
+          style="height: 60px"
           class="v-top"
         />
       </a>
     </header>
 
     <main class="pa4-l bg-snow mw7 mv5 center pa4">
-      <h1 class="pa0 f2 ma0 mb4 aqua tc">Add data to Helia from the browser</h1>
+      <h1 class="pa0 f2 ma0 mb4 navy tc">Add data to Helia</h1>
 
       <form id="add-file">
-        <label for="file-name" class="f5 ma0 pb2 aqua fw4 db">Name</label>
+        <label for="file-name" class="f5 ma0 pb2 navy fw4 db">Name</label>
         <input
           class="input-reset bn black-80 bg-white pa3 w-100 mb3"
           id="file-name"
@@ -47,7 +47,7 @@
           required
         />
 
-        <label for="file-content" class="f5 ma0 pb2 aqua fw4 db">Content</label>
+        <label for="file-content" class="f5 ma0 pb2 navy fw4 db">Content</label>
         <input
           class="input-reset bn black-80 bg-white pa3 w-100 mb3 ft"
           id="file-content"
@@ -79,16 +79,27 @@
       <h3>Output</h3>
 
       <div class="window">
-        <div class="header"></div>
         <div id="terminal" class="terminal">
           <div id="output"></div>
         </div>
+      </div>
+
+      <h3>Listening addresses</h3>
+
+      <div class="window">
+        <div id="multiaddrs" class="terminal"></div>
       </div>
 
       <h3>Peers</h3>
 
       <div class="window">
         <div id="peers" class="terminal"></div>
+      </div>
+
+      <h3>Dial Queue</h3>
+
+      <div class="window">
+        <div id="dialQueue" class="terminal"></div>
       </div>
     </main>
   </body>

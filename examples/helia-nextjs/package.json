@@ -11,17 +11,17 @@
     "serve": "npm run dev",
     "start": "next start",
     "lint": "next lint",
-    "test": "npm run build && playwright test tests"
+    "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "@chainsafe/libp2p-noise": "^11.0.2",
-    "@chainsafe/libp2p-yamux": "^3.0.7",
-    "@libp2p/bootstrap": "^6.0.3",
-    "@libp2p/websockets": "^5.0.7",
+    "@chainsafe/libp2p-noise": "^12.0.0",
+    "@chainsafe/libp2p-yamux": "^4.0.1",
+    "@libp2p/bootstrap": "^8.0.0",
+    "@libp2p/websockets": "^6.0.1",
     "blockstore-core": "^4.1.0",
-    "datastore-core": "^9.1.0",
+    "datastore-core": "^9.1.1",
     "helia": "^1.0.0",
-    "libp2p": "^0.43.3",
+    "libp2p": "^0.45.0",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -33,6 +33,6 @@
     "interface-datastore": "^8.2.0",
     "playwright": "^1.32.1",
     "rimraf": "^5.0.0",
-    "test-util-ipfs-example": "^1.0.2"
+    "test-ipfs-example": "^1.0.0"
   }
 }

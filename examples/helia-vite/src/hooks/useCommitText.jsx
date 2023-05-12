@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { useState, useCallback } from 'react'
 import { useHelia } from '@/hooks/useHelia'
 

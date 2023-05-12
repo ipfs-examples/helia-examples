@@ -9,3 +9,5 @@ yarn.lock
 .DS_Store
 .next
 .vscode
+test-results
+playwright-report

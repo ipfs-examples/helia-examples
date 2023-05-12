@@ -1,8 +1,9 @@
-import { createLibp2p } from 'libp2p'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
-import { webSockets } from '@libp2p/websockets'
 import { bootstrap } from '@libp2p/bootstrap'
+import { webSockets } from '@libp2p/websockets'
+import { createLibp2p } from 'libp2p'
+import { identifyService } from 'libp2p/identify'
 
 export default async function getLibp2p ({ datastore }) {
   return await createLibp2p({
@@ -25,6 +26,9 @@ export default async function getLibp2p ({ datastore }) {
           '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
         ]
       })
-    ]
+    ],
+    services: {
+      identify: identifyService()
+    }
   })
 }

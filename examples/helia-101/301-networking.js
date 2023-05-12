@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 
-import { createHelia } from 'helia'
-import { createLibp2p } from 'libp2p'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
-import { tcp } from '@libp2p/tcp'
-import { bootstrap } from '@libp2p/bootstrap'
 import { unixfs } from '@helia/unixfs'
+import { bootstrap } from '@libp2p/bootstrap'
+import { tcp } from '@libp2p/tcp'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
+import { createHelia } from 'helia'
+import { createLibp2p } from 'libp2p'
+import { identifyService } from 'libp2p/identify'
 
 async function createNode () {
   // the blockstore is where we store the blocks that make up files
@@ -43,7 +44,10 @@ async function createNode () {
           '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
         ]
       })
-    ]
+    ],
+    services: {
+      identify: identifyService()
+    }
   })
 
   return await createHelia({
