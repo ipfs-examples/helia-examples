@@ -1,10 +1,10 @@
 import path from 'path'
-import webpack from 'webpack'
-import { merge } from 'webpack-merge'
 import { fileURLToPath } from 'url'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
+import webpack from 'webpack'
+import { merge } from 'webpack-merge'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 

@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import './App.css'
-import { useHelia } from '@/hooks/useHelia'
 import { useCommitText } from '@/hooks/useCommitText'
+import { useHelia } from '@/hooks/useHelia'
 
 function App () {
   const [text, setText] = useState('')

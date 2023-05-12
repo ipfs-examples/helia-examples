@@ -1,6 +1,6 @@
+import { unixfs } from '@helia/unixfs'
 import React, { useState, useRef } from 'react'
 import { getHelia } from './get-helia.js'
-import { unixfs } from '@helia/unixfs'
 
 function App () {
   const [output, setOutput] = useState([])

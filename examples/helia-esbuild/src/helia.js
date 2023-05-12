@@ -1,18 +1,18 @@
 /* eslint-disable no-console */
 
-import { createHelia } from 'helia'
-import { createLibp2p } from 'libp2p'
-import { identifyService } from 'libp2p/identify'
-import { circuitRelayTransport } from 'libp2p/circuit-relay'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
-import { webSockets } from '@libp2p/websockets'
-import { webTransport } from '@libp2p/webtransport'
 import { bootstrap } from '@libp2p/bootstrap'
-import { MemoryBlockstore } from 'blockstore-core'
-import { MemoryDatastore } from 'datastore-core'
 import { kadDHT } from '@libp2p/kad-dht'
 import { webRTC, webRTCDirect } from '@libp2p/webrtc'
+import { webSockets } from '@libp2p/websockets'
+import { webTransport } from '@libp2p/webtransport'
+import { MemoryBlockstore } from 'blockstore-core'
+import { MemoryDatastore } from 'datastore-core'
+import { createHelia } from 'helia'
+import { createLibp2p } from 'libp2p'
+import { circuitRelayTransport } from 'libp2p/circuit-relay'
+import { identifyService } from 'libp2p/identify'
 
 export async function createNode () {
   // the blockstore is where we store the blocks that make up files

@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import App from '@/App.vue'
 import { HeliaProviderPlugin } from './plugins/HeliaProviderPlugin'
+import App from '@/App.vue'
 
 import './assets/main.css'
 

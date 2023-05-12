@@ -1,5 +1,5 @@
-import { createNode } from './helia.js'
 import { unixfs } from '@helia/unixfs'
+import { createNode } from './helia.js'
 
 const App = async () => {
   const DOM = {
