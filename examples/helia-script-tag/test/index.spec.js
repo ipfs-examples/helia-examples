@@ -1,22 +1,19 @@
-import { test } from '@playwright/test'
-import { playwright } from 'test-util-ipfs-example'
+import { setup } from 'test-ipfs-example/browser'
 
 // Setup
-const play = test.extend({
-  ...playwright.servers()
-})
+const test = setup()
 
-play.describe('using script tag:', () => {
+test.describe('using script tag:', () => {
   // DOM
   const status = '#statusValue'
   const node = '#nodeId'
   const stopHelia = '.e2e-stopHelia'
 
-  play.beforeEach(async ({ servers, page }) => {
-    await page.goto(`http://localhost:${servers[0].port}/`)
+  test.beforeEach(async ({ servers, page }) => {
+    await page.goto(servers[0].url)
   })
 
-  play('should properly initialized a IPFS node and print the status', async ({ page }) => {
+  test('should properly initialized a IPFS node and print the status', async ({ page }) => {
     // wait for page to init
     await page.waitForSelector(`${status}:has-text("Not Started")`)
 

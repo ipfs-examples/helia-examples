@@ -108,7 +108,6 @@ const common = {
     // Generates deprecation warning: https://github.com/jantimon/html-webpack-plugin/issues/1501
     new HtmlWebpackPlugin({
       title: 'Helia bundle by Webpack',
-      favicon: paths.public + '/favicon.ico',
       template: paths.public + '/index.html', // template file
       filename: 'index.html', // output file,
       minify: false

@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
+import { identifyService } from 'libp2p/identify'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { webSockets } from '@libp2p/websockets'
@@ -67,7 +68,10 @@ export const HeliaProvider = ({ children }) => {
                 '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
               ]
             })
-          ]
+          ],
+          services: {
+            identify: identifyService()
+          }
         })
         console.info('Starting Helia')
         const helia = await createHelia({

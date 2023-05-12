@@ -1,23 +1,23 @@
-import { test, expect } from '@playwright/test'
-import { playwright } from 'test-util-ipfs-example'
+import { setup, expect } from 'test-ipfs-example/browser'
 
 // Setup
-const play = test.extend({
-  ...playwright.servers()
-})
+const test = setup()
 
-play.describe('bundle ipfs with esbuild:', () => {
+test.describe('bundle ipfs with esbuild:', () => {
   // DOM
   const nameInput = '#file-name'
   const contentInput = '#file-content'
   const submitBtn = '#add-submit'
   const output = '#output'
 
-  play.beforeEach(async ({ servers, page }) => {
-    await page.goto(`http://localhost:${servers[0].port}/`)
+  test.beforeEach(async ({ servers, page }) => {
+    await page.goto(servers[0].url)
   })
 
-  play('should initialize a Helia node and add/get a file', async ({ page }) => {
+  test('should initialize a Helia node and add/get a file', async ({ page }) => {
+    const outputLocator = page.locator(output)
+    await expect(outputLocator).toHaveText(/Helia node ready/)
+
     const fileName = 'test.txt'
     const fileContent = 'Hello world!'
 
@@ -28,7 +28,6 @@ play.describe('bundle ipfs with esbuild:', () => {
     await page.waitForSelector(`${output}:has-text("/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi")`)
 
     const outputContent = await page.textContent(output)
-
     expect(outputContent).toContain('https://ipfs.io/ipfs/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi')
     expect(outputContent).toContain(fileName)
     expect(outputContent).toContain(fileContent)

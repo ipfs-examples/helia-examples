@@ -1,23 +1,20 @@
-import { test, expect } from '@playwright/test'
-import { playwright } from 'test-util-ipfs-example'
+import { setup, expect } from 'test-ipfs-example/browser'
 
 // Setup
-const play = test.extend({
-  ...playwright.servers()
-})
+const test = setup()
 
-play.describe('bundle Helia with Webpack:', () => {
+test.describe('bundle Helia with Webpack:', () => {
   // DOM
   const nameInput = '#file-name'
   const contentInput = '#file-content'
   const submitBtn = '#add-submit'
   const output = '#output'
 
-  play.beforeEach(async ({ servers, page }) => {
-    await page.goto(`http://localhost:${servers[0].port}/`)
+  test.beforeEach(async ({ servers, page }) => {
+    await page.goto(servers[0].url)
   })
 
-  play('should properly initialized a Helia node and add/get a file', async ({ page }) => {
+  test('should properly initialized a Helia node and add/get a file', async ({ page }) => {
     const fileName = 'test.txt'
     const stringToUse = 'Hello world!'
 

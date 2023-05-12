@@ -5,6 +5,7 @@
 async function main () {
   const { createHelia } = await import('helia')
   const { createLibp2p } = await import('libp2p')
+  const { identifyService } = await import('libp2p/identify')
   const { noise } = await import('@chainsafe/libp2p-noise')
   const { yamux } = await import('@chainsafe/libp2p-yamux')
   const { webSockets } = await import('@libp2p/websockets')
@@ -40,7 +41,10 @@ async function main () {
           '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
         ]
       })
-    ]
+    ],
+    services: {
+      identify: identifyService()
+    }
   })
 
   // create a Helia node

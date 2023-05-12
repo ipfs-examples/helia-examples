@@ -1,6 +1,4 @@
-/* global Libp2P, ChainsafeLibp2PYamux, Libp2PWebsockets, Libp2PBootstrap, Libp2PKadDht */
-// not imported from skypack,jsdelivr, nor unpkg because of issues. see https://github.com/ChainSafe/js-libp2p-noise/issues/296
-import { noise } from 'https://esm.sh/v111/@chainsafe/libp2p-noise@11.0.1/es2022/libp2p-noise.js'
+/* global Libp2P, ChainsafeLibp2PNoise, ChainsafeLibp2PYamux, Libp2PWebsockets, Libp2PBootstrap, Libp2PKadDht */
 
 /**
  *
@@ -38,7 +36,7 @@ export async function createLibp2pInstance ({ datastore }) {
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#connection-encryption
      */
     connectionEncryption: /** @type {import('libp2p').Libp2pOptions['connectionEncryption']} */([
-      noise()
+      ChainsafeLibp2PNoise.noise()
     ]),
     /**
      * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#stream-multiplexing

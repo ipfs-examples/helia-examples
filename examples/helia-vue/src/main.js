@@ -6,4 +6,4 @@ import './assets/main.css'
 
 const app = createApp(App)
 app.use(HeliaProviderPlugin)
-app.mount("#app")
+app.mount('#app')

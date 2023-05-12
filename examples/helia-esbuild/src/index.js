@@ -1,17 +1,16 @@
 import { createNode } from './helia.js'
 import { unixfs } from '@helia/unixfs'
 
-const App = () => {
-  let helia
-  let fs
-
+const App = async () => {
   const DOM = {
     output: () => document.getElementById('output'),
     fileName: () => document.getElementById('file-name'),
     fileContent: () => document.getElementById('file-content'),
     addBtn: () => document.getElementById('add-submit'),
     terminal: () => document.getElementById('terminal'),
-    peers: () => document.getElementById('peers')
+    peers: () => document.getElementById('peers'),
+    dialQueue: () => document.getElementById('dialQueue'),
+    multiaddrs: () => document.getElementById('multiaddrs')
   }
 
   const COLORS = {
@@ -55,27 +54,6 @@ const App = () => {
   }
 
   const store = async (name, content) => {
-    if (!helia) {
-      showStatus('Creating Helia node', COLORS.active)
-
-      helia = await createNode()
-      fs = unixfs(helia)
-
-      setInterval(() => {
-        let peers = ''
-
-        for (const connection of helia.libp2p.getConnections()) {
-          peers += `${connection.remoteAddr.toString()}\n`
-        }
-
-        if (peers === '') {
-          peers = 'Not connected to any peers'
-        }
-
-        DOM.peers().innerText = peers
-      }, 500)
-    }
-
     const id = helia.libp2p.peerId
     showStatus(`Helia node peer ID ${id}`, COLORS.active)
 
@@ -118,6 +96,54 @@ const App = () => {
       showStatus(err.message, COLORS.error)
     }
   }
+
+  showStatus('Creating Helia node', COLORS.active)
+
+  const helia = await createNode()
+
+  showStatus('Helia node ready', COLORS.active)
+
+  const fs = unixfs(helia)
+
+  setInterval(() => {
+    let peers = ''
+
+    for (const connection of helia.libp2p.getConnections()) {
+      peers += `${connection.remotePeer.toString()}\n`
+    }
+
+    if (peers === '') {
+      peers = 'Not connected to any peers'
+    }
+
+    DOM.peers().innerText = peers
+
+    let dialQueue = ''
+
+    for (const dial of helia.libp2p.getDialQueue()) {
+      dialQueue += `${dial.peerId} - ${dial.status}\n${dial.multiaddrs.map(ma => ma.toString()).join('\n')}\n`
+    }
+
+    if (dialQueue === '') {
+      dialQueue = 'Dial queue empty'
+    }
+
+    DOM.dialQueue().innerText = dialQueue
+
+    let multiaddrs = ''
+
+    for (const ma of helia.libp2p.getMultiaddrs()) {
+      multiaddrs += `${ma.toString()}\n`
+    }
+
+    if (multiaddrs === '') {
+      multiaddrs = 'Not listening on any addresses'
+    }
+
+    DOM.multiaddrs().innerText = multiaddrs
+  }, 500)
 }
 
-App()
+App().catch(err => {
+  console.error(err) // eslint-disable-line no-console
+})

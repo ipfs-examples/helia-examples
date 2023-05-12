@@ -1,11 +1,9 @@
-import { test, expect } from '@playwright/test'
-import { playwright } from 'test-util-ipfs-example'
+import { setup, expect } from 'test-ipfs-example/browser'
 
-const play = test.extend({
-  ...playwright.servers()
-})
+// Setup
+const test = setup()
 
-play.describe('Use Helia With react and vite', () => {
+test.describe('Use Helia With react and vite', () => {
   // DOM
   const heliaStatus = '#heliaStatus'
   const textInput = '#textInput'
@@ -14,11 +12,11 @@ play.describe('Use Helia With react and vite', () => {
   const fetchCommittedTextButton = '#fetchCommittedTextButton'
   const committedTextOutput = '#committedTextOutput'
 
-  play.beforeEach(async ({ servers, page }) => {
-    await page.goto(`http://localhost:${servers[0].port}/`)
+  test.beforeEach(async ({ servers, page }) => {
+    await page.goto(servers[0].url)
   })
 
-  play('should properly initialize a Helia node and add/get a file', async ({ page }) => {
+  test('should properly initialize a Helia node and add/get a file', async ({ page }) => {
     // wait for helia node to be online
     const text = 'Hello Helia'
     const status = await page.locator(heliaStatus)

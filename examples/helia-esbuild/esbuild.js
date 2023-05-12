@@ -3,7 +3,7 @@ import { build } from 'esbuild'
 build({
   entryPoints: ['./src/index.js'],
   outfile: './dist/index.js',
-  sourcemap: 'external',
+  sourcemap: 'linked',
   minify: true,
   bundle: true,
   define: {
