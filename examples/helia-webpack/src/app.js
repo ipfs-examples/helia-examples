@@ -1,6 +1,6 @@
 import { unixfs } from '@helia/unixfs'
+import { createHelia } from 'helia'
 import React, { useState, useRef } from 'react'
-import { getHelia } from './get-helia.js'
 
 function App () {
   const [output, setOutput] = useState([])
@@ -36,7 +36,7 @@ function App () {
     if (!helia) {
       showStatus('Creating Helia node...', COLORS.active)
 
-      node = await getHelia()
+      node = await createHelia()
 
       setHelia(node)
     }

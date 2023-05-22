@@ -1,5 +1,5 @@
+import { createHelia } from 'helia'
 import { React, useState, useEffect } from 'react'
-import getHelia from '../lib/get-helia.js'
 
 const IpfsComponent = () => {
   const [id, setId] = useState(null)
@@ -10,7 +10,7 @@ const IpfsComponent = () => {
     const init = async () => {
       if (helia) return
 
-      const heliaNode = await getHelia()
+      const heliaNode = await createHelia()
 
       const nodeId = heliaNode.libp2p.peerId.toString()
       const nodeIsOnline = heliaNode.libp2p.isStarted()
