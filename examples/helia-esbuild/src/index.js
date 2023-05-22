@@ -1,5 +1,5 @@
 import { unixfs } from '@helia/unixfs'
-import { createNode } from './helia.js'
+import { createHelia } from 'helia'
 
 const App = async () => {
   const DOM = {
@@ -99,7 +99,7 @@ const App = async () => {
 
   showStatus('Creating Helia node', COLORS.active)
 
-  const helia = await createNode()
+  const helia = await createHelia()
 
   showStatus('Helia node ready', COLORS.active)
 
