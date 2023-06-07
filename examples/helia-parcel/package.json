@@ -24,6 +24,7 @@
     "@playwright/test": "^1.12.3",
     "parcel": "^2.9.1",
     "playwright": "^1.12.3",
+    "process": "^0.11.10",
     "rimraf": "^5.0.0",
     "test-ipfs-example": "^1.0.0"
   },
