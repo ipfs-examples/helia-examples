@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bundle Helia with parcel</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"
+      crossorigin
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@helia/css@1.0.1/helia.css"
+      crossorigin
+    />
+    <link rel="shortcut icon" href="https://unpkg.com/@helia/css@1.0.1/logos/favicon.ico" />
+    <link rel="stylesheet" href="./style.css" />
+
+    <script type="module" defer src="./index.js"></script>
+  </head>
+  <body class="montserrat f5">
+    <header class="flex items-center pa3 bg-navy">
+      <a href="https://github.com/ipfs/helia" title="home">
+        <img
+          alt="Helia logo"
+          src="https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-wordmark.svg"
+          style="height: 60px"
+          class="v-top"
+        />
+      </a>
+    </header>
+
+    <main class="pa4-l bg-snow mw7 mv5 center pa4">
+      <h1 class="pa0 f2 ma0 mb4 navy tc">Add data to Helia</h1>
+
+      <form id="add-file">
+        <label for="file-name" class="f5 ma0 pb2 navy fw4 db">Name</label>
+        <input
+          class="input-reset bn black-80 bg-white pa3 w-100 mb3"
+          id="file-name"
+          name="file-name"
+          type="text"
+          placeholder="file.txt"
+          required
+        />
+
+        <label for="file-content" class="f5 ma0 pb2 navy fw4 db">Content</label>
+        <input
+          class="input-reset bn black-80 bg-white pa3 w-100 mb3 ft"
+          id="file-content"
+          name="file-content"
+          type="text"
+          placeholder="Hello world"
+          required
+        />
+
+        <button
+          class="
+            button-reset
+            pv3
+            tc
+            bn
+            bg-animate bg-black-80
+            hover-bg-aqua
+            white
+            pointer
+            w-100
+          "
+          id="add-submit"
+          type="submit"
+        >
+          Add file
+        </button>
+      </form>
+
+      <h3>Output</h3>
+
+      <div class="window">
+        <div id="terminal" class="terminal">
+          <div id="output"></div>
+        </div>
+      </div>
+
+      <h3>Listening addresses</h3>
+
+      <div class="window">
+        <div id="multiaddrs" class="terminal"></div>
+      </div>
+
+      <h3>Peers</h3>
+
+      <div class="window">
+        <div id="peers" class="terminal"></div>
+      </div>
+
+      <h3>Dial Queue</h3>
+
+      <div class="window">
+        <div id="dialQueue" class="terminal"></div>
+      </div>
+    </main>
+  </body>
+</html>

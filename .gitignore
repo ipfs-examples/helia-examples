@@ -11,3 +11,4 @@ yarn.lock
 .vscode
 test-results
 playwright-report
+.parcel-cache
