@@ -1,0 +1,34 @@
+{
+  "name": "helia-parcel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bundle Helia with parcel",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "scripts": {
+    "clean": "rimraf ./dist ./.cache ./.parcel-cache",
+    "build": "parcel build src/index.html",
+    "serve": "parcel serve src/index.html --open -p 8888",
+    "start": "npm run serve",
+    "test": "npm run build && playwright test test"
+  },
+  "browserslist": "last 1 Chrome version",
+  "dependencies": {
+    "@helia/unixfs": "^1.2.1",
+    "helia": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@playwright/test": "^1.12.3",
+    "parcel": "^2.9.1",
+    "playwright": "^1.12.3",
+    "process": "^0.11.10",
+    "rimraf": "^5.0.0",
+    "test-ipfs-example": "^1.0.0"
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
+  }
+}
