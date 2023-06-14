@@ -57,6 +57,7 @@ Feel free to jump directly into the examples, however going through the followin
 - [Helia-101](/examples/helia-101/): Spawn a Helia node, add a file and cat the file
 - [Helia CommonJS](/examples/helia-cjs/): Just like Helia-101, but with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) instead of [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 - [Helia via CDNs](/examples/helia-script-tag/): A simple proof-of-concept to distributing and using helia using `<script>` tags
+- [Creating a CAR file with Helia](/examples/helia-create-car/): An example showing how to create a car file with helia. CAR files are useful for making filecion deals.
 
 #### Frameworks
 
