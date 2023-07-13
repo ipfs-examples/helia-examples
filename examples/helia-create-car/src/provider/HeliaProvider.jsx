@@ -63,5 +63,5 @@ export const HeliaProvider = ({ children }) => {
 }
 
 HeliaProvider.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.node.isRequired
 }

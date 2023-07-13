@@ -77,11 +77,8 @@ export default function CarCreator () {
     const asyncFn = async () => {
       let rootCID = await heliaFs.addDirectory()
       for await (const file of files) {
-        console.log('current rootCID.toString(): ', rootCID.toString())
         const fileCid = await heliaFs.addBytes(await readFileAsUint8Array(file))
-        console.log('fileCid.toString(): ', fileCid.toString())
         rootCID = await heliaFs.cp(fileCid, rootCID, file.name)
-        console.log('new rootCID.toString(): ', rootCID.toString())
       }
 
       const { writer, out } = await CarWriter.create(rootCID)

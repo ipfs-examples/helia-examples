@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React } from 'react'
 import './App.css'
 import CarCreator from '@/components/CarCreator'
 import FileUploader from '@/components/FileUploader'
@@ -6,10 +6,14 @@ import { useHelia } from '@/hooks/useHelia'
 import FileProvider from '@/provider/FileProvider'
 
 function App () {
-  const [text, setText] = useState('')
   const { error, starting } = useHelia()
 
-  const statusColor = error ? 'red' : starting ? 'yellow' : 'green'
+  let statusColor = 'green'
+  if (error) {
+    statusColor = 'red'
+  } else if (starting) {
+    statusColor = 'yellow'
+  }
 
   return (
     <div className="App">
