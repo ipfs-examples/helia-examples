@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react'
-import { useFiles } from '@/hooks/useFiles';
+import { useFiles } from '@/hooks/useFiles'
 
 /**
  * @returns {React.FunctionComponent}
  */
-export default function FileUploader() {
+export default function FileUploader () {
   const { files, setFiles } = useFiles()
   const handleFileEvent = useCallback((e) => {
     const filesToUpload = Array.prototype.slice.call(e.target.files)

@@ -1,9 +1,9 @@
 import { React, useState } from 'react'
 import './App.css'
-import { useHelia } from '@/hooks/useHelia'
-import FileUploader from '@/components/FileUploader'
-import FileProvider from '@/provider/FileProvider'
 import CarCreator from '@/components/CarCreator'
+import FileUploader from '@/components/FileUploader'
+import { useHelia } from '@/hooks/useHelia'
+import FileProvider from '@/provider/FileProvider'
 
 function App () {
   const [text, setText] = useState('')

@@ -4,11 +4,11 @@ export const FileContext = createContext({
   files: /** @type {File[]} */([]),
   setFiles: /** @type {(files: File[]) => void} */() => {}
 })
-export default function FileProvider({ children }) {
+export default function FileProvider ({ children }) {
   const [files, setFiles] = useState(/** @type {File[]} */([]))
   const providerValue = {
     files,
-    setFiles,
+    setFiles
   }
   return (
     <FileContext.Provider value={providerValue}>

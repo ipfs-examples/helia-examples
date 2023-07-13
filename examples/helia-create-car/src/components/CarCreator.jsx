@@ -1,11 +1,10 @@
 // @ts-check
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { car } from '@helia/car'
 import { unixfs } from '@helia/unixfs'
 import { CarWriter } from '@ipld/car/writer'
-
-import { useFiles } from '../hooks/useFiles';
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useFiles } from '../hooks/useFiles'
 import { useHelia } from '../hooks/useHelia'
 
 /**
@@ -13,31 +12,31 @@ import { useHelia } from '../hooks/useHelia'
  * @param {File} file
  * @returns {Promise<Uint8Array>}
  */
-async function readFileAsUint8Array(file) {
+async function readFileAsUint8Array (file) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+    const reader = new FileReader()
 
     reader.onload = () => {
-      const arrayBuffer = reader.result;
+      const arrayBuffer = reader.result
       if (arrayBuffer != null) {
         if (typeof arrayBuffer === 'string') {
-          const uint8Array = new TextEncoder().encode(arrayBuffer);
-          resolve(uint8Array);
+          const uint8Array = new TextEncoder().encode(arrayBuffer)
+          resolve(uint8Array)
         } else if (arrayBuffer instanceof ArrayBuffer) {
-          const uint8Array = new Uint8Array(arrayBuffer);
-          resolve(uint8Array);
+          const uint8Array = new Uint8Array(arrayBuffer)
+          resolve(uint8Array)
         }
         return
       }
       reject(new Error('arrayBuffer is null'))
-    };
+    }
 
     reader.onerror = (error) => {
-      reject(error);
-    };
+      reject(error)
+    }
 
-    reader.readAsArrayBuffer(file);
-  });
+    reader.readAsArrayBuffer(file)
+  })
 }
 
 /**
@@ -45,16 +44,16 @@ async function readFileAsUint8Array(file) {
  * @param {AsyncIterable<Uint8Array>} carReaderIterable
  * @returns {Promise<Blob>}
  */
-async function carWriterOutToBlob(carReaderIterable) {
+async function carWriterOutToBlob (carReaderIterable) {
   const parts = []
   for await (const part of carReaderIterable) {
     parts.push(part)
   }
-  return new Blob(parts, {type: 'application/car'})
+  return new Blob(parts, { type: 'application/car' })
 }
 
-export default function CarCreator() {
-  const {files} = useFiles()
+export default function CarCreator () {
+  const { files } = useFiles()
   const { helia } = useHelia()
   const [carBlob, setCarBlob] = useState(/** @type {null | Blob} */(null))
   const [rootCID, setRootCID] = useState(/** @type {null | import('multiformats').CID} */(null))
@@ -63,7 +62,6 @@ export default function CarCreator() {
       return null
     }
     return car(helia)
-
   }, [helia])
   const heliaFs = useMemo(() => {
     if (helia == null) {
@@ -72,7 +70,6 @@ export default function CarCreator() {
     return unixfs(helia)
   }, [helia])
 
-
   useEffect(() => {
     if (heliaFs == null || heliaCar == null) {
       return
@@ -80,11 +77,11 @@ export default function CarCreator() {
     const asyncFn = async () => {
       let rootCID = await heliaFs.addDirectory()
       for await (const file of files) {
-        console.log(`current rootCID.toString(): `, rootCID.toString());
+        console.log('current rootCID.toString(): ', rootCID.toString())
         const fileCid = await heliaFs.addBytes(await readFileAsUint8Array(file))
-        console.log(`fileCid.toString(): `, fileCid.toString());
+        console.log('fileCid.toString(): ', fileCid.toString())
         rootCID = await heliaFs.cp(fileCid, rootCID, file.name)
-        console.log(`new rootCID.toString(): `, rootCID.toString());
+        console.log('new rootCID.toString(): ', rootCID.toString())
       }
 
       const { writer, out } = await CarWriter.create(rootCID)
@@ -109,9 +106,8 @@ export default function CarCreator() {
     downloadEl.href = blobUrl
     downloadEl.download = 'test.car'
     document.body.appendChild(downloadEl)
-    downloadEl.click();
+    downloadEl.click()
     window.URL.revokeObjectURL(blobUrl)
-
   }, [carBlob])
 
   if (rootCID == null || files.length === 0) {
