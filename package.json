@@ -47,8 +47,5 @@
   },
   "@parcel/resolver-default": {
     "packageExports": true
-  },
-  "dependencies": {
-    "helia": "^1.3.7"
   }
 }
