@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { React } from 'react'
 import IpfsComponent from '../components/ipfs'
 import styles from '../styles/Home.module.css'
