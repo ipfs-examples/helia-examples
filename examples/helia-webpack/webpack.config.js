@@ -26,6 +26,9 @@ const paths = {
   public: path.resolve(__dirname, './public')
 }
 
+/**
+ * @type {Partial<import('webpack').Configuration>}
+ */
 const prod = {
   mode: 'production',
   devtool: false,
@@ -43,6 +46,9 @@ const prod = {
   target: 'browserslist'
 }
 
+/**
+ * @type {Partial<import('webpack').Configuration>}
+ */
 const dev = {
   // Set the mode to development or production
   mode: 'development',
@@ -73,6 +79,9 @@ const dev = {
   ]
 }
 
+/**
+ * @type {Partial<import('webpack').Configuration>}
+ */
 const common = {
 // Where webpack looks to start building the bundle
   entry: [paths.src + '/index.js'],
