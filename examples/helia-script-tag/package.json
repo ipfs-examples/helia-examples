@@ -11,7 +11,7 @@
     "build": "vite build",
     "serve": "vite dev --port 8888",
     "start": "npm run serve",
-    "test": "npm run build && playwright test tests"
+    "test": "npm run build && test-browser-example test"
   },
   "browserslist": "last 1 Chrome version",
   "devDependencies": {
@@ -19,12 +19,8 @@
     "@playwright/test": "^1.12.3",
     "playwright": "^1.12.3",
     "process": "^0.11.10",
-    "rimraf": "^4.4.0",
-    "test-util-ipfs-example": "^1.0.2",
-    "util": "^0.12.4",
+    "rimraf": "^5.0.0",
+    "test-ipfs-example": "^1.0.0",
     "vite": "^4.2.1"
-  },
-  "dependencies": {
-    "@chainsafe/libp2p-noise": "^11.0.1"
   }
 }

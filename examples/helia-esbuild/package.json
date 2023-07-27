@@ -9,31 +9,22 @@
   "author": "",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "mkdir -p dist && cp src/index.html src/style.css src/ipfs-logo.svg src/favicon.ico dist && node esbuild.js",
+    "build": "mkdir -p dist && cp src/index.html src/style.css dist && node esbuild.js",
     "start": "npm run build && esbuild --servedir=dist",
-    "test": "npm run build && playwright test tests"
+    "test": "npm run build && test-browser-example test"
   },
   "browserslist": "last 1 Chrome version",
   "dependencies": {
-    "@chainsafe/libp2p-noise": "^11.0.4",
-    "@chainsafe/libp2p-yamux": "^3.0.7",
-    "@helia/unixfs": "^1.2.1",
-    "@libp2p/bootstrap": "^6.0.3",
-    "@libp2p/websockets": "^5.0.8",
-    "@libp2p/webtransport": "^1.0.11",
-    "blockstore-core": "^4.1.0",
-    "datastore-core": "^9.1.1",
-    "helia": "^1.0.0",
-    "libp2p": "^0.43.3"
+    "@helia/unixfs": "^1.4.1",
+    "helia": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
     "@playwright/test": "^1.12.3",
-    "esbuild": "^0.15.7",
+    "esbuild": "^0.17.16",
     "playwright": "^1.12.3",
     "process": "^0.11.10",
-    "rimraf": "^3.0.2",
-    "test-util-ipfs-example": "^1.0.2",
-    "util": "^0.12.4"
+    "rimraf": "^5.0.0",
+    "test-ipfs-example": "^1.0.0"
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import { createHelia } from 'helia'
 import { unixfs } from '@helia/unixfs'
+import { createHelia } from 'helia'
 
 // create a Helia node
 const helia = await createHelia()

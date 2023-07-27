@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/ipfs-examples/helia-examples#readme",
   "devDependencies": {
-    "aegir": "^38.1.0",
+    "aegir": "^39.0.6",
+    "eslint-config-ipfs": "^4.0.3",
     "eslint-plugin-react": "^7.32.2"
   },
   "workspaces": [
@@ -43,5 +44,8 @@
         "version": "detect"
       }
     }
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
   }
 }

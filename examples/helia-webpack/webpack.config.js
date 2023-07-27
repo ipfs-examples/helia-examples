@@ -1,10 +1,10 @@
 import path from 'path'
-import webpack from 'webpack'
-import { merge } from 'webpack-merge'
 import { fileURLToPath } from 'url'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
+import webpack from 'webpack'
+import { merge } from 'webpack-merge'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -26,6 +26,9 @@ const paths = {
   public: path.resolve(__dirname, './public')
 }
 
+/**
+ * @type {Partial<import('webpack').Configuration>}
+ */
 const prod = {
   mode: 'production',
   devtool: false,
@@ -43,6 +46,9 @@ const prod = {
   target: 'browserslist'
 }
 
+/**
+ * @type {Partial<import('webpack').Configuration>}
+ */
 const dev = {
   // Set the mode to development or production
   mode: 'development',
@@ -73,6 +79,9 @@ const dev = {
   ]
 }
 
+/**
+ * @type {Partial<import('webpack').Configuration>}
+ */
 const common = {
 // Where webpack looks to start building the bundle
   entry: [paths.src + '/index.js'],
@@ -108,7 +117,6 @@ const common = {
     // Generates deprecation warning: https://github.com/jantimon/html-webpack-plugin/issues/1501
     new HtmlWebpackPlugin({
       title: 'Helia bundle by Webpack',
-      favicon: paths.public + '/favicon.ico',
       template: paths.public + '/index.html', // template file
       filename: 'index.html', // output file,
       minify: false

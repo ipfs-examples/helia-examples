@@ -23,6 +23,10 @@
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
+  - [Examples](#examples)
+    - [Basics](#basics)
+    - [Frameworks](#frameworks)
+    - [Bundlers](#bundlers)
   - [Prerequisites](#prerequisites)
 - [IPFS Tutorials at ProtoSchool](#ipfs-tutorials-at-protoschool)
 - [Documentation](#documentation)
@@ -43,6 +47,28 @@
 - Need help? Please ask 'How do I?' questions on https://discuss.ipfs.io
 
 ## Getting Started
+
+### Examples
+
+Feel free to jump directly into the examples, however going through the following sections will help build context and background knowledge.
+
+#### Basics
+
+- [Helia-101](/examples/helia-101/): Spawn a Helia node, add a file and cat the file
+- [Helia CommonJS](/examples/helia-cjs/): Just like Helia-101, but with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) instead of [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+- [Helia via CDNs](/examples/helia-script-tag/): A simple proof-of-concept to distributing and using helia using `<script>` tags
+
+#### Frameworks
+
+- [Helia with Electron](/examples/helia-electron/): Create an Electron app with helia
+- [Helia with Next.js](/examples/helia-nextjs/): Create a Next.js app with helia
+- [Helia with Vue](/examples/helia-vue/): Create a vue app with helia
+- [Helia with Vite](/examples/helia-vite/): Create a react+vite app with helia
+
+#### Bundlers
+
+- [Helia with esbuild](/examples/helia-esbuild/): Bundle helia with esbuild
+- [Helia with Webpack](/examples/helia-webpack/): Bundle helia with webpack
 
 ### Prerequisites
 

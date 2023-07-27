@@ -1,5 +1,5 @@
-import { React } from 'react'
 import PropTypes from 'prop-types'
+import { React } from 'react'
 import '../styles/globals.css'
 
 function MyApp ({ Component, pageProps }) {
@@ -7,7 +7,7 @@ function MyApp ({ Component, pageProps }) {
 }
 
 MyApp.propTypes = {
-  Component: PropTypes.object,
+  Component: PropTypes.func,
   pageProps: PropTypes.object
 }
 

@@ -174,7 +174,7 @@ Commonly used datastore implementations are:
 
 The final example is [301-networking.js](./301-networking.js).
 
-Adding blocks to your local blockstore is great but when you add a libp2p instance to your Helia config you unlock the full power of the distributed web.
+Adding blocks to your local blockstore is great but using your Helia node's libp2p instance allows you to unlock the full power of the distributed web.
 
 With libp2p configured you can retrieve blocks from remote peers, and those peers can retrieve blocks from you.
 
@@ -184,6 +184,7 @@ With libp2p configured you can retrieve blocks from remote peers, and those peer
 
 ```js
 import { createLibp2p } from 'libp2p'
+import { identifyService } from 'libp2p/identify'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { webSockets } from '@libp2p/websockets'
@@ -212,19 +213,22 @@ const libp2p = await createLibp2p({
         "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
       ]
     })
-  ]
+  ],
+  services: {
+    identify: identifyService()
+  }
 })
 ```
 
 ### Putting it all together
 
-Once your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
+Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
 
 ```bash
 > node 301-networking.js
 
 Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
-# Copy that hash and load it on the gateway, here is a prefiled url:
+# Copy that hash and load it on the gateway, here is a prefilled url:
 # https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 ```
 

@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react'
-import ipfsLogo from './ipfs-logo.svg'
-import { getHelia } from './get-helia.js'
 import { unixfs } from '@helia/unixfs'
+import { createHelia } from 'helia'
+import React, { useState, useRef } from 'react'
 
 function App () {
   const [output, setOutput] = useState([])
@@ -37,7 +36,7 @@ function App () {
     if (!helia) {
       showStatus('Creating Helia node...', COLORS.active)
 
-      node = await getHelia()
+      node = await createHelia()
 
       setHelia(node)
     }
@@ -91,17 +90,22 @@ function App () {
 
   return (
     <>
-      <header className='flex items-center pa3 bg-navy bb bw3 b--aqua'>
-        <a href='https://ipfs.io' title='home'>
-          <img alt='IPFS logo' src={ipfsLogo} style={{ height: 50 }} className='v-top' />
+      <header className="flex items-center pa3 bg-navy">
+        <a href="https://github.com/ipfs/helia" title="home">
+          <img
+            alt="Helia logo"
+            src="https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-wordmark.svg"
+            style={{ height: 60 }}
+            className="v-top"
+          />
         </a>
       </header>
 
       <main className="pa4-l bg-snow mw7 mv5 center pa4">
-        <h1 className="pa0 f2 ma0 mb4 aqua tc">Add data to Helia from the browser</h1>
+        <h1 className="pa0 f2 ma0 mb4 navy tc">Add data to Helia</h1>
 
         <form id="add-file" onSubmit={handleSubmit}>
-          <label htmlFor="file-name" className="f5 ma0 pb2 aqua fw4 db">Name</label>
+          <label htmlFor="file-name" className="f5 ma0 pb2 navy fw4 db">Name</label>
           <input
             className="input-reset bn black-80 bg-white pa3 w-100 mb3"
             id="file-name"
@@ -112,7 +116,7 @@ function App () {
             value={fileName} onChange={(e) => setFileName(e.target.value)}
           />
 
-          <label htmlFor="file-content" className="f5 ma0 pb2 aqua fw4 db">Content</label>
+          <label htmlFor="file-content" className="f5 ma0 pb2 navy fw4 db">Content</label>
           <input
             className="input-reset bn black-80 bg-white pa3 w-100 mb3 ft"
             id="file-content"

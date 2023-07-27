@@ -26,6 +26,7 @@ jobs:
           - helia-electron
           - helia-esbuild
           - helia-nextjs
+          - helia-parcel
           - helia-script-tag
           - helia-vite
           - helia-vue
@@ -82,6 +83,7 @@ jobs:
           - helia-create-react-app
           - helia-electron
           - helia-esbuild
+          - helia-parcel
           - helia-nextjs
           - helia-script-tag
           - helia-vite

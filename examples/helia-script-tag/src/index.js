@@ -1,7 +1,5 @@
 /* global Helia, BlockstoreCore, DatastoreCore, HeliaUnixfs */
 
-import { createLibp2pInstance } from './createLibp2pInstance.js'
-
 const statusValueEl = document.getElementById('statusValue')
 const discoveredPeerCountEl = document.getElementById('discoveredPeerCount')
 const connectedPeerCountEl = document.getElementById('connectedPeerCount')
@@ -19,14 +17,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   helia.libp2p.addEventListener('peer:connect', (evt) => {
-    addToLog(`Connected to ${evt.detail.remotePeer.toString()}`)
+    addToLog(`Connected to ${evt.detail.toString()}`)
   })
   helia.libp2p.addEventListener('peer:disconnect', (evt) => {
-    addToLog(`Disconnected from ${evt.detail.remotePeer.toString()}`)
+    addToLog(`Disconnected from ${evt.detail.toString()}`)
   })
 
   setInterval(() => {
-    statusValueEl.innerHTML = helia.libp2p.started ? 'Online' : 'Offline'
+    statusValueEl.innerHTML = helia.libp2p.isStarted() ? 'Online' : 'Offline'
     updateConnectedPeers()
     updateDiscoveredPeers()
   }, 500)
@@ -73,7 +71,6 @@ const addToLog = (msg) => {
 }
 
 let heliaInstance = null
-let libp2pInstance = null
 const instantiateHeliaNode = async () => {
   // application-specific data lives in the datastore
   const datastore = new DatastoreCore.MemoryDatastore()
@@ -83,18 +80,9 @@ const instantiateHeliaNode = async () => {
     return heliaInstance
   }
 
-  if (libp2pInstance == null) {
-    /**
-     * @see https://github.com/libp2p/js-libp2p/blob/master/doc/CONFIGURATION.md#customizing-libp2p
-     */
-    libp2pInstance = await createLibp2pInstance({ datastore })
-    addToLog('Created LibP2P instance')
-  }
-
   heliaInstance = await Helia.createHelia({
     datastore,
-    blockstore,
-    libp2p: libp2pInstance
+    blockstore
   })
   addToLog('Created Helia instance')
 

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-import { createHelia } from 'helia'
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
+import { createHelia } from 'helia'
 
 // the blockstore is where we store the blocks that make up files. this blockstore
 // stores everything in-memory - other blockstores are available:
