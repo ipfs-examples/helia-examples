@@ -4,14 +4,14 @@
   </a>
 </p>
 
-<h3 align="center"><b>Using Helia via <code><script/></code> tags from CDN</b></h3>
+<h3 align="center">Helia with parcel</h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
-  .
-  <a href="https://codesandbox.io/p/sandbox/helia-script-tag-vptxml">View codesandbox Demo</a>
+  ·
+  <a href="https://codesandbox.io/s/github/ipfs-examples/helia-parcel">View Demo</a>
   ·
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·
@@ -20,6 +20,7 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -55,37 +56,16 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm start
 ```
 
-Then open your browser to http://localhost:8888.
+Now open your browser at `http://localhost:8888`
 
 ## Usage
 
-This example is basic demo and proof of concept for using helia via script tags. Other examples use build-scripts that may be too complicated for your needs. If you have a website where you manage your dependencies via script tags in an HTML file, you may benefit from looking at this example instead of the others at https://github.com/ipfs-examples/helia-examples/tree/main/examples.
+In this example, you will find a boilerplate you can use to guide yourself into bundling js-ipfs with [parcel](https://parceljs.org/), so that you can use it in your own web app!
 
-If you are seeing errors like `ERR_REQUIRE_ESM` or `ERR_PACKAGE_PATH_NOT_EXPORTED` when trying to use this example, please check out `/examples/helia-cjs` instead.
+You should see the following:
 
-The main areas of focus should be two files: `index.html` and `src/index.js`.
-
-If you're confused about what the different methods under 'Some Suggestions' are doing, you may want to check out [helia-101](https://github.com/ipfs-examples/helia-101) for a full breakdown of the code.
-
-### Using the example
-
-The page you will see is broken up into 4 sections:
-
-1. The intro: title and global variables you can play with in your browser console
-2. Node Status: The status of the helia node, which is updated every 500ms
-   * Helia will start up on page load. You can use the 'Start Helia' and 'Stop Helia' to call `helia.start()` and `helia.stop()` respectively.
-   * Updated content (look for `nodeUpdateInterval = ` in `src/index.js` to change or edit what's updated):
-      * Node Status - shows either "Online" or "Offline".
-      * ID - Shows the PeerId of your Helia node.
-      * Discovered Peers - The count of peers discovered. Check the event log at the bottom of the page to see their IDs.
-      * Connected Peers - The count of peers your helia node is connected to. Also, a list of their `PeerId`s will render if the count is > 0.
-3. Suggestions: Try out these code snippets in your browser terminal, in order.
-4. Event Log: Elapsed-TimeStamped messages showing you some of what Helia and it's managed libp2p node are doing. This event log shows:
-   * instantiation of the libp2p instance passed to helia
-   * instantiation of the Helia node
-   * peer discovery
-   * peer connection
-   * peer disconnection
+![](./img/1.png)
+![](./img/2.png)
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
@@ -123,7 +103,3 @@ Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of
   b. ensure quality, and
   c. reduce possible future bugs
 - **Add tests**. There can never be enough tests
-
-[cid]: https://docs.ipfs.tech/concepts/content-addressing  "Content Identifier"
-[Uint8Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
-[libp2p]: https://libp2p.io
