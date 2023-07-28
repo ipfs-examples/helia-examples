@@ -115,9 +115,9 @@ export default function CarCreator () {
     <div style={{ borderRadius: '3px', padding: '1rem' }}>
       <div>
         <b>Car file CID: </b>
-        <span>{rootCID.toString()}</span>
+        <span id="carFileCID">{rootCID.toString()}</span>
       </div>
-      <button onClick={downloadCarFile}>Download Car file</button>
+      <button id="downloadCarFile" onClick={downloadCarFile}>Download Car file</button>
     </div>
   )
 }

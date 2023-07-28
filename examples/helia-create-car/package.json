@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@helia/car": "^1.0.0",
-    "@helia/unixfs": "^1.2.1",
+    "@helia/unixfs": "^1.4.1",
     "@ipld/car": "^5.1.1",
-    "helia": "^1.0.0",
+    "helia": "^1.3.8",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
