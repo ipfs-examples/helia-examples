@@ -68,11 +68,11 @@ Now open your browser at `http://localhost:3000`
 
 ## Usage
 
-In this example, you will find a boilerplate you can use to guide yourself into creating a react+vite app with helia, this provides a pattern to reuse the same client across components with the context API and suggests how to integrate it with custom hooks
+In this example, you will find a boilerplate you can use to guide yourself into creating a car file with helia.
 
 You should see the following:
 
-![](./public/hello-helia.gif)
+![](./public/helia-create-car-demo.gif)
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
