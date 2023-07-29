@@ -52,7 +52,7 @@ test.describe('Use Helia With react and vite', () => {
     // select the files to upload
     await page.setInputFiles(fileInput, filesToUpload)
 
-    // make sure the output CID matchs
+    // make sure the output car CID matches the expected CID
     await page.waitForSelector(cidOutput)
     const cidOutputContent = await page.textContent(cidOutput)
 
@@ -66,21 +66,24 @@ test.describe('Use Helia With react and vite', () => {
 
     // car available for debugging
     await download.saveAs('./test-results/helia-create-car-demo.car')
+    const reader = await CarReader.fromIterable(createReadStream('./test-results/helia-create-car-demo.car'))
 
-    const reader = await CarReader.fromIterable(await download.createReadStream())
-    // ensure the CID root matches
+    // expect the root of the car file we downloaded and then created from the saved file, to match the
+    // car file CID listed on the page.
     const roots = await reader.getRoots()
-    expect(roots.toString()).toContain(expectedCarCID)
+    expect(roots[0].toString()).toStrictEqual(cidOutputContent)
 
     // get all the CIDs in the car file
     const carFileCids = []
-    for await (const cid of await reader.cids()) {
+    for await (const cid of reader.cids()) {
       carFileCids.push(cid.toString())
     }
-
-    // ensure the file CIDs are included in the car file
-    expectedCIDs.forEach((cid) => {
-      expect(carFileCids).toContain(cid)
-    })
+    expect(carFileCids).toStrictEqual([
+      'bafybeifsknwjwoby7gmnqlzj236rcq47q5pskkum7svsevsod5a74caxry', // root CID
+      expectedCIDs[0], // CID for filesToUpload[0]
+      expectedCIDs[1], // CID for filesToUpload[1]
+      'bafkreida4xmb4fq4zgkm42xrox4oshesowi35e66kfiqsyv6xerymi3coq',
+      'bafkreicz7xeu5jx77kng5tbieuh2bp7ffzjzwn77wpwiy7d3oy6mrbbd4e'
+    ])
   })
 })
