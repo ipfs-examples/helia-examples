@@ -92,6 +92,14 @@ export default function CarCreator () {
       setRootCID(rootCID)
     }
     asyncFn()
+
+    return () => {
+      // this hook has been detached for some reason.. clear the state
+      // highly likely that the files provided have changed and we should get rid of whatever CID and car blob we
+      // may have had previously.
+      setCarBlob(null)
+      setRootCID(null)
+    }
   }, [files, heliaFs, heliaCar])
 
   const downloadCarFile = useCallback(async () => {
