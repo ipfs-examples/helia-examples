@@ -53,6 +53,8 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ```console
 > npm install
+
+// then
 > npm start
 or
 > npm run dev
