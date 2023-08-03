@@ -15,7 +15,7 @@ concurrency:
 jobs:
   examples:
     runs-on: ubuntu-latest
-    name: Test ${{ matrix.project }} on {{ matrix.runtime }}
+    name: Test ${{ matrix.project }} on ${{ matrix.runtime }}
     strategy:
       fail-fast: false
       matrix:
