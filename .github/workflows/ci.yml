@@ -15,11 +15,11 @@ concurrency:
 jobs:
   examples:
     runs-on: ubuntu-latest
-    name: Test ${{ matrix.project }}
+    name: Test ${{ matrix.project }} on {{ matrix.runtime }}
     strategy:
       fail-fast: false
       matrix:
-        runtimes: [node, bun]
+        runtime: [node, bun]
         project:
           - helia-101
           - helia-cjs
@@ -37,11 +37,11 @@ jobs:
         working-directory: examples/${{ matrix.project }}
     steps:
       - uses: actions/checkout@v3
-      - if: matrix.runtimes == 'node'
+      - if: matrix.runtime == 'node'
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
-      - if: matrix.runtimes == 'bun'
+      - if: matrix.runtime == 'bun'
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
