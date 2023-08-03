@@ -45,12 +45,26 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Install dependencies
+      - if: matrix.runtime == 'node'
+        name: Install dependencies
         run: npm install
-      - name: Install Playwright
+      - if: matrix.runtime == 'bun'
+        name: Install dependencies
+        run: bun install
+      - if: matrix.runtime == 'node'
+        name: Install Playwright
         run: npx -y playwright install --with-deps
-      - name: Run tests
+      - if: matrix.runtime == 'bun'
+        name: Install Playwright
+        run: bun add --global playwright --with-deps && playwright
+      - if: matrix.runtime == 'node'
+        name: Run tests
         run: npm run test
+        env:
+          CI: true
+      - if: matrix.runtime == 'bun'
+        name: Run tests
+        run: bun run test
         env:
           CI: true
 
