@@ -19,6 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        runtimes: [node, bun]
         project:
           - helia-101
           - helia-cjs
@@ -36,9 +37,14 @@ jobs:
         working-directory: examples/${{ matrix.project }}
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - if: matrix.runtimes == 'node'
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
+      - if: matrix.runtimes == 'bun'
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
