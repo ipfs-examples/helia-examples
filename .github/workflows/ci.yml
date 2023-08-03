@@ -56,7 +56,7 @@ jobs:
         run: npx -y playwright install --with-deps
       - if: matrix.runtime == 'bun'
         name: Install Playwright
-        run: bun add --global playwright --with-deps && playwright
+        run: bun add --global playwright && playwright install --with-deps
       - if: matrix.runtime == 'node'
         name: Run tests
         run: npm run test
