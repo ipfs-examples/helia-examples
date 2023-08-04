@@ -107,10 +107,7 @@ Contributions are what make the open source community such an amazing place to b
 1. Create a folder in this repo under `examples`, eg. `./examples/helia-transfer-files`
 1. Add the files and tests that make up the example
 1. Add the folder name to the `project-list` lists in the `examples` and `push-changes` jobs in this repositories `./github/ci.yml`
-1. Fork the [example-template-fork-&-go](https://github.com/ipfs-examples/example-fork-go-template) into the `ipfs-examples` org with the same name as the example folder, e.g. `https://github.com/ipfs-examples/helia-transfer-files`
-   - Turn off issues/wiki/discussions etc in the new fork
-   - If you do not have permissions to do this, please say so in the PR you open to `ipfs-examples/helia-examples` and someone will help you
-   - Set Actions > General > Workflow permissions to "Read and write permissions" if not already
+1. Create a PR to https://github.com/ipfs-examples/github-mgmt similar to https://github.com/ipfs-examples/github-mgmt/pull/22 to facilitate the addition of your project as an isolated repo.
 
 #### Examples must
 
