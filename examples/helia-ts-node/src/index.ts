@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { createHelia } from 'helia'
 
 const node = await createHelia()
