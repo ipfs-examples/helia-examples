@@ -85,6 +85,7 @@ jobs:
           - helia-parcel
           - helia-nextjs
           - helia-script-tag
+          - helia-ts-node
           - helia-vite
           - helia-vue
           - helia-webpack

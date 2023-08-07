@@ -27,6 +27,7 @@
     - [Basics](#basics)
     - [Frameworks](#frameworks)
     - [Bundlers](#bundlers)
+    - [Other tooling](#other-tooling)
   - [Prerequisites](#prerequisites)
 - [IPFS Tutorials at ProtoSchool](#ipfs-tutorials-at-protoschool)
 - [Documentation](#documentation)
@@ -70,6 +71,10 @@ Feel free to jump directly into the examples, however going through the followin
 
 - [Helia with esbuild](/examples/helia-esbuild/): Bundle helia with esbuild
 - [Helia with Webpack](/examples/helia-webpack/): Bundle helia with webpack
+
+#### Other tooling
+
+- [Helia with ts-node](/examples/helia-ts-node/): Run Helia using ts-node
 
 ### Prerequisites
 
