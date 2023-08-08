@@ -64,6 +64,7 @@ Feel free to jump directly into the examples, however going through the followin
 
 - [Helia with Electron](/examples/helia-electron/): Create an Electron app with helia
 - [Helia with Next.js](/examples/helia-nextjs/): Create a Next.js app with helia
+- [Helia with NestJS](/examples/helia-nestjs/): Create a NestJS app with helia
 - [Helia with Vue](/examples/helia-vue/): Create a vue app with helia
 - [Helia with Vite](/examples/helia-vite/): Create a react+vite app with helia
 
