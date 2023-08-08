@@ -76,7 +76,8 @@ Feel free to jump directly into the examples, however going through the followin
 
 #### Testing
 
-- [Helia with Jest](/examples/helia-jest/): Test Helia with jest
+- [Helia with Jest](/examples/helia-jest/): Test Helia with Jest
+- [Helia with Jest and TypeScript](/examples/helia-jest-typescript/): Test Helia with Jest and TypeScript
 
 #### Other tooling
 
