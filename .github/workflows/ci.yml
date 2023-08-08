@@ -24,6 +24,8 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-jest
+          - helia-jest-typescript
           - helia-nestjs
           - helia-nextjs
           - helia-parcel
@@ -85,6 +87,8 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-jest
+          - helia-jest-typescript
           - helia-nestjs
           - helia-parcel
           - helia-nextjs
