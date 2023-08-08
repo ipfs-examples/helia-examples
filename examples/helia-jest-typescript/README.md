@@ -16,7 +16,7 @@
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
 </p>
 
-## About
+## About
 
 [Jest](https://jestjs.io/) is a JavaScript testing framework that transpiles code on the fly to enable a fast-feedback testing cycle for the developer.
 
