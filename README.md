@@ -74,6 +74,7 @@ Feel free to jump directly into the examples, however going through the followin
 
 #### Other tooling
 
+- [Helia with TypeScript](/examples/helia-typescript/): Building Helia with TypeScript
 - [Helia with ts-node](/examples/helia-ts-node/): Run Helia using ts-node
 
 ### Prerequisites
