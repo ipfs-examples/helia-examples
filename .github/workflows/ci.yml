@@ -28,6 +28,7 @@ jobs:
           - helia-parcel
           - helia-script-tag
           - helia-ts-node
+          - helia-typescript
           - helia-vite
           - helia-vue
           - helia-webpack
@@ -87,6 +88,7 @@ jobs:
           - helia-nextjs
           - helia-script-tag
           - helia-ts-node
+          - helia-typescript
           - helia-vite
           - helia-vue
           - helia-webpack

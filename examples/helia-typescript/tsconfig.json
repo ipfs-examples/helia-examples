@@ -5,6 +5,10 @@
 
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+
+    // only necessary for the example linting check, your project may not need
+    // these settings
+    "strictNullChecks": true
   }
 }
