@@ -27,6 +27,7 @@
     - [Basics](#basics)
     - [Frameworks](#frameworks)
     - [Bundlers](#bundlers)
+    - [Testing](#testing)
     - [Other tooling](#other-tooling)
   - [Prerequisites](#prerequisites)
 - [IPFS Tutorials at ProtoSchool](#ipfs-tutorials-at-protoschool)
@@ -57,21 +58,26 @@ Feel free to jump directly into the examples, however going through the followin
 
 - [Helia-101](/examples/helia-101/): Spawn a Helia node, add a file and cat the file
 - [Helia CommonJS](/examples/helia-cjs/): Just like Helia-101, but with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) instead of [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
-- [Helia via CDNs](/examples/helia-script-tag/): A simple proof-of-concept to distributing and using helia using `<script>` tags
-- [Creating a CAR file with Helia](/examples/helia-create-car/): An example showing how to create a car file with helia. CAR files are useful for making filecion deals.
+- [Helia via CDNs](/examples/helia-script-tag/): A simple proof-of-concept to distributing and using Helia using `<script>` tags
+- [Creating a CAR file with Helia](/examples/helia-create-car/): An example showing how to create a car file with Helia. CAR files are useful for making filecion deals.
 
 #### Frameworks
 
-- [Helia with Electron](/examples/helia-electron/): Create an Electron app with helia
-- [Helia with Next.js](/examples/helia-nextjs/): Create a Next.js app with helia
-- [Helia with NestJS](/examples/helia-nestjs/): Create a NestJS app with helia
-- [Helia with Vue](/examples/helia-vue/): Create a vue app with helia
-- [Helia with Vite](/examples/helia-vite/): Create a react+vite app with helia
+- [Helia with Electron](/examples/helia-electron/): Create an Electron app with Helia
+- [Helia with Next.js](/examples/helia-nextjs/): Create a Next.js app with Helia
+- [Helia with NestJS](/examples/helia-nestjs/): Create a NestJS app with Helia
+- [Helia with Vue](/examples/helia-vue/): Create a vue app with Helia
+- [Helia with Vite](/examples/helia-vite/): Create a react+vite app with Helia
 
 #### Bundlers
 
-- [Helia with esbuild](/examples/helia-esbuild/): Bundle helia with esbuild
-- [Helia with Webpack](/examples/helia-webpack/): Bundle helia with webpack
+- [Helia with esbuild](/examples/helia-esbuild/): Bundle Helia with esbuild
+- [Helia with Webpack](/examples/helia-webpack/): Bundle Helia with webpack
+
+#### Testing
+
+- [Helia with Jest](/examples/helia-jest/): Test Helia with Jest
+- [Helia with Jest and TypeScript](/examples/helia-jest-typescript/): Test Helia with Jest and TypeScript
 
 #### Other tooling
 
@@ -145,7 +151,7 @@ Search `.github/workflows/test.yml` for the `test-examples` section and add a bl
   deps: helia@$PWD/packages/helia/dist
 ```
 
-The value of the `deps` key will vary depending on which modules from helia your example uses. Above we override the `helia` module, but your example may different deps.
+The value of the `deps` key will vary depending on which modules from Helia your example uses. Above we override the `helia` module, but your example may different deps.
 
 Please see the existing setup in `.github/workflows/test.yml` for how to ensure you are overriding the correct modules.
 

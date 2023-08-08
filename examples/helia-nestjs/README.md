@@ -26,8 +26,8 @@ A few changes to the default project config were necessary:
 
 1. Ensure TypeScript outputs ESM and not CJS
     - Please see the [helia-typescript](https://github.com/ipfs-examples/helia-typescript) example for more information
-2. Ensure Jest can run ESM tests
-    - Please see the [helia-jest](https://github.com/ipfs-examples/helia-jest) example for more information
+2. Ensure Jest can run TypeScript ESM tests
+    - Please see the [helia-jest-typescript](https://github.com/ipfs-examples/helia-jest-typescript) example for more information
 
 ## Getting Started
 
