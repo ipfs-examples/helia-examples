@@ -83,6 +83,7 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-nestjs
           - helia-parcel
           - helia-nextjs
           - helia-script-tag
