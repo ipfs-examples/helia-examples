@@ -1,0 +1,21 @@
+{
+  "name": "helia-typescript",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Building Helia with TypeScript",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/index.js",
+    "test": "npm run build && test-node-example test/*"
+  },
+  "dependencies": {
+    "helia": "^1.0.0"
+  },
+  "devDependencies": {
+    "test-ipfs-example": "^1.0.0",
+    "typescript": "^5.1.6"
+  }
+}
