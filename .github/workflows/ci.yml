@@ -24,6 +24,7 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-nestjs
           - helia-nextjs
           - helia-parcel
           - helia-script-tag
