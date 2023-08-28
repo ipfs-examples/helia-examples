@@ -1,0 +1,22 @@
+{
+  "name": "helia-lan-server-discovery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Get two helia nodes to connect on LAN without supplying address",
+  "scripts": {
+    "server": "cross-env DEBUG=\"\" node src/server.js",
+    "client": "cross-env DEBUG=\"\" node src/client.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "dependencies": {
+    "@helia/dag-cbor": "^1.0.2",
+    "helia": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "cross-env": "^7.0.3",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1"
+  }
+}
