@@ -1,0 +1,37 @@
+{
+  "name": "helia-remote-pinning",
+  "version": "0.0.0",
+  "description": "Example of pinning content to a remote IPFS pinning service using Helia, built with vite",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "npm run build && test-browser-example test"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@helia/remote-pinning": "^1.0.0",
+    "@helia/unixfs": "^1.4.1",
+    "@ipfs-shipyard/pinning-service-client": "^1.0.3",
+    "framer-motion": "^10.16.4",
+    "helia": "^1.0.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.31.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "test-ipfs-example": "^1.0.0",
+    "vite": "^4.2.0"
+  }
+}
