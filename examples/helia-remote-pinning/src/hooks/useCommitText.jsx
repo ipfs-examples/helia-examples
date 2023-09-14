@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import { useState, useCallback } from 'react'
+import useCid from '../hooks/useCid'
 import { useHelia } from '../hooks/useHelia'
 
 const encoder = new TextEncoder()
@@ -8,7 +9,7 @@ const decoder = new TextDecoder()
 
 export const useCommitText = () => {
   const { helia, fs, error, starting } = useHelia()
-  const [cid, setCid] = useState(null)
+  const { cid, setCid } = useCid()
   const [cidString, setCidString] = useState('')
   const [committedText, setCommittedText] = useState('')
 

@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 
 import { unixfs } from '@helia/unixfs'
+import { LevelBlockstore } from 'blockstore-level'
+import { LevelDatastore } from 'datastore-level'
 import { createHelia } from 'helia'
 import PropTypes from 'prop-types'
 import {
@@ -24,18 +26,16 @@ export const HeliaProvider = ({ children }) => {
   const [starting, setStarting] = useState(true)
   const [error, setError] = useState(null)
 
+  const datastore = new LevelDatastore('helia-remote-pinner-datastore')
+  const blockstore = new LevelBlockstore('helia-remote-pinner-blockstore')
+
   const startHelia = useCallback(async () => {
     if (helia) {
       console.info('helia already started')
-    } else if (window.helia) {
-      console.info('found a windowed instance of helia, populating ...')
-      setHelia(window.helia)
-      setFs(unixfs(helia))
-      setStarting(false)
     } else {
       try {
         console.info('Starting Helia')
-        const helia = await createHelia()
+        const helia = await createHelia({ datastore, blockstore })
         setHelia(helia)
         setFs(unixfs(helia))
         setStarting(false)

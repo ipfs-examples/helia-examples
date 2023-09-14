@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center"><b>Helia with React+Vite</b></h3>
+<h3 align="center"><b>Helia remote pinning example via browser and nodeJS</b></h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
@@ -51,20 +51,40 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ### Installation and Running example
 
+Before running either of the below, you should set two environment variables:
+
+* VITE_PINNING_ENDPOINT - the endpoint for the pinning provider you want to use
+* VITE_PINNING_TOKEN - the API key for the pinning provider you are using.
+
+#### Run the browser example
+
 ```console
 > npm install
 > npm start
-or
-> npm run dev
 ```
-To run the test
+
+Now open your browser at `http://localhost:5173/`
+
+The environment variables mentioned above will pre-populate the inputs on the page if provided, otherwise you will need to enter them prior to proceeding.
+
+#### Run the node example
+
+The environment variables mentioned above are required to be set for this to succeed.
+
+```console
+> npm install
+> npm run start-node -- 'Some string you want to test'
+```
+
+The CID for the string you passed in will be output, as well as the result of the pin operation.
+
+#### Run the tests
 
 ```console
 npx playwright install
 npm run test
 ```
 
-Now open your browser at `http://localhost:3000`
 
 ## Usage
 

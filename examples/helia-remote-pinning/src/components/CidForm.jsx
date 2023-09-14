@@ -1,39 +1,35 @@
 /* eslint-disable react/prop-types */
-import { React, useState } from 'react'
+import {
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input,
+  Button,
+  Text
+} from '@chakra-ui/react'
+import { React } from 'react'
 import { useCommitText } from '../hooks/useCommitText'
 
 export default function CidForm ({ text, setText }) {
   const {
     cidString,
-    commitText,
-    fetchCommittedText,
-    committedText
+    commitText
   } = useCommitText()
 
   return (
     <>
-      <input
-        id="textInput"
-        value={text}
-        onChange={(event) => setText(event.target.value)}
-        type="text" />
-      <button
-        id="commitTextButton"
-        onClick={() => commitText(text)}
-      >Add Text To Node</button>
-      <div
-        id="cidOutput"
-      >textCid: {cidString}</div>
-      { cidString && (<>
-        <button
-          id="fetchCommittedTextButton"
-          onClick={() => fetchCommittedText()}
-        >Fetch Committed Text</button>
-          <div
-            id="committedTextOutput"
-          >Committed Text: {committedText}</div>
-        </>)
-      }
+      <FormControl>
+        <FormLabel>Pinning Endpoint</FormLabel>
+        <Input id="textInput" value={text} onChange={(event) => setText(event.target.value)} type="text" />
+        <FormHelperText>Enter some text content to store in your Helia node</FormHelperText>
+        <Button
+          id="commitTextButton"
+          onClick={() => commitText(text)}
+        >Add Text To Node</Button>
+      </FormControl>
+
+      <Text id="cidOutput" colorScheme='green'>CID: {cidString}</Text>
+      <br/>
     </>
   )
 }

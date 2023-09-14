@@ -1,7 +1,6 @@
 import {
   FormControl,
   FormLabel,
-  // FormErrorMessage,
   FormHelperText,
   Input
 } from '@chakra-ui/react'
@@ -13,17 +12,15 @@ export default function PinningCredsForm () {
 
   return (
     <article className="pa4">
-      <span>{pinningEndpoint}</span>
-      <span>{pinningToken}</span>
       <FormControl>
         <FormLabel>Pinning Endpoint</FormLabel>
-        <Input type='text' onChange={(e) => setPinningEndpoint(e)} />
+        <Input type='text' onChange={(e) => setPinningEndpoint(e)} defaultValue={pinningEndpoint}/>
         <FormHelperText>Enter the endpoint for your Pinning Service Provider.</FormHelperText>
       </FormControl>
 
       <FormControl pt="5">
         <FormLabel>Pinning Token</FormLabel>
-        <Input type='password' onChange={(e) => setPinningToken(e)} />
+        <Input type='password' onChange={(e) => setPinningToken(e)} defaultValue={pinningToken} />
         <FormHelperText>Enter the token you received from your Pinning Service Provider.</FormHelperText>
       </FormControl>
     </article>
