@@ -5,9 +5,9 @@
   "type": "module",
   "description": "Getting started with Helia",
   "license": "MIT",
-  "main": "index.js",
+  "main": "./test/index.spec.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./test/index.spec.js",
     "serve": "npm run start",
     "test": "test-node-example test/*"
   },
