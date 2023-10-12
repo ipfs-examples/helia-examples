@@ -24,7 +24,7 @@
   "homepage": "https://github.com/ipfs-examples/helia-examples#readme",
   "devDependencies": {
     "aegir": "^41.0.4",
-    "eslint-config-ipfs": "^5.0.1",
+    "eslint-config-ipfs": "^6.0.0",
     "eslint-plugin-react": "^7.32.2"
   },
   "workspaces": [
