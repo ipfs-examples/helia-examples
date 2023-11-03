@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@helia/unixfs": "^1.4.1",
-    "helia": "^1.0.0",
+    "helia": "^2.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

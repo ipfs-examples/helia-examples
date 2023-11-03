@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@helia/unixfs": "^1.4.1",
-    "helia": "^1.0.0",
+    "helia": "^2.0.3",
     "it-all": "^3.0.1",
     "vue": "^3.2.47"
   },

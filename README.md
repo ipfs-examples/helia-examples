@@ -27,6 +27,8 @@
     - [Basics](#basics)
     - [Frameworks](#frameworks)
     - [Bundlers](#bundlers)
+    - [Testing](#testing)
+    - [Other tooling](#other-tooling)
   - [Prerequisites](#prerequisites)
 - [IPFS Tutorials at ProtoSchool](#ipfs-tutorials-at-protoschool)
 - [Documentation](#documentation)
@@ -56,20 +58,31 @@ Feel free to jump directly into the examples, however going through the followin
 
 - [Helia-101](/examples/helia-101/): Spawn a Helia node, add a file and cat the file
 - [Helia CommonJS](/examples/helia-cjs/): Just like Helia-101, but with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) instead of [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
-- [Helia via CDNs](/examples/helia-script-tag/): A simple proof-of-concept to distributing and using helia using `<script>` tags
-- [Creating a CAR file with Helia](/examples/helia-create-car/): An example showing how to create a car file with helia. CAR files are useful for making filecion deals.
+- [Helia via CDNs](/examples/helia-script-tag/): A simple proof-of-concept to distributing and using Helia using `<script>` tags
+- [Creating a CAR file with Helia](/examples/helia-create-car/): An example showing how to create a car file with Helia. CAR files are useful for making filecion deals.
 
 #### Frameworks
 
-- [Helia with Electron](/examples/helia-electron/): Create an Electron app with helia
-- [Helia with Next.js](/examples/helia-nextjs/): Create a Next.js app with helia
-- [Helia with Vue](/examples/helia-vue/): Create a vue app with helia
-- [Helia with Vite](/examples/helia-vite/): Create a react+vite app with helia
+- [Helia with Electron](/examples/helia-electron/): Create an Electron app with Helia
+- [Helia with Next.js](/examples/helia-nextjs/): Create a Next.js app with Helia
+- [Helia with NestJS](/examples/helia-nestjs/): Create a NestJS app with Helia
+- [Helia with Vue](/examples/helia-vue/): Create a vue app with Helia
+- [Helia with Vite](/examples/helia-vite/): Create a react+vite app with Helia
 
 #### Bundlers
 
-- [Helia with esbuild](/examples/helia-esbuild/): Bundle helia with esbuild
-- [Helia with Webpack](/examples/helia-webpack/): Bundle helia with webpack
+- [Helia with esbuild](/examples/helia-esbuild/): Bundle Helia with esbuild
+- [Helia with Webpack](/examples/helia-webpack/): Bundle Helia with webpack
+
+#### Testing
+
+- [Helia with Jest](/examples/helia-jest/): Test Helia with Jest
+- [Helia with Jest and TypeScript](/examples/helia-jest-typescript/): Test Helia with Jest and TypeScript
+
+#### Other tooling
+
+- [Helia with TypeScript](/examples/helia-typescript/): Building Helia with TypeScript
+- [Helia with ts-node](/examples/helia-ts-node/): Run Helia using ts-node
 
 ### Prerequisites
 
@@ -107,10 +120,7 @@ Contributions are what make the open source community such an amazing place to b
 1. Create a folder in this repo under `examples`, eg. `./examples/helia-transfer-files`
 1. Add the files and tests that make up the example
 1. Add the folder name to the `project-list` lists in the `examples` and `push-changes` jobs in this repositories `./github/ci.yml`
-1. Fork the [example-template-fork-&-go](https://github.com/ipfs-examples/example-fork-go-template) into the `ipfs-examples` org with the same name as the example folder, e.g. `https://github.com/ipfs-examples/helia-transfer-files`
-   - Turn off issues/wiki/discussions etc in the new fork
-   - If you do not have permissions to do this, please say so in the PR you open to `ipfs-examples/helia-examples` and someone will help you
-   - Set Actions > General > Workflow permissions to "Read and write permissions" if not already
+1. Create a PR to https://github.com/ipfs-examples/github-mgmt similar to https://github.com/ipfs-examples/github-mgmt/pull/22 to facilitate the addition of your project as an isolated repo.
 
 #### Examples must
 
@@ -141,7 +151,7 @@ Search `.github/workflows/test.yml` for the `test-examples` section and add a bl
   deps: helia@$PWD/packages/helia/dist
 ```
 
-The value of the `deps` key will vary depending on which modules from helia your example uses. Above we override the `helia` module, but your example may different deps.
+The value of the `deps` key will vary depending on which modules from Helia your example uses. Above we override the `helia` module, but your example may different deps.
 
 Please see the existing setup in `.github/workflows/test.yml` for how to ensure you are overriding the correct modules.
 

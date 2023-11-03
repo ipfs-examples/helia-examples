@@ -25,9 +25,14 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-jest
+          - helia-jest-typescript
+          - helia-nestjs
           - helia-nextjs
           - helia-parcel
           - helia-script-tag
+          - helia-ts-node
+          - helia-typescript
           - helia-vite
           - helia-vue
           - helia-webpack
@@ -102,9 +107,14 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-jest
+          - helia-jest-typescript
+          - helia-nestjs
           - helia-parcel
           - helia-nextjs
           - helia-script-tag
+          - helia-ts-node
+          - helia-typescript
           - helia-vite
           - helia-vue
           - helia-webpack
