@@ -12,7 +12,7 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "@chainsafe/libp2p-noise": "^13.0.1",
+    "@chainsafe/libp2p-noise": "^14.0.0",
     "@chainsafe/libp2p-yamux": "^5.0.0",
     "@helia/unixfs": "^1.4.1",
     "@libp2p/bootstrap": "^9.0.8",
