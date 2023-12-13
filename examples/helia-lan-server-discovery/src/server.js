@@ -1,24 +1,27 @@
+/* eslint-disable no-console */
 // server.js
-import { randomUUID } from 'node:crypto'
 import { dagCbor } from '@helia/dag-cbor'
-import { writeFile } from 'node:fs/promises'
-import { comms, connectedPeers, logDiscoveredPeers, getHelia, logConnectedPeers } from './utils.js'
+import { comms, getHelia, pubSubTopic } from './utils.js'
 
+const helia = await getHelia('server')
 
-const helia = await getHelia()
-await writeFile('server-peerId.txt', helia.libp2p.peerId.toString())
-logConnectedPeers('server-connectedPeers.txt', helia)
-logDiscoveredPeers('server-discoveredPeers.txt', helia)
 const heliaDagCbor = dagCbor(helia)
-const cid = await heliaDagCbor.add(randomUUID())
-await writeFile('cid.txt', cid.toString())
+const uuid = `${new Date().toLocaleString()}: My test string that you only know if you're in the same pubsub channel as me and request my CID`
+const cid = await heliaDagCbor.add(uuid)
+const cidString = cid.toString()
 
-console.log('CID: %s', cid.toString())
+console.log('CID: %s', cidString)
 
-
-await connectedPeers(helia)
-// for await (const event of helia.libp2p.services.dht.provide(cid)) {
-//   console.log('event', event)
-// }
-// await comms(helia, cid.toString())
-
+await comms(helia, pubSubTopic, 'server', async (msg) => {
+  if (msg === 'done') {
+    helia.libp2p.services.pubsub?.publish(pubSubTopic, new TextEncoder().encode('done-ACK'))
+  } else if (msg === 'ping') {
+    helia.libp2p.services.pubsub?.publish(pubSubTopic, new TextEncoder().encode('pong'))
+  } else if (msg === 'done-ACK') {
+    // other node sent done-ack and should have shut down, now it's our turn to shut down.
+    await helia.stop()
+    process.exit(0)
+  } else if (msg === 'wut-CID') {
+    helia.libp2p.services.pubsub?.publish(pubSubTopic, new TextEncoder().encode(cidString))
+  }
+})

@@ -1,137 +1,107 @@
-import { writeFile } from 'node:fs/promises'
-import { createHelia } from 'helia'
+/* eslint-disable no-console */
 import { gossipsub } from '@chainsafe/libp2p-gossipsub'
-import { createLibp2p } from 'libp2p'
-import { tcp } from '@libp2p/tcp'
-import { mplex } from '@libp2p/mplex'
-import { identifyService } from 'libp2p/identify'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
-import { webSockets } from '@libp2p/websockets'
-import { bootstrap } from '@libp2p/bootstrap'
-import { MemoryDatastore } from 'datastore-core'
-import { pingService } from 'libp2p/ping'
+import { autoNAT as autoNATService } from '@libp2p/autonat'
+import { identify as identifyService } from '@libp2p/identify'
 import { kadDHT } from '@libp2p/kad-dht'
-import { autoNATService } from 'libp2p/autonat'
-// import { uPnPNATService } from 'libp2p/upnp-nat'
-import { webTransport } from '@libp2p/webtransport'
-import { circuitRelayTransport } from 'libp2p/circuit-relay'
-import { webRTC, webRTCDirect } from '@libp2p/webrtc'
 import { mdns } from '@libp2p/mdns'
+import { ping as pingService } from '@libp2p/ping'
+import { tcp } from '@libp2p/tcp'
+import { webRTC, webRTCDirect } from '@libp2p/webrtc'
+import { webSockets } from '@libp2p/websockets'
+import { MemoryDatastore } from 'datastore-core'
+import { createHelia } from 'helia'
+import { bitswap } from 'helia/block-brokers'
+import { createLibp2p } from 'libp2p'
 
 // @ts-check
 
-export async function getHelia() {
+export async function getHelia (clientName) {
   const datastore = new MemoryDatastore()
 
   const libp2p = await createLibp2p({
     datastore,
+    connectionManager: {
+      minConnections: 1
+    },
     addresses: {
+      /**
+       * you have to make sure that listening multiaddrs are announced for mdns to work
+       *
+       * @see https://github.com/libp2p/js-libp2p/blob/742915567749072aa784cf179ce9810f66ac6c6e/packages/peer-discovery-mdns/src/query.ts#L87-L89
+       * @see https://github.com/libp2p/js-libp2p/blob/742915567749072aa784cf179ce9810f66ac6c6e/packages/peer-discovery-mdns/src/mdns.ts#L92-L101
+       */
       listen: [
-        '/webrtc',
-        '/tcp/0',
-        '/wss',
+        '/ip4/0.0.0.0/webrtc',
+        '/ip4/0.0.0.0/ws',
+        '/ip4/0.0.0.0/tcp/0'
       ]
     },
-    // addresses: {
-    //   listen: ['/ip4/0.0.0.0/tcp/0']
-    // },
     transports: [
       webRTC(),
       webRTCDirect(),
-      webTransport(),
       webSockets(),
-      circuitRelayTransport({
-        discoverRelays: 1
-      }),
-      tcp(),
+      tcp()
     ],
     connectionEncryption: [
-      noise(),
+      noise()
     ],
     streamMuxers: [
-      mplex(),
+      // mplex(),
       yamux()
     ],
     peerDiscovery: [
-      mdns(),
-      bootstrap({
-        list: [
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
-          "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
-        ]
+      mdns({
+        // broadcast: mdnsBroadcast
       })
     ],
     services: {
       identify: identifyService(),
-      dht: kadDHT(),
       ping: pingService({
         protocolPrefix: 'ipfs'
       }),
+      dht: kadDHT(),
       pubsub: gossipsub(),
       nat: autoNATService({
-        enabled: true,
+        enabled: true
       })
     }
   })
 
   const helia = await createHelia({
+    blockBrokers: [
+      bitswap()
+    ],
     datastore,
     libp2p
   })
 
-  const interval = setInterval(() => {
-    const multiaddrs = helia.libp2p.getMultiaddrs()
-    if (multiaddrs.length > 0) {
-      console.log('node multiaddrs:', multiaddrs)
-      clearInterval(interval)
-    }
-  }, 5000)
+  helia.libp2p.addEventListener('peer:discovery', async (connection) => {
+    const peer = connection.detail.id
+    console.log('%s discovered peer: ', clientName, peer.toString())
+  })
+  helia.libp2p.addEventListener('peer:connect', async (connection) => {
+    console.log('%s connected to peer: ', clientName, connection.detail.toString())
+  })
   return helia
 }
 
-export async function logConnectedPeers(filename, helia) {
-  // clear out peers file
-  await writeFile(filename, '', { flag: 'w' })
-
-  helia.libp2p.addEventListener('peer:connect', async (connection) => {
-    const peer = connection.detail
-    await writeFile(filename, `${peer.toString()}\n`, { flag: 'a' })
-  })
-}
-
-export async function logDiscoveredPeers(filename, helia) {
-  // clear out peers file
-  await writeFile(filename, '', { flag: 'w' })
-
-  helia.libp2p.addEventListener('peer:discovery', async (connection) => {
-    const peer = connection.detail.id
-    await writeFile(filename, `${peer.toString()}\n`, { flag: 'a' })
-  })
-}
-
-export async function connectedPeers(helia) {
-  // while we are not connected to any peers, wait
-  let attempt = 1
-
-  // console.log(`helia.libp2p.getPeers(): `, helia.libp2p.getPeers());
-  while (helia.libp2p.getPeers().length === 0) {
-    await new Promise((resolve) => setTimeout(resolve, attempt++ * 1000))
+export async function comms (helia, topic, prefix, onMessage) {
+  if (helia.libp2p.services.pubsub == null) {
+    return
   }
-}
+  if (onMessage == null) {
+    throw new Error('onMessage is required')
+  }
+  console.log('%s helia.libp2p.peerId %s subscribing to topic %s', prefix, helia.libp2p.peerId.toString(), topic)
 
-export async function comms(helia, topic) {
-  console.log('helia.libp2p.peerId %s subscribing to topic %s', helia.libp2p.peerId.toString(), topic)
-
-  helia.libp2p.services.pubsub.subscribe(topic)
-  await helia.libp2p.services.pubsub.addEventListener('message', (evt) => {
-    console.log(`evt: `, evt);
-    console.log(`evt.detail.topic: `, evt.detail.topic);
-    // if (evt.detail.topic === 'topic') {
-      // handle message
-      console.log('pubsub message received:', evt.detail.data.toString())
-    // }
+  helia.libp2p.services.pubsub?.subscribe(topic)
+  await helia.libp2p.services.pubsub?.addEventListener('message', async (evt) => {
+    const messageString = new TextDecoder().decode(evt.detail.data)
+    console.log('%s gossipsub:message received: %s', prefix, messageString)
+    await onMessage(messageString)
   })
 }
+
+export const pubSubTopic = 'helia-lan-discovery'
