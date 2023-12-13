@@ -27,7 +27,7 @@
   - [Installation and Running example](#installation-and-running-example)
 - [Usage](#usage)
   - [101 - Basics](#101---basics)
-  - [202 - Storage](#202---storage)
+  - [201 - Storage](#201---storage)
     - [Blockstore](#blockstore)
     - [Datastore](#datastore)
   - [301 - Networking](#301---networking)
@@ -124,7 +124,7 @@ That's it!  We've created a Helia node, added a file to it, and retrieved that f
 
 Next we will look at where the bytes that make up the file go.
 
-### 202 - Storage
+### 201 - Storage
 
 Out of the box Helia will store all data in-memory.  This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
 
