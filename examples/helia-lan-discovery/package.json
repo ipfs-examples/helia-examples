@@ -1,5 +1,5 @@
 {
-  "name": "helia-lan-server-discovery",
+  "name": "helia-lan-discovery",
   "version": "1.0.0",
   "private": true,
   "type": "module",
