@@ -9,7 +9,7 @@ import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
-import { identifyService } from 'libp2p/identify'
+import { identify } from '@libp2p/identify'
 
 async function createNode () {
   // the blockstore is where we store the blocks that make up files
@@ -46,7 +46,7 @@ async function createNode () {
       })
     ],
     services: {
-      identify: identifyService()
+      identify: identify()
     }
   })
 
