@@ -14,7 +14,7 @@
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "helia": "^2.0.3",
+    "helia": "^3.0.0",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
