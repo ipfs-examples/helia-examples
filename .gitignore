@@ -14,10 +14,3 @@ playwright-report
 .parcel-cache
 .envrc
 .tool-versions
-cid.txt
-client-connectedPeers.txt
-client-discoveredPeers.txt
-server-connectedPeers.txt
-server-discoveredPeers.txt
-server-peerId.txt
-client-peerId.txt
