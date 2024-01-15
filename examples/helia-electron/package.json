@@ -16,7 +16,7 @@
     "test": "xvfb-maybe test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^2.0.3"
+    "helia": "^3.0.1"
   },
   "devDependencies": {
     "electron": "^27.0.0",
