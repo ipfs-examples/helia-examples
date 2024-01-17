@@ -168,7 +168,7 @@ Commonly used datastore implementations are:
 
 - [datastore-level](https://www.npmjs.com/package/datastore-level) - store key/value pairs in a [LevelDB](https://github.com/google/leveldb) instance
 - [datastore-idb](https://www.npmjs.com/package/datastore-idb) - store key/value pairs in [IndexedDB][] in the browser
-- [blockstore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
+- [datastore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
 
 ### 301 - Networking
 

@@ -11,7 +11,7 @@
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
   ·
-  <a href="https://codesandbox.io/p/sandbox/infallible-haibt-e3lcd4">View Demo</a>
+  <a href="https://githubbox.com/ipfs-examples/helia-examples/tree/main/examples/helia-create-car">View Demo</a>
   ·
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·
