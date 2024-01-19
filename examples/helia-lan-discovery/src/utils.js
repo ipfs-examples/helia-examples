@@ -4,7 +4,7 @@ import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { autoNAT as autoNATService } from '@libp2p/autonat'
 import { identify as identifyService } from '@libp2p/identify'
-import { kadDHT } from '@libp2p/kad-dht'
+import { kadDHT, removePublicAddressesMapper } from '@libp2p/kad-dht'
 import { mdns } from '@libp2p/mdns'
 import { ping as pingService } from '@libp2p/ping'
 import { tcp } from '@libp2p/tcp'
@@ -12,7 +12,6 @@ import { webRTC, webRTCDirect } from '@libp2p/webrtc'
 import { webSockets } from '@libp2p/websockets'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
-import { bitswap } from 'helia/block-brokers'
 import { createLibp2p } from 'libp2p'
 
 // @ts-check
@@ -61,7 +60,11 @@ export async function getHelia (clientName) {
       ping: pingService({
         protocolPrefix: 'ipfs'
       }),
-      dht: kadDHT(),
+      dht: kadDHT({
+        protocol: '/ipfs/lan/kad/1.0.0',
+        peerInfoMapper: removePublicAddressesMapper,
+        clientMode: false
+      }),
       pubsub: gossipsub(),
       nat: autoNATService({
         enabled: true
@@ -70,9 +73,6 @@ export async function getHelia (clientName) {
   })
 
   const helia = await createHelia({
-    blockBrokers: [
-      bitswap()
-    ],
     datastore,
     libp2p
   })

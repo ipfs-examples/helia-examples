@@ -13,7 +13,7 @@ const IpfsComponent = () => {
       const heliaNode = await createHelia()
 
       const nodeId = heliaNode.libp2p.peerId.toString()
-      const nodeIsOnline = heliaNode.libp2p.isStarted()
+      const nodeIsOnline = heliaNode.libp2p.status === 'started'
 
       setHelia(heliaNode)
       setId(nodeId)
@@ -24,7 +24,7 @@ const IpfsComponent = () => {
   }, [helia])
 
   if (!helia || !id) {
-    return <h4>Connecting to IPFS...</h4>
+    return <h4>Starting Helia...</h4>
   }
 
   return (

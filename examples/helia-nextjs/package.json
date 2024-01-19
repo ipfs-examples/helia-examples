@@ -7,22 +7,22 @@
   "scripts": {
     "clean": "rimraf ./dist ./.next",
     "dev": "next dev",
-    "build": "next build && next export -o dist",
+    "build": "next build",
     "serve": "npm run dev",
     "start": "next start",
     "lint": "next lint",
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "helia": "^2.0.3",
-    "next": "^13.2.4",
+    "helia": "^3.0.1",
+    "next": "^14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.32.1",
     "eslint": "^8.36.0",
-    "eslint-config-next": "^13.2.4",
+    "eslint-config-next": "^14.1.0",
     "interface-datastore": "^8.2.0",
     "playwright": "^1.32.1",
     "rimraf": "^5.0.0",
