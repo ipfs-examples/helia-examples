@@ -108,6 +108,8 @@ TypeScript [will not add this for you](https://github.com/microsoft/TypeScript/i
 > ```console
 > $ node --loader ts-node/esm ./src/index.ts
 > ```
+>
+> Alternatively consider using [TypeScript Execute](https://www.npmjs.com/package/tsx) which works in a similar way but does not have the same problem.
 
 #### esm flag
 
