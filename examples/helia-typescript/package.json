@@ -12,7 +12,7 @@
     "test": "npm run build && test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^2.0.3"
+    "helia": "^3.0.1"
   },
   "devDependencies": {
     "test-ipfs-example": "^1.0.0",
