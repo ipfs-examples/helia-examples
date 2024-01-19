@@ -84,14 +84,13 @@ Note: No WAN functionality is enabled, so only nodes on your local network can h
 
 When you run these two scripts, the general flow works like this:
 
-1. Each node subscribes to the known pubsub topic.
-1. When the client node detects a subscription change on the pubsub topic, it will send a `wut-CID` message to the server node.
-1. The server node will respond to the `wut-CID` message with the string representation of a CID the server node is providing.
-1. The client node will request the content for that CID via `heliaDagCbor.get(CID.parse(msg))`
-1. Once the content is received, the client will publish a `done` message to the pubsub topic.
-1. The server node will detect the `done` message, and respond with a `done-ACK` message.
-1. The client node will detect the `done-ACK` message, respond with a `done-ACK` message of it's own, and shutdown after a timeout (to allow for the message to be sent)
-1. The server node will detect the `done-ACK` message, and shutdown immediately.
+1. Each node starts up and will broadcast their presence using [mDNS](https://en.wikipedia.org/wiki/Multicast_DNS)
+2. When the client node discovers the server, it will open a protocol stream to the server
+3. The server node will send the CID the server node is providing to the client.
+4. The client node will request the content for that CID via `heliaDagCbor.get(CID.parse(msg))`
+5. Once the content is received, the client will send an `ACK` message to the server and close the stream.
+6. The server node will receive the `ACK` message and close the stream.
+7. The server and client will then both shut down
 
 ### Testing
 
