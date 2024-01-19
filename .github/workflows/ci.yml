@@ -71,7 +71,7 @@ jobs:
         env:
           CI: true
       - name: Run tests
-        run: npm run test
+        run: npm run test -- --concurrency 1
         env:
           CI: true
 
