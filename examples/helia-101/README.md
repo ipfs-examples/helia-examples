@@ -60,7 +60,7 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ```console
 > npm install
-> npm start
+> node ./101-basics.js
 ```
 
 ## Usage
