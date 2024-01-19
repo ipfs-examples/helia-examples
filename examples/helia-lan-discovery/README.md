@@ -4,12 +4,14 @@
   </a>
 </p>
 
-<h3 align="center"><b>Running Helia with ts-node</b></h3>
+<h3 align="center"><b>Helia LAN discovery</b></h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
+  ·
+  <a href="https://codesandbox.io/p/sandbox/infallible-haibt-e3lcd4">View Demo</a>
   ·
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·
@@ -24,15 +26,9 @@
   - [Prerequisites](#prerequisites)
   - [Installation and Running example](#installation-and-running-example)
 - [Usage](#usage)
-  - [tsconfig.json](#tsconfigjson)
-    - [target](#target)
-    - [module](#module)
-    - [moduleResolution](#moduleresolution)
-  - [package.json](#packagejson)
-    - [type](#type)
-  - [ts-node](#ts-node)
-    - [esm flag](#esm-flag)
-  - [Putting it all together](#putting-it-all-together)
+  - [General flow](#general-flow)
+  - [Testing](#testing)
+  - [Further exploration of this example](#further-exploration-of-this-example)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
@@ -60,104 +56,56 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ```console
 > npm install
-> npm start
+
+# then in one terminal
+> npm run server
+
+# in another terminal
+> npm run client
 ```
+
+To run the test
+
+```console
+npm run test
+```
+
+You should see all of the output from the server and client nodes, and the test should pass.
 
 ## Usage
 
-[ts-node](https://typestrong.org/ts-node/) is a [TypeScript](https://www.typescriptlang.org/) execution and [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) tool for running TypeScript files from the command line, similar to how you would run JavaScript files with node.js.
+This example shows how you can use mdns to connect two nodes. Either server/client node can be run first.
 
-It gives the illusion of compilation-free code execution by using [JIT compilation](https://en.wikipedia.org/wiki/Just-in-time_compilation) to turn your TypeScript code into JavaScript at runtime and is a useful development tool.
+Both scripts (src/server.js & src/client.js) will create a helia node.  Once the client discovers the server it will open a connection on a custom protocol.  The server will send a CID which the client will use to fetch some data from the server.  The client will tell the server it has fetched the data and then both will shut down.
 
-Because TypeScript outputs [CommonJS](https://en.wikipedia.org/wiki/CommonJS) by default, and Helia is written using more modern [ECMAScript Modules](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/) it's necessary to override the default configuration `ts-node` uses.
+Note: No WAN functionality is enabled, so only nodes on your local network can help with peer-discovery, and only nodes on your local network can be discovered as the code currently stands.. If you want to enable connecting to nodes outside of your WAN, you will need to connect to a bootstrap node and add the `kadDHT` service from `@libp2p/kad-dht`.
 
-### tsconfig.json
+### General flow
 
-This is the minimum config that is required.
+When you run these two scripts, the general flow works like this:
 
-#### target
+1. Each node starts up and will broadcast their presence using [mDNS](https://en.wikipedia.org/wiki/Multicast_DNS)
+2. When the client node discovers the server, it will open a protocol stream to the server
+3. The server node will send the CID the server node is providing to the client.
+4. The client node will request the content for that CID via `heliaDagCbor.get(CID.parse(msg))`
+5. Once the content is received, the client will send an `ACK` message to the server and close the stream.
+6. The server node will receive the `ACK` message and close the stream.
+7. The server and client will then both shut down
 
-The [target](https://www.typescriptlang.org/tsconfig#target) to `ES2021` - this will ensure ESM is output and not CJS.
+### Testing
 
-#### module
+Both scripts should be able to be run in any order, and the flow should work as expected. You can run `npm run test` to check this. The test will fail if the test runs for more than 10 seconds, or errors, but this failure mode is dependent upon the `timeout` command currently.
 
-[module](https://www.typescriptlang.org/tsconfig#module) should be set to at least `ES2022` - this is necessary to support things like [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
+### Further exploration of this example
 
-#### moduleResolution
+Some things to try:
 
-[moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution) should be set to `node` or `node16` to enable use of `import` as well as `require`.
+1. See if you can get ping/pong messages working without the nodes shutting down
+1. Run the server node from one computer on your local network, and the client node from another computer on your local network
+1. Try removing the shutdown code from the scripts, and see if you can get multiple clients to connect
+1. See if you can get the server to respond with a list of CIDs in it's blockstore, and have the client choose which one to request
+1. See if you can connect to bootstrap nodes with one of your nodes, and use the other node as a LAN only node.
 
-### package.json
-
-We have to tell node that this is an ESM project.
-
-#### type
-
-The `type` field in your `package.json` should be set to `module`.  This means the `.js` extension is interpreted as ESM by default.
-
-It also means that import paths within your own project need file extensions, so any `import foo from './bar/baz'` will need to be changed to `import foo from './bar/baz.js'`.
-
-TypeScript [will not add this for you](https://github.com/microsoft/TypeScript/issues/16577).
-
-### ts-node
-
-> :warning: Currently ts-node is [broken on Node.js v20](https://github.com/TypeStrong/ts-node/issues/1997) so the instructions below will not work until the issue is fixed.
->
-> The workaround is to pass `ts-node/esm` as a loader:
->
-> ```console
-> $ node --loader ts-node/esm ./src/index.ts
-> ```
->
-> Alternatively consider using [TypeScript Execute](https://www.npmjs.com/package/tsx) which works in a similar way but does not have the same problem.
-
-#### esm flag
-
-`ts-node` has an `--esm` flag that is slightly counter-intuitively necessary to enable loading `.ts` files for JIT compilation via `import`:
-
-```console
-% npx ts-node --help | grep esm
-  --esm   Bootstrap with the ESM loader, enabling full ESM support
-```
-
-It is necessary to pass this flag when running `ts-node`
-
-### Putting it all together
-
-`tsconfig.json`
-
-```js
-{
-  "compilerOptions": {
-    "module": "ES2022",
-    "target": "ES2021",
-    "moduleResolution": "node"
-  },
-  // other settings here
-}
-```
-
-`package.json`
-
-```js
-{
-  "type": "module",
-  // other settings here
-}
-```
-
-You can now run ts code using ts-node:
-
-> :warning: As of Node.js v20 the following command will not work, please see the [note above](#ts-node).
-
-```bash
-> npx ts-node --esm ./src/index.ts
-
-Helia is running
-PeerId: 12D3KooWMUv1MYSYrgsEg3ykfZ6nDZwaT72LtVCheRNhH15kzroz
-```
-
-That's it! You just ran an ESM-only module using ts-node with JIT compilation!
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
@@ -199,5 +147,3 @@ Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of
 [cid]: https://docs.ipfs.tech/concepts/content-addressing  "Content Identifier"
 [Uint8Array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array
 [libp2p]: https://libp2p.io
-[IndexedDB]: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
-[S3]: https://aws.amazon.com/s3/

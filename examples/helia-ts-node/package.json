@@ -5,15 +5,16 @@
   "type": "module",
   "description": "Running Helia with ts-node",
   "scripts": {
-    "start": "ts-node --esm ./src/index.ts",
-    "test": "test-node-example test/*"
+    "start": "cross-env NODE_OPTIONS=\"--loader=ts-node/esm\" node src/index.ts",
+    "test": "cross-env NODE_OPTIONS=\"--loader=ts-node/esm\" test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^2.0.3"
+    "helia": "^3.0.0"
   },
   "devDependencies": {
-    "ts-node": "^10.9.1",
-    "test-ipfs-example": "^1.0.0",
-    "typescript": "^5.1.6"
+    "cross-env": "^7.0.3",
+    "test-ipfs-example": "^1.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

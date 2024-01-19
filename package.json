@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/ipfs-examples/helia-examples#readme",
   "devDependencies": {
-    "aegir": "^41.0.4"
+    "aegir": "^42.1.0"
   },
   "workspaces": [
     "examples/*"

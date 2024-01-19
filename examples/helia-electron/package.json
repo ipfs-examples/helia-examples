@@ -22,10 +22,10 @@
     "build:linux": "electron-builder --linux --config"
   },
   "dependencies": {
-    "helia": "^2.0.3"
+    "helia": "^3.0.1"
   },
   "devDependencies": {
-    "electron": "^28.0.0-beta.6",
+    "electron": "^28.1.4",
     "electron-builder": "^24.6.4",
     "test-ipfs-example": "^1.0.0",
     "xvfb-maybe": "^0.2.1"
