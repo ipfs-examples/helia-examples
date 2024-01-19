@@ -9,7 +9,7 @@ const helia = await createHelia()
 const heliaDagCbor = dagCbor(helia)
 
 //
-const str = `${new Date().toLocaleString()}: My test string that you only know if you're in the same pubsub channel as me and request my CID`
+const str = `${new Date().toLocaleString()}: My test string that you only know if I send you the CID for it or you could guess but you'd have to be very lucky`
 const cid = await heliaDagCbor.add(str)
 const cidString = cid.toString()
 
