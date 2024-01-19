@@ -12,8 +12,8 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "@helia/unixfs": "^1.4.1",
-    "helia": "^2.0.3"
+    "@helia/unixfs": "^2.0.1",
+    "helia": "^3.0.1"
   },
   "devDependencies": {
     "test-ipfs-example": "^1.0.0"

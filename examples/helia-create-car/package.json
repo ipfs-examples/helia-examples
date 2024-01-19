@@ -13,10 +13,10 @@
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "@helia/car": "^1.0.0",
-    "@helia/unixfs": "^1.4.1",
+    "@helia/car": "^2.0.1",
+    "@helia/unixfs": "^2.0.1",
     "@ipld/car": "^5.1.1",
-    "helia": "^2.0.3",
+    "helia": "^3.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -28,6 +28,6 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
     "test-ipfs-example": "^1.0.0",
-    "vite": "^4.2.0"
+    "vite": "^5.0.11"
   }
 }

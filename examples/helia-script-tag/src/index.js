@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   setInterval(() => {
-    statusValueEl.innerHTML = helia.libp2p.isStarted() ? 'Online' : 'Offline'
+    statusValueEl.innerHTML = helia.libp2p.status === 'started' ? 'Online' : 'Offline'
     updateConnectedPeers()
     updateDiscoveredPeers()
   }, 500)
