@@ -26,6 +26,9 @@
   - [Prerequisites](#prerequisites)
   - [Installation and Running example](#installation-and-running-example)
 - [Usage](#usage)
+  - [General flow](#general-flow)
+  - [Testing](#testing)
+  - [Further exploration of this example](#further-exploration-of-this-example)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
@@ -75,7 +78,7 @@ This example shows how you can use mdns to connect two nodes. Either server/clie
 
 Both scripts (src/server.js & src/client.js) will create a helia node, and subscribe to a known pubsub topic, and shut each other down (for ease of testing).
 
-Note: No WAN functionality is enabled, so only nodes on your local network can help with peer-discovery, and only nodes on your local network can be discovered as the code currently stands.. If you want to enable connecting to nodes outside of your WAN, you will need to connect to a bootstrap node.
+Note: No WAN functionality is enabled, so only nodes on your local network can help with peer-discovery, and only nodes on your local network can be discovered as the code currently stands.. If you want to enable connecting to nodes outside of your WAN, you will need to connect to a bootstrap node and add the `kadDHT` service from `@libp2p/kad-dht`.
 
 ### General flow
 

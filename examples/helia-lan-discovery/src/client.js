@@ -8,6 +8,8 @@ const helia = await getHelia('client')
 const heliaDagCbor = dagCbor(helia)
 
 helia.libp2p.services.pubsub.addEventListener('subscription-change', (evt) => {
+  console.info('client saw peer %s subscription change - %s, remote listeners', evt.detail.peerId, JSON.stringify(evt.detail.subscriptions, null, 2), helia.libp2p.services.pubsub.getSubscribers(pubSubTopic).length)
+
   if (helia.libp2p.services.pubsub.getSubscribers(pubSubTopic).length !== 0) {
     // we're subscribed, and so is another node, so request the CID
     helia.libp2p.services.pubsub?.publish(pubSubTopic, new TextEncoder().encode('wut-CID'))
