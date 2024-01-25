@@ -9,7 +9,7 @@
     "test": "cross-env NODE_OPTIONS=\"--loader=ts-node/esm\" test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^3.0.0"
+    "helia": "^4.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
