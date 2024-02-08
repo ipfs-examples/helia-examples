@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@helia/interface": "^4.0.0",
-    "helia": "^3.0.1"
+    "helia": "^4.0.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",

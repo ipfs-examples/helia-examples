@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@helia/dag-cbor": "^2.0.1",
-    "helia": "^3.0.1",
+    "helia": "^4.0.1",
     "it-length-prefixed-stream": "^1.1.6",
     "multiformats": "^13.0.1"
   }
