@@ -19,11 +19,10 @@
     "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@helia/interface": "^3.0.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
-    "helia": "^3.0.1",
+    "helia": "^4.0.1",
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1"
   },
