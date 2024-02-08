@@ -37,6 +37,7 @@ jobs:
           - helia-vue
           - helia-webpack
           - helia-create-car
+          - helia-lan-discovery
     defaults:
       run:
         working-directory: examples/${{ matrix.project }}
@@ -115,7 +116,7 @@ jobs:
         env:
           CI: true
       - name: Run tests
-        run: npm run test
+        run: npm run test -- --concurrency 1
         env:
           CI: true
 
@@ -144,6 +145,7 @@ jobs:
           - helia-vue
           - helia-webpack
           - helia-create-car
+          - helia-lan-discovery
     steps:
       - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
         with:
