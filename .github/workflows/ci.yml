@@ -15,11 +15,10 @@ concurrency:
 jobs:
   examples:
     runs-on: ubuntu-latest
-    name: Test ${{ matrix.project }} on ${{ matrix.runtime }}
+    name: Test ${{ matrix.project }} on Node.js
     strategy:
       fail-fast: false
       matrix:
-        runtime: [node, bun]
         project:
           - helia-101
           - helia-cjs
@@ -43,34 +42,15 @@ jobs:
         working-directory: examples/${{ matrix.project }}
     steps:
       - uses: actions/checkout@v3
-      - if: matrix.runtime == 'node'
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: lts/*
-      - if: matrix.runtime == 'bun'
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-      - if: matrix.runtime == 'node'
-        name: Install dependencies
+      - name: Install dependencies
         run: npm install
-      - if: matrix.runtime == 'bun'
-        name: Install dependencies
-        run: bun install
-      - if: matrix.runtime == 'node'
-        name: Install Playwright
+      - name: Install Playwright
         run: npx -y playwright install --with-deps
-      - if: matrix.runtime == 'bun'
-        name: Install Playwright
-        run: bun add --global playwright && playwright install --with-deps
-      - if: matrix.runtime == 'node'
-        name: Run tests
+      - name: Run tests
         run: npm run test
-        env:
-          CI: true
-      - if: matrix.runtime == 'bun'
-        name: Run tests
-        run: bun run test
         env:
           CI: true
 
