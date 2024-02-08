@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "description": "A minimal Electron application with Helia",
+  "author": "example.com",
+  "homepage": "https://www.electronjs.org",
   "keywords": [
     "Electron",
     "IPFS",
@@ -13,14 +15,18 @@
     "clean": "echo 'Nothing to clean...'",
     "start": "electron .",
     "serve": "npm run start",
-    "test": "xvfb-maybe test-node-example test/*"
+    "test": "xvfb-maybe test-node-example test/*",
+    "postinstall": "electron-builder install-app-deps",
+    "build:win": "electron-builder --win --config",
+    "build:mac": "electron-builder --mac --config",
+    "build:linux": "electron-builder --linux --config"
   },
   "dependencies": {
     "helia": "^4.0.1"
   },
   "devDependencies": {
     "electron": "^28.1.4",
-    "electron-rebuild": "^3.1.1",
+    "electron-builder": "^24.6.4",
     "test-ipfs-example": "^1.0.0",
     "xvfb-maybe": "^0.2.1"
   },
