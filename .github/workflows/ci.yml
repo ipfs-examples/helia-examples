@@ -78,6 +78,7 @@ jobs:
         run: bun run test
         env:
           CI: true
+          NODE_EXEC: bun
 
   monorepo:
     runs-on: ubuntu-latest
