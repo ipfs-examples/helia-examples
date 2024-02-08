@@ -13,7 +13,7 @@
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "@helia/unixfs": "^2.0.1",
+    "@helia/unixfs": "^3.0.0",
     "helia": "^4.0.1",
     "it-all": "^3.0.1",
     "vue": "^3.2.47"
