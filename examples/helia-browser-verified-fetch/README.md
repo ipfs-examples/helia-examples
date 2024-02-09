@@ -23,8 +23,6 @@
 
 - [Getting Started](#getting-started)
   - [Installation and Running example](#installation-and-running-example)
-- [Usage](#usage)
-
 
 ## Getting Started
 

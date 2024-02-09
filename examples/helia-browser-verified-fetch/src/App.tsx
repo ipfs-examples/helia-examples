@@ -172,14 +172,14 @@ function App(): JSX.Element {
                 <img
                   className="h-20"
                   alt="Helia logo"
-                  src="https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-logo.svg"
+                  src="https://unpkg.com/@helia/css@1.0.1/logos/helia-logo.svg"
                 />
               </a>
               <h1 className="text-2xl">
                 Verified Retrieval with <strong>@helia/verified-fetch</strong>
               </h1>
             </div>
-            <label className="block mt-4 mb-2 font-medium text-gray-900 dark:text-white">
+            <label className="block mt-4 mb-2 font-medium text-gray-900">
               IPFS path to fetch
             </label>
             <input
