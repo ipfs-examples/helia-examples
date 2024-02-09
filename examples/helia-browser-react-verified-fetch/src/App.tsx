@@ -1,12 +1,9 @@
-// import { verifiedFetch, createVerifiedFetch } from '@helia/verified-fetch'
 import { verifiedFetch } from '@helia/verified-fetch'
 import { fileTypeFromBuffer } from '@sgtpooki/file-type'
 import { useCallback, useState } from 'react'
 import { helpText } from './constants'
 
-function renderOutput (output: string | JSX.Element, err: string): JSX.Element {
-  console.log('err: ', err)
-  console.log('output: ', output)
+function renderOutput(output: string | JSX.Element, err: string): JSX.Element {
   if (err.length > 0) {
     return (
       <div className="bg-red-300">
@@ -18,7 +15,7 @@ function renderOutput (output: string | JSX.Element, err: string): JSX.Element {
   if (typeof output === 'string') {
     return (
       <div className="bg-violet-300">
-        {output != null && (
+        {output.length > 0 && (
           <pre className="bg-black text-teal-300 rounded p-4">
             <code id="output" className="language-json">{`${output}`}</code>
           </pre>
@@ -30,7 +27,7 @@ function renderOutput (output: string | JSX.Element, err: string): JSX.Element {
   return output
 }
 
-function loadingIndicator (message: string): JSX.Element {
+function loadingIndicator(message: string): JSX.Element {
   return (
     <div className="bg-yellow-300">
       <pre className="bg-black text-yellow-300 rounded p-4">Loading... {message}</pre>
@@ -38,7 +35,7 @@ function loadingIndicator (message: string): JSX.Element {
   )
 }
 
-function App (): JSX.Element {
+function App(): JSX.Element {
   const [path, setPath] = useState<string>('')
   const [output, setOutput] = useState<string | JSX.Element>('')
   const [err, setErr] = useState<string>('')
@@ -77,7 +74,6 @@ function App (): JSX.Element {
       setSuccess(JSON.stringify(json, null, 2))
     } catch (err) {
       setError((err as Error).message)
-
     }
   }, [])
 
@@ -93,10 +89,6 @@ function App (): JSX.Element {
   }, [])
 
   const onFetchJson = useCallback(async () => {
-    if (path == null) {
-      setError('Invalid path')
-      return
-    }
     try {
       setLoading('Fetching json response...')
       const resp = await verifiedFetch(path)
@@ -104,14 +96,9 @@ function App (): JSX.Element {
     } catch (err) {
       setError((err as Error).message)
     }
-
   }, [path, handleJsonType])
 
   const onFetchImage = useCallback(async () => {
-    if (path == null) {
-      setError('Invalid path')
-      return
-    }
     try {
       setLoading('Fetching image response...')
       const resp = await verifiedFetch(path)
@@ -122,10 +109,6 @@ function App (): JSX.Element {
   }, [path, handleImageType])
 
   const onFetchFile = useCallback(async () => {
-    if (path == null) {
-      setError('Invalid path')
-      return
-    }
     try {
       setLoading('Fetching content to download...')
       const resp = await verifiedFetch(path)
@@ -184,9 +167,18 @@ function App (): JSX.Element {
         <div className="grid h-screen grid-cols-2">
           {/* Left */}
           <div className="bg-teal-200 p-4">
-            <h1 className="text-2xl">
-              Verified Retrieval with <strong>@helia/verified-fetch</strong>
-            </h1>
+            <div className="flex items-center space-x-4">
+              <a className="" href="https://github.com/ipfs/helia">
+                <img
+                  className="h-20"
+                  alt="Helia logo"
+                  src="https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-logo.svg"
+                />
+              </a>
+              <h1 className="text-2xl">
+                Verified Retrieval with <strong>@helia/verified-fetch</strong>
+              </h1>
+            </div>
             <label className="block mt-4 mb-2 font-medium text-gray-900 dark:text-white">
               IPFS path to fetch
             </label>
@@ -194,7 +186,9 @@ function App (): JSX.Element {
               type="text"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="ipfs://... or ipns://"
-              onChange={(e) => { setPath(e.target.value) }}
+              onChange={(e) => {
+                setPath(e.target.value)
+              }}
               value={path}
             />
             <button
