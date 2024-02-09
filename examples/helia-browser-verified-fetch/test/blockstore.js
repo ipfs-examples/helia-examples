@@ -3,6 +3,7 @@ import { base32 } from 'multiformats/bases/base32'
 import { CID } from 'multiformats/cid'
 import * as raw from 'multiformats/codecs/raw'
 import * as Digest from 'multiformats/hashes/digest'
+import fixtures from './fixtures.js'
 
 export class MemoryBlockstore {
   data
@@ -11,12 +12,9 @@ export class MemoryBlockstore {
     this.data = new Map()
 
     // prefill blockstore with test fixtures
-
-    // JSON codec, contents are `{ "hello": "world" }`
-    this.put(
-      CID.parse('bagaaierasords4njcts6vs7qvdjfcvgnume4hqohf65zsfguprqphs3icwea'),
-      Uint8Array.from([123, 34, 104, 101, 108, 108, 111, 34, 58, 34, 119, 111, 114, 108, 100, 34, 125])
-    )
+    Object.values(fixtures).forEach((fixture) => {
+      this.put(fixture.cid, fixture.data)
+    })
   }
 
   put (key, val) { // eslint-disable-line require-await

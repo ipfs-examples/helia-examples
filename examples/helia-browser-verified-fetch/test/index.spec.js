@@ -1,4 +1,5 @@
 import { setup, expect } from 'test-ipfs-example/browser'
+import fixtures from './fixtures.js'
 
 // Setup
 const test = setup()
@@ -18,7 +19,40 @@ test.describe('Use @helia/verified-fetch With react and vite', () => {
     const ipfsPath = await page.locator(ipfsPathInput)
     await expect(ipfsPath).toHaveClass(/bg-gray-50/)
 
-    await page.fill(ipfsPathInput, 'ipfs://bagaaierasords4njcts6vs7qvdjfcvgnume4hqohf65zsfguprqphs3icwea')
+    await page.fill(ipfsPathInput, `ipfs://${fixtures.json.cid.toString()}`)
+    await page.click(fetchAutoBtn)
+    await page.locator(fetchOutput).waitFor('visible')
+
+    const output = await page.locator(fetchOutput)
+    await expect(output).toContainText(
+      '{ "hello": "world" }',
+      { timeout: 2000 }
+    )
+  })
+
+  test('should properly render ui with the ipfs path input and display DAG-JSON', async ({ page }) => {
+    // wait for helia node to be online
+    const ipfsPath = await page.locator(ipfsPathInput)
+    await expect(ipfsPath).toHaveClass(/bg-gray-50/)
+
+    await page.fill(ipfsPathInput, `ipfs://${fixtures.dagJson.cid.toString()}`)
+    await page.click(fetchAutoBtn)
+    await page.locator(fetchOutput).waitFor('visible')
+
+    const output = await page.locator(fetchOutput)
+    await expect(output).toContainText(
+      '{ "hello": "world" }',
+      { timeout: 2000 }
+    )
+  })
+
+  // TODO: DAG-CBOR is broken - https://github.com/ipfs/helia/pull/426
+  test.skip('should properly render ui with the ipfs path input and display DAG-CBOR', async ({ page }) => {
+    // wait for helia node to be online
+    const ipfsPath = await page.locator(ipfsPathInput)
+    await expect(ipfsPath).toHaveClass(/bg-gray-50/)
+
+    await page.fill(ipfsPathInput, `ipfs://${fixtures.dagCbor.cid.toString()}`)
     await page.click(fetchAutoBtn)
     await page.locator(fetchOutput).waitFor('visible')
 
