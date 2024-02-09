@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "npm run build && test-browser-example test"
+    "test": "vite build -c ./test/vite.config.js && test-browser-example test"
   },
   "dependencies": {
     "@helia/verified-fetch": "next",
