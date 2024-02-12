@@ -12,6 +12,12 @@ ipfs://bagaaieracglt4ey6qsxtvzqsgwnsw3b6p2tb7nmx5wdgxur2zia7q6nnzh7q
 UnixFS JSON 👇
 ipfs://bafybeia5ci747h54m2ybc4rf6yqdtm6nzdisxv57pk66fgubjsnnja6wq4
 
+dag-cbor 👇
+ipfs://bafyreicnokmhmrnlp2wjhyk2haep4tqxiptwfrp2rrs7rzq7uk766chqvq
+
+dag-json 👇
+ipfs://baguqeerasords4njcts6vs7qvdjfcvgnume4hqohf65zsfguprqphs3icwea
+
 UnixFS image 👇
 ipfs://bafybeicklkqcnlvtiscr2hzkubjwnwjinvskffn4xorqeduft3wq7vm5u4
 

@@ -134,7 +134,7 @@ function App(): JSX.Element {
       const resp = await verifiedFetch(path)
       const buffer = await resp.clone().arrayBuffer()
       let contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
-      if (contentType == null) {
+      if (!contentType) {
         try {
           // see if we can parse as json
           await resp.clone().json()
@@ -144,13 +144,13 @@ function App(): JSX.Element {
         }
       }
       switch (true) {
-        case contentType.includes('image'):
+        case contentType?.includes('image'):
           await handleImageType(resp)
           break
-        case contentType.includes('json'):
+        case contentType?.includes('json'):
           await handleJsonType(resp)
           break
-        case contentType.includes('video'):
+        case contentType?.includes('video'):
           await handleVideoType(resp)
           break
         default:
