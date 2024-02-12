@@ -7,7 +7,7 @@ function renderOutput(output: string | JSX.Element, err: string): JSX.Element {
   if (err.length > 0) {
     return (
       <div className="bg-red-300">
-        <pre className="bg-black text-red-300 rounded p-4">{err}</pre>
+        <pre className="bg-black text-red-300 rounded p-4 whitespace-pre-wrap break-words">{err}</pre>
       </div>
     )
   }
@@ -16,7 +16,7 @@ function renderOutput(output: string | JSX.Element, err: string): JSX.Element {
     return (
       <div className="bg-violet-300">
         {output.length > 0 && (
-          <pre className="bg-black text-teal-300 rounded p-4">
+          <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">
             <code id="output" className="language-json">{`${output}`}</code>
           </pre>
         )}
@@ -221,7 +221,7 @@ function App(): JSX.Element {
               🔑 Fetch auto
             </button>
 
-            <pre className="bg-black text-teal-300 rounded p-4">{helpText}</pre>
+            <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">{helpText}</pre>
           </div>
           {/* Left */}
 
