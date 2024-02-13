@@ -5,7 +5,7 @@ import defaultConfig from '../vite.config.js'
 // blockstore with test data
 defaultConfig.resolve ??= {}
 defaultConfig.resolve.alias ??= {}
-defaultConfig.resolve.alias['blockstore-core'] = resolve(process.cwd(), 'test/blockstore.js')
+defaultConfig.resolve.alias['blockstore-core/dist/src/memory.js'] = resolve(process.cwd(), 'test/blockstore.js')
 
 // https://vitejs.dev/config/
 export default defaultConfig
