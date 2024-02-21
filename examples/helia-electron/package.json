@@ -19,7 +19,7 @@
     "helia": "^4.0.1"
   },
   "devDependencies": {
-    "electron": "^28.1.4",
+    "electron": "^29.0.0",
     "electron-rebuild": "^3.1.1",
     "test-ipfs-example": "^1.0.0",
     "xvfb-maybe": "^0.2.1"
