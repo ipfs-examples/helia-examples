@@ -176,7 +176,7 @@ function App(): JSX.Element {
                 />
               </a>
               <h1 className="text-2xl">
-                Verified Retrieval with <strong>@helia/verified-fetch</strong>
+                Verified Retrieval with <a href="https://github.com/ipfs/helia-verified-fetch/tree/main/packages/verified-fetch"><strong className='underline'>@helia/verified-fetch</strong></a>
               </h1>
             </div>
             <label className="block mt-4 mb-2 font-medium text-gray-900">
