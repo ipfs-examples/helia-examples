@@ -5,7 +5,6 @@
   "type": "module",
   "description": "Getting started with Helia",
   "license": "MIT",
-  "main": "index.js",
   "scripts": {
     "101-basics": "node 101-basics.js",
     "201-storage": "node 201-storage.js",
