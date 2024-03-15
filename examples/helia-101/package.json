@@ -7,8 +7,9 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "start": "node 101-basics.js",
-    "serve": "npm run start",
+    "101-basics": "node 101-basics.js",
+    "201-storage": "node 201-storage.js",
+    "301-networking": "node 301-networking.js",
     "test": "test-node-example test/*"
   },
   "dependencies": {
