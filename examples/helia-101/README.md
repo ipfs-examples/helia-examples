@@ -28,7 +28,7 @@
   - [Running examples](#running-examples)
 - [Usage](#usage)
   - [101 - Basics](#101---basics)
-  - [202 - Storage](#202---storage)
+  - [201 - Storage](#201---storage)
     - [Blockstore](#blockstore)
     - [Datastore](#datastore)
   - [301 - Networking](#301---networking)
@@ -132,7 +132,7 @@ That's it!  We've created a Helia node, added a file to it, and retrieved that f
 
 Next we will look at where the bytes that make up the file go.
 
-### 202 - Storage
+### 201 - Storage
 
 Out of the box Helia will store all data in-memory.  This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
 
@@ -176,7 +176,7 @@ Commonly used datastore implementations are:
 
 - [datastore-level](https://www.npmjs.com/package/datastore-level) - store key/value pairs in a [LevelDB](https://github.com/google/leveldb) instance
 - [datastore-idb](https://www.npmjs.com/package/datastore-idb) - store key/value pairs in [IndexedDB][] in the browser
-- [blockstore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
+- [datastore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
 
 ### 301 - Networking
 
