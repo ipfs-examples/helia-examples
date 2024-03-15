@@ -22,6 +22,7 @@ jobs:
         project:
           - helia-101
           - helia-cjs
+          - helia-create-react-app
           - helia-electron
           - helia-esbuild
           - helia-jest
@@ -86,6 +87,7 @@ jobs:
         project:
           - helia-101
           - helia-cjs
+          - helia-create-react-app
           - helia-electron
           - helia-esbuild
           - helia-jest
