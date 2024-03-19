@@ -40,6 +40,7 @@ function App(): JSX.Element {
   const [output, setOutput] = useState<string | JSX.Element>('')
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<JSX.Element | null>(null)
+  const [controller, setController] = useState<AbortController | null>(null)
 
   const setSuccess = useCallback((message: string | JSX.Element) => {
     setOutput(message)
@@ -79,6 +80,7 @@ function App(): JSX.Element {
 
   const handleVideoType = useCallback(async (resp: Response) => {
     try {
+      controller?.abort() // abort any ongoing requests
       setLoading('Waiting for full video data...')
       const blob = await resp.blob()
       const url = URL.createObjectURL(blob)
@@ -90,28 +92,47 @@ function App(): JSX.Element {
 
   const onFetchJson = useCallback(async () => {
     try {
+      if(controller) {
+        console.log('aborting', controller)
+        controller.abort() // abort any ongoing requests
+      }
+
       setLoading('Fetching json response...')
-      const resp = await verifiedFetch(path)
+      const ctl = new AbortController()
+      setController(ctl)
+      const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleJsonType(resp)
     } catch (err) {
-      setError((err as Error).message)
+      // Don't render AbortErrors since they are user intiated
+      if(err instanceof Error && err.name !== 'AbortError') {
+        setError(err.message)
+      }
     }
   }, [path, handleJsonType])
 
   const onFetchImage = useCallback(async () => {
     try {
+      controller?.abort() // abort any ongoing requests
       setLoading('Fetching image response...')
-      const resp = await verifiedFetch(path)
+      const ctl = new AbortController()
+      setController(ctl)
+      const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleImageType(resp)
     } catch (err) {
-      setError((err as Error).message)
+      // Don't render AbortErrors since they are user intiated
+      if(err instanceof Error && err.name !== 'AbortError') {
+        setError(err.message)
+      }
     }
   }, [path, handleImageType])
 
   const onFetchFile = useCallback(async () => {
     try {
+      controller?.abort() // abort any ongoing requests
       setLoading('Fetching content to download...')
-      const resp = await verifiedFetch(path)
+      const ctl = new AbortController()
+      setController(ctl)
+      const resp = await verifiedFetch(path, { signal: ctl.signal })
       const blob = await resp.blob()
       const url = URL.createObjectURL(blob)
       const downloadLink = document.createElement('a')
@@ -120,9 +141,19 @@ function App(): JSX.Element {
       setSuccess('') // clear output
       downloadLink.click()
     } catch (err) {
-      setError((err as Error).message)
+      // Don't render AbortErrors since they are user intiated
+      if(err instanceof Error && err.name !== 'AbortError') {
+        setError(err.message)
+      }
     }
   }, [path])
+
+  const onAbort = useCallback(async () => {
+    if(controller != null) {
+      controller.abort('Rqeuest aborted')
+      setLoadingTo(null)
+    }
+  }, [controller])
 
   const onFetchAuto = useCallback(async () => {
     if (path == null) {
@@ -130,8 +161,12 @@ function App(): JSX.Element {
       return
     }
     try {
+      controller?.abort() // abort any ongoing requests
       setLoading('Fetching auto content...')
-      const resp = await verifiedFetch(path)
+      const ctl = new AbortController()
+      setController(ctl)
+      const resp = await verifiedFetch(path, { signal: ctl.signal })
+      console.log('onFetchAuto: got resp ', resp)
       const buffer = await resp.clone().arrayBuffer()
       let contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
       if (!contentType) {
@@ -157,7 +192,10 @@ function App(): JSX.Element {
           setError(`Unknown content-type: ${contentType}`)
       }
     } catch (err) {
-      setError((err as Error).message)
+      // Don't render AbortErrors since they are user intiated
+      if(err instanceof Error && err.name !== 'AbortError') {
+        setError(err.message)
+      }
     }
   }, [path, handleImageType, handleJsonType, handleVideoType])
 
@@ -219,6 +257,13 @@ function App(): JSX.Element {
               onClick={onFetchAuto}
             >
               🔑 Fetch auto
+            </button>
+            <button
+              className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              id="button-fetch-auto"
+              onClick={onAbort}
+            >
+              ❌ Abort request
             </button>
 
             <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">{helpText}</pre>
