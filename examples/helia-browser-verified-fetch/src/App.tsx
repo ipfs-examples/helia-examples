@@ -102,9 +102,12 @@ function App(): JSX.Element {
       setController(ctl)
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleJsonType(resp)
-    } catch (err) {
+    } catch (err: any) {
+      if(err?.code === 'ABORT_ERR') {
+        return
+      }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error && err.name !== 'AbortError') {
+      if(err instanceof Error) {
         setError(err.message)
       }
     }
@@ -118,9 +121,12 @@ function App(): JSX.Element {
       setController(ctl)
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleImageType(resp)
-    } catch (err) {
+    } catch (err: any) {
+      if(err?.code === 'ABORT_ERR') {
+        return
+      }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error && err.name !== 'AbortError') {
+      if(err instanceof Error) {
         setError(err.message)
       }
     }
@@ -140,9 +146,12 @@ function App(): JSX.Element {
       downloadLink.download = 'download'
       setSuccess('') // clear output
       downloadLink.click()
-    } catch (err) {
+    } catch (err: any) {
+      if(err?.code === 'ABORT_ERR') {
+        return
+      }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error && err.name !== 'AbortError') {
+      if(err instanceof Error) {
         setError(err.message)
       }
     }
@@ -191,9 +200,12 @@ function App(): JSX.Element {
         default:
           setError(`Unknown content-type: ${contentType}`)
       }
-    } catch (err) {
+    } catch (err: any) {
+      if(err?.code === 'ABORT_ERR') {
+        return
+      }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error && err.name !== 'AbortError') {
+      if(err instanceof Error) {
         setError(err.message)
       }
     }
