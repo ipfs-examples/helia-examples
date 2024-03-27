@@ -47,7 +47,7 @@ test.describe('Use @helia/verified-fetch With react and vite', () => {
   })
 
   // TODO: DAG-CBOR is broken - https://github.com/ipfs/helia/pull/426
-  test.skip('should properly render ui with the ipfs path input and display DAG-CBOR', async ({ page }) => {
+  test('should properly render ui with the ipfs path input and display DAG-CBOR', async ({ page }) => {
     // wait for helia node to be online
     const ipfsPath = await page.locator(ipfsPathInput)
     await expect(ipfsPath).toHaveClass(/bg-gray-50/)

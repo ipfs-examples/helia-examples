@@ -2,38 +2,8 @@ import { verifiedFetch } from '@helia/verified-fetch'
 import { fileTypeFromBuffer } from '@sgtpooki/file-type'
 import { useCallback, useState } from 'react'
 import { helpText } from './constants'
+import { Loading, Output } from './Output'
 
-function renderOutput(output: string | JSX.Element, err: string): JSX.Element {
-  if (err.length > 0) {
-    return (
-      <div className="bg-red-300">
-        <pre className="bg-black text-red-300 rounded p-4 whitespace-pre-wrap break-words">{err}</pre>
-      </div>
-    )
-  }
-
-  if (typeof output === 'string') {
-    return (
-      <div className="bg-violet-300">
-        {output.length > 0 && (
-          <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">
-            <code id="output" className="language-json">{`${output}`}</code>
-          </pre>
-        )}
-      </div>
-    )
-  }
-
-  return output
-}
-
-function loadingIndicator(message: string): JSX.Element {
-  return (
-    <div className="bg-yellow-300">
-      <pre className="bg-black text-yellow-300 rounded p-4">Loading... {message}</pre>
-    </div>
-  )
-}
 
 function App(): JSX.Element {
   const [path, setPath] = useState<string>('')
@@ -54,7 +24,7 @@ function App(): JSX.Element {
   }, [])
   const setLoading = useCallback((message: string) => {
     setErr('')
-    setLoadingTo(loadingIndicator(message))
+    setLoadingTo(<Loading message={message} />)
   }, [])
 
   const handleImageType = useCallback(async (resp: Response) => {
@@ -90,23 +60,24 @@ function App(): JSX.Element {
     }
   }, [])
 
-  const onFetchJson = useCallback(async () => {
+  const onFetchJson = useCallback(async (jsonType: `json` | `dag-json` = 'json') => {
     try {
-      if(controller) {
-        console.log('aborting', controller)
-        controller.abort() // abort any ongoing requests
-      }
-
-      setLoading('Fetching json response...')
+      controller?.abort() // abort any ongoing requests
+      setLoading(`Fetching ${jsonType} response...`)
       const ctl = new AbortController()
       setController(ctl)
-      const resp = await verifiedFetch(path, { signal: ctl.signal })
+      const resp = await verifiedFetch(path, { 
+        signal: ctl.signal,
+        headers: {
+          'accept': jsonType === 'json' ? 'application/json' : 'application/vnd.ipld.dag-json',
+        }
+      })
       await handleJsonType(resp)
     } catch (err: any) {
+      // TODO: simplify AbortErr handling to use err.name once https://github.com/libp2p/js-libp2p/pull/2446 is merged
       if(err?.code === 'ABORT_ERR') {
         return
       }
-      // Don't render AbortErrors since they are user intiated
       if(err instanceof Error) {
         setError(err.message)
       }
@@ -164,6 +135,11 @@ function App(): JSX.Element {
     }
   }, [controller])
 
+
+  const onPathChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPath(e.target.value)
+  }, [])
+
   const onFetchAuto = useCallback(async () => {
     if (path == null) {
       setError('Invalid path')
@@ -171,11 +147,10 @@ function App(): JSX.Element {
     }
     try {
       controller?.abort() // abort any ongoing requests
-      setLoading('Fetching auto content...')
+      setLoading('Fetching with automatic content detection...')
       const ctl = new AbortController()
       setController(ctl)
       const resp = await verifiedFetch(path, { signal: ctl.signal })
-      console.log('onFetchAuto: got resp ', resp)
       const buffer = await resp.clone().arrayBuffer()
       let contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
       if (!contentType) {
@@ -183,7 +158,7 @@ function App(): JSX.Element {
           // see if we can parse as json
           await resp.clone().json()
           contentType = 'application/json'
-        } catch (err) {
+          } catch (err) {
           // ignore
         }
       }
@@ -237,17 +212,22 @@ function App(): JSX.Element {
               id="ipfs-path"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="ipfs://... or ipns://"
-              onChange={(e) => {
-                setPath(e.target.value)
-              }}
+              onChange={onPathChange}
               value={path}
             />
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="button-fetch-json"
-              onClick={onFetchJson}
+              onClick={() => onFetchJson('json')}
             >
               🔑 Fetch as JSON
+            </button>
+            <button
+              className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              id="button-fetch-dag-json"
+              onClick={() => onFetchJson('dag-json')}
+            >
+              🔑 Fetch as dag-json
             </button>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -279,11 +259,13 @@ function App(): JSX.Element {
             </button>
 
             <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">{helpText}</pre>
+            <a href="https://github.com/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch" className="text-xl block mt-2 underline">Source for example</a>
+
           </div>
           {/* Left */}
 
           {/* Right */}
-          {renderOutput(loading ?? output, err)}
+          <Output output={loading ?? output} err={err} />
         </div>
       </section>
     </div>
