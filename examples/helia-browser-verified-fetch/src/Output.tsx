@@ -1,4 +1,3 @@
-import React from 'react'
 interface OutputProps {
   output: string | JSX.Element
   loading?: string
