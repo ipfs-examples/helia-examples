@@ -1,30 +1,29 @@
 import { verifiedFetch } from '@helia/verified-fetch'
 import { fileTypeFromBuffer } from '@sgtpooki/file-type'
 import { useCallback, useState } from 'react'
+import { Output } from './Output'
 import { helpText } from './constants'
-import { Loading, Output } from './Output'
 
-
-function App(): JSX.Element {
+function App (): JSX.Element {
   const [path, setPath] = useState<string>('')
   const [output, setOutput] = useState<string | JSX.Element>('')
   const [err, setErr] = useState<string>('')
-  const [loading, setLoadingTo] = useState<JSX.Element | null>(null)
+  const [loading, setLoadingTo] = useState<string>('')
   const [controller, setController] = useState<AbortController | null>(null)
 
   const setSuccess = useCallback((message: string | JSX.Element) => {
     setOutput(message)
-    setLoadingTo(null)
+    setLoadingTo('')
     setErr('')
   }, [])
   const setError = useCallback((message: string) => {
     setOutput('')
-    setLoadingTo(null)
+    setLoadingTo('')
     setErr(message)
   }, [])
   const setLoading = useCallback((message: string) => {
     setErr('')
-    setLoadingTo(<Loading message={message} />)
+    setLoadingTo(message)
   }, [])
 
   const handleImageType = useCallback(async (resp: Response) => {
@@ -60,25 +59,25 @@ function App(): JSX.Element {
     }
   }, [])
 
-  const onFetchJson = useCallback(async (jsonType: `json` | `dag-json` = 'json') => {
+  const onFetchJson = useCallback(async (jsonType: 'json' | 'dag-json' = 'json') => {
     try {
       controller?.abort() // abort any ongoing requests
       setLoading(`Fetching ${jsonType} response...`)
       const ctl = new AbortController()
       setController(ctl)
-      const resp = await verifiedFetch(path, { 
+      const resp = await verifiedFetch(path, {
         signal: ctl.signal,
         headers: {
-          'accept': jsonType === 'json' ? 'application/json' : 'application/vnd.ipld.dag-json',
+          accept: jsonType === 'json' ? 'application/json' : 'application/vnd.ipld.dag-json'
         }
       })
       await handleJsonType(resp)
     } catch (err: any) {
       // TODO: simplify AbortErr handling to use err.name once https://github.com/libp2p/js-libp2p/pull/2446 is merged
-      if(err?.code === 'ABORT_ERR') {
+      if (err?.code === 'ABORT_ERR') {
         return
       }
-      if(err instanceof Error) {
+      if (err instanceof Error) {
         setError(err.message)
       }
     }
@@ -93,11 +92,11 @@ function App(): JSX.Element {
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleImageType(resp)
     } catch (err: any) {
-      if(err?.code === 'ABORT_ERR') {
+      if (err?.code === 'ABORT_ERR') {
         return
       }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error) {
+      if (err instanceof Error) {
         setError(err.message)
       }
     }
@@ -118,26 +117,25 @@ function App(): JSX.Element {
       setSuccess('') // clear output
       downloadLink.click()
     } catch (err: any) {
-      if(err?.code === 'ABORT_ERR') {
+      if (err?.code === 'ABORT_ERR') {
         return
       }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error) {
+      if (err instanceof Error) {
         setError(err.message)
       }
     }
   }, [path])
 
   const onAbort = useCallback(async () => {
-    if(controller != null) {
+    if (controller != null) {
       controller.abort('Rqeuest aborted')
-      setLoadingTo(null)
+      setLoadingTo('')
     }
   }, [controller])
 
-
   const onPathChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPath(e.target.value)
+    setPath(e.target.value)
   }, [])
 
   const onFetchAuto = useCallback(async () => {
@@ -158,7 +156,7 @@ function App(): JSX.Element {
           // see if we can parse as json
           await resp.clone().json()
           contentType = 'application/json'
-          } catch (err) {
+        } catch (err) {
           // ignore
         }
       }
@@ -176,11 +174,11 @@ function App(): JSX.Element {
           setError(`Unknown content-type: ${contentType}`)
       }
     } catch (err: any) {
-      if(err?.code === 'ABORT_ERR') {
+      if (err?.code === 'ABORT_ERR') {
         return
       }
       // Don't render AbortErrors since they are user intiated
-      if(err instanceof Error) {
+      if (err instanceof Error) {
         setError(err.message)
       }
     }
@@ -190,7 +188,7 @@ function App(): JSX.Element {
     <div className="">
       <section>
         <div className="grid h-screen grid-cols-2">
-          {/* Left */}
+          {/* Left 👇 */}
           <div className="bg-teal-200 p-4">
             <div className="flex items-center space-x-4">
               <a className="" href="https://github.com/ipfs/helia">
@@ -218,14 +216,14 @@ function App(): JSX.Element {
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="button-fetch-json"
-              onClick={() => onFetchJson('json')}
+              onClick={async () => onFetchJson('json')}
             >
               🔑 Fetch as JSON
             </button>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="button-fetch-dag-json"
-              onClick={() => onFetchJson('dag-json')}
+              onClick={async () => onFetchJson('dag-json')}
             >
               🔑 Fetch as dag-json
             </button>
@@ -262,10 +260,9 @@ function App(): JSX.Element {
             <a href="https://github.com/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch" className="text-xl block mt-2 underline">Source for example</a>
 
           </div>
-          {/* Left */}
 
-          {/* Right */}
-          <Output output={loading ?? output} err={err} />
+          {/* Right 👇 */}
+          <Output loading={loading} output={output} err={err} />
         </div>
       </section>
     </div>
