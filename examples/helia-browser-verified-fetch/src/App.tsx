@@ -257,7 +257,8 @@ function App (): JSX.Element {
             </button>
 
             <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">{helpText}</pre>
-            <a href="https://github.com/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch" className="text-xl block mt-2 underline">Source for example</a>
+            <a href="https://github.com/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch" className="text-2xl block mt-2 underline">Source for example</a>
+            <a href="https://github.com/ipfs/helia-verified-fetch/tree/main/packages/verified-fetch" className="text-2xl block mt-2 underline"><code>@helia/verified-fetch</code> API Docs</a>
 
           </div>
 
