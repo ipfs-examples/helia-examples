@@ -33,6 +33,7 @@
     - [Datastore](#datastore)
   - [301 - Networking](#301---networking)
     - [libp2p](#libp2p)
+  - [401 - Browser](#401---browser)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -180,7 +181,7 @@ Commonly used datastore implementations are:
 
 ### 301 - Networking
 
-The final example is [301-networking.js](./301-networking.js).
+Another example is [301-networking.js](./301-networking.js).
 
 Adding blocks to your local blockstore is great but using your Helia node's libp2p instance allows you to unlock the full power of the distributed web.
 
@@ -227,6 +228,13 @@ const libp2p = await createLibp2p({
   }
 })
 ```
+
+
+### 401 - Browser
+
+The final example is [401-browser.js](./401-browser.js).
+
+This returns a Helia client that can be used to interact with the Helia network. Depending on use case, you can implement this via a context provider which loads the client on app load or you can implement it via a hook which loads the client on component load. Loading on app load allows the client to start content routing and dht discovery immediately. Loading on component load allows the client to start content routing and dht discovery when the component is loaded.
 
 ### Putting it all together
 
