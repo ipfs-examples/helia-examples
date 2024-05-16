@@ -1,5 +1,6 @@
 // import { createVerifiedFetch, verifiedFetch } from '@helia/verified-fetch'
-import { verifiedFetch } from '@helia/verified-fetch'
+// import { verifiedFetch } from '@helia/verified-fetch'
+import { verifiedFetch } from "https://esm.sh/@helia/verified-fetch@1.4.1"
 import debug from 'debug'
 import React, { useEffect } from 'react'
 debug.enable('*,*:trace')
@@ -13,9 +14,16 @@ export default function Test (): JSX.Element {
   const [data, setData] = React.useState<any | null>(null)
   useEffect(() => {
     void (async () => {
-      const resp = await verifiedFetch('ipfs://baguqeeradnk3742vd3jxhurh22rgmlpcbzxvsy3vc5bzakwiktdeplwer6pa', { session: true })
-      const obj = await resp.json()
-      setData(obj)
+      try {
+        console.time('verifiedFetch')
+        const resp = await verifiedFetch('ipfs://baguqeeradnk3742vd3jxhurh22rgmlpcbzxvsy3vc5bzakwiktdeplwer6pa', { session: true })
+        const obj = await resp.json()
+        setData(obj)
+      } catch {
+
+      } finally {
+        console.timeEnd('verifiedFetch')
+      }
     })()
   }, [])
 

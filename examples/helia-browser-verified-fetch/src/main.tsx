@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom/client'
 import Test from './test.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
     <Test />
-  </React.StrictMode>
+  </>
+  // </React.StrictMode>
 )
