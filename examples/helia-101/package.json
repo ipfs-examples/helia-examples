@@ -14,6 +14,7 @@
   "dependencies": {
     "@chainsafe/libp2p-noise": "^15.0.0",
     "@chainsafe/libp2p-yamux": "^6.0.1",
+    "@helia/http": "^1.0.9",
     "@helia/unixfs": "^3.0.0",
     "@libp2p/bootstrap": "^10.0.12",
     "@libp2p/identify": "^1.0.14",
