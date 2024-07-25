@@ -24,7 +24,8 @@
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation and Running example](#installation-and-running-example)
+  - [Installation](#installation)
+  - [Running examples](#running-examples)
 - [Usage](#usage)
   - [101 - Basics](#101---basics)
   - [201 - Storage](#201---storage)
@@ -56,11 +57,18 @@ Make sure you have installed all of the following prerequisites on your developm
 - Git - [Download & Install Git](https://git-scm.com/downloads). OSX and Linux machines typically have this already installed.
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 
-### Installation and Running example
+### Installation
 
 ```console
 > npm install
-> node ./101-basics.js
+```
+
+### Running Examples
+
+```console
+> npm run 101-basics
+> npm run 201-storage
+> npm run 301-networking
 ```
 
 ## Usage
@@ -225,7 +233,7 @@ const libp2p = await createLibp2p({
 Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
 
 ```bash
-> node 301-networking.js
+> npm run 301-networking
 
 Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 # Copy that hash and load it on the gateway, here is a prefilled url:
