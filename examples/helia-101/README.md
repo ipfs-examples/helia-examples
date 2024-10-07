@@ -25,7 +25,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Running examples](#running-examples)
+  - [Running Examples](#running-examples)
 - [Usage](#usage)
   - [101 - Basics](#101---basics)
   - [201 - Storage](#201---storage)
@@ -206,7 +206,7 @@ const libp2p = await createLibp2p({
   transports: [
     webSockets()
   ],
-  connectionEncryption: [
+  connectionEncrypters: [
     noise()
   ],
   streamMuxers: [
