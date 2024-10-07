@@ -29,7 +29,7 @@ async function createNode () {
     transports: [
       tcp()
     ],
-    connectionEncryption: [
+    connectionEncrypters: [
       noise()
     ],
     streamMuxers: [
@@ -63,7 +63,7 @@ const node2 = await createNode()
 
 // connect them together
 const multiaddrs = node2.libp2p.getMultiaddrs()
-await node1.libp2p.dial(multiaddrs[0])
+await node1.libp2p.dial(multiaddrs)
 
 // create a filesystem on top of Helia, in this case it's UnixFS
 const fs = unixfs(node1)

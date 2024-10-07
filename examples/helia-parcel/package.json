@@ -16,8 +16,8 @@
   },
   "browserslist": "last 1 Chrome version",
   "dependencies": {
-    "@helia/unixfs": "^3.0.0",
-    "helia": "^4.0.1"
+    "@helia/unixfs": "^4.0.0",
+    "helia": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
