@@ -12,7 +12,7 @@
     "test2": "npm run client & npm run server"
   },
   "dependencies": {
-    "@helia/dag-cbor": "^3.0.0",
+    "@helia/dag-cbor": "^4.0.0",
     "helia": "^4.0.1",
     "it-length-prefixed-stream": "^1.1.6",
     "multiformats": "^13.0.1"
