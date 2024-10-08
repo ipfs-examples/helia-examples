@@ -2,6 +2,7 @@
   "name": "helia-browser-verified-fetch",
   "private": true,
   "version": "0.0.0",
+  "description": "Browser Verified Retrieval with @helia/verified-fetch",
   "type": "module",
   "scripts": {
     "clean": "rimraf ./dist",
