@@ -4,12 +4,12 @@ import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { unixfs } from '@helia/unixfs'
 import { bootstrap } from '@libp2p/bootstrap'
+import { identify } from '@libp2p/identify'
 import { tcp } from '@libp2p/tcp'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
-import { identifyService } from 'libp2p/identify'
 
 async function createNode () {
   // the blockstore is where we store the blocks that make up files
@@ -29,7 +29,7 @@ async function createNode () {
     transports: [
       tcp()
     ],
-    connectionEncryption: [
+    connectionEncrypters: [
       noise()
     ],
     streamMuxers: [
@@ -46,7 +46,7 @@ async function createNode () {
       })
     ],
     services: {
-      identify: identifyService()
+      identify: identify()
     }
   })
 
@@ -63,7 +63,7 @@ const node2 = await createNode()
 
 // connect them together
 const multiaddrs = node2.libp2p.getMultiaddrs()
-await node1.libp2p.dial(multiaddrs[0])
+await node1.libp2p.dial(multiaddrs)
 
 // create a filesystem on top of Helia, in this case it's UnixFS
 const fs = unixfs(node1)

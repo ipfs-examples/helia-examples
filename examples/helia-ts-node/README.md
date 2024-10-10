@@ -101,6 +101,16 @@ TypeScript [will not add this for you](https://github.com/microsoft/TypeScript/i
 
 ### ts-node
 
+> :warning: Currently ts-node is [broken on Node.js v20](https://github.com/TypeStrong/ts-node/issues/1997) so the instructions below will not work until the issue is fixed.
+>
+> The workaround is to pass `ts-node/esm` as a loader:
+>
+> ```console
+> $ node --loader ts-node/esm ./src/index.ts
+> ```
+>
+> Alternatively consider using [TypeScript Execute](https://www.npmjs.com/package/tsx) which works in a similar way but does not have the same problem.
+
 #### esm flag
 
 `ts-node` has an `--esm` flag that is slightly counter-intuitively necessary to enable loading `.ts` files for JIT compilation via `import`:
@@ -137,6 +147,8 @@ It is necessary to pass this flag when running `ts-node`
 ```
 
 You can now run ts code using ts-node:
+
+> :warning: As of Node.js v20 the following command will not work, please see the [note above](#ts-node).
 
 ```bash
 > npx ts-node --esm ./src/index.ts
