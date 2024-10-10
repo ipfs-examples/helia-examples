@@ -58,13 +58,13 @@
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
       <!-- ipfs.component.html -->
-       @if(!helia || !id){
+       @if(!id){
         <div *@If="!helia || !id">
           <h2>Starting Helia...</h2>
         </div>
        }
 
-       @if(helia && id){
+       @if(id){
         <div>
           <h4 data-test="id">ID: {{ id }}</h4>
           <h4 data-test="status">Status: {{ isOnline ? 'Online' : 'Offline' }}</h4>

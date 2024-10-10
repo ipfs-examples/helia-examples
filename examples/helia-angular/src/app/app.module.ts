@@ -1,22 +1,33 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GlobalErrorHandler } from './global-error-handler';
-import { ErrorHandler } from '@angular/core';
-import { IPFSComponent } from './ipfs.component';
+import { NgModule, ErrorHandler } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { provideRouter, RouterOutlet } from '@angular/router'
+import { routes } from './app.routes'
+import { GlobalErrorHandler } from './global-error-handler'
+import { HeliaComponent } from './helia.component'
+import { HeliaService } from './helia.service'
 
 @NgModule({
   declarations: [
-    IPFSComponent
+    HeliaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    RouterOutlet
   ],
-  providers: [{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
-  bootstrap: [IPFSComponent]
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
+    HeliaService,
+    provideRouter(routes)
+  ],
+  bootstrap: [HeliaComponent]
+  // bootstrap: []
 })
 export class AppModule { }
