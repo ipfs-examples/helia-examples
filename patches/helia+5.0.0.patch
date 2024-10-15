@@ -1,0 +1,13 @@
+diff --git a/node_modules/helia/src/index.ts b/node_modules/helia/src/index.ts
+index 75887d5..bb92004 100644
+--- a/node_modules/helia/src/index.ts
++++ b/node_modules/helia/src/index.ts
+@@ -121,7 +121,7 @@ export async function createHelia (init: Partial<HeliaInit> = {}): Promise<Helia
+       trustlessGateway(),
+       bitswap()
+     ],
+-    routers: [
++    routers: init.routers ?? [
+       libp2pRouting(libp2p),
+       httpGatewayRouting()
+     ],

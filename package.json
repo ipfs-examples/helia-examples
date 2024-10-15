@@ -10,6 +10,7 @@
     "build": "aegir run build",
     "lint": "aegir exec aegir -- lint --files '**/*.{js,ts,jsx}' '!**/node_modules/**' '!**/dist/**'",
     "lint:fix": "aegir exec aegir -- lint --files '**/*.{js,ts,jsx}' '!**/node_modules/**' '!**/dist/**' --fix",
+    "postinstall": "patch-package",
     "dep-check": "aegir run dep-check"
   },
   "repository": {
