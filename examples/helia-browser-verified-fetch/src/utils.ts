@@ -3,7 +3,7 @@ import { createVerifiedFetch, VerifiedFetch } from '@helia/verified-fetch'
 import { createDelegatedRoutingV1HttpApiClient } from '@helia/delegated-routing-v1-http-api-client'
 import { createHelia } from 'helia'
 import * as libp2pInfo from 'libp2p/version'
-import { httpGatewayRouting, libp2pRouting } from '@helia/routers'
+import { httpGatewayRouting, delegatedHTTPRouting, libp2pRouting } from '@helia/routers'
 import { enable } from '@libp2p/logger'
 import { createLibp2p, Libp2pOptions } from 'libp2p'
 import { webTransport } from '@libp2p/webtransport'
@@ -28,17 +28,13 @@ interface VerifiedFetchOptions {
 export async function getVerifiedFetch(
   options: VerifiedFetchOptions = { useLibp2p: false, useRecursiveGateways: true },
 ): Promise<VerifiedFetch> {
-  console.log('getVerifiedFetch', options)
-
-  enable('*')
   if (!options.useLibp2p) {
     verifiedFetch = verifiedFetch ?? (await createVerifiedFetch())
     return verifiedFetch
   }
 
+  enable('*')
   verifiedFetchP2P = verifiedFetchP2P ?? (await createVerifiedFetchP2P(options))
-
-  console.log('verifiedFetchP2P', typeof verifiedFetchP2P)
 
   return verifiedFetchP2P
 }
@@ -48,11 +44,10 @@ async function createVerifiedFetchP2P(options: VerifiedFetchOptions): Promise<Ve
 
   const libp2p = await createLibp2p(libp2pOptions)
 
-  console.log('libp2p', libp2p)
-  console.log('options.useRecursiveGateways', options.useRecursiveGateways)
-  debugger
   const helia = await createHelia({
     libp2p,
+    // TODO: Do we want `libp2pRouting` or `delegatedHTTPRouting` routers since libp2p only has a delegated routing client?
+    // For now sticking to `libp2pRouting` since it allows setting the filters (until https://github.com/ipfs/helia/pull/654 is merged)
     routers: options.useRecursiveGateways
       ? [httpGatewayRouting(), libp2pRouting(libp2p)]
       : [libp2pRouting(libp2p)],
@@ -74,8 +69,8 @@ export async function libp2pDefaults(): Promise<Libp2pOptions> {
     services: {
       delegatedRouting: () =>
         createDelegatedRoutingV1HttpApiClient('https://delegated-ipfs.dev', {
-          filterAddrs: ['unknown', 'transport-bitswap', 'transport-ipfs-gateway-http'],
-          filterProtocols: ['https', 'webtransport', 'webrtc', 'webrtc-direct', 'wss'],
+          filterProtocols: ['unknown', 'transport-bitswap', 'transport-ipfs-gateway-http'],
+          filterAddrs: ['https', 'webtransport', 'webrtc', 'webrtc-direct', 'wss'],
         }),
       dcutr: dcutr(),
       identify: identify({

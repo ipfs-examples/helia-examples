@@ -12,8 +12,8 @@ function App(): JSX.Element {
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<string>('')
   const [controller, setController] = useState<AbortController | null>(null)
-  const [useRecursiveGateways, setUseRecursiveGateways] = useState(true)
-  const [useLibp2p, setUseLibp2p] = useState(false)
+  const [useRecursiveGateways, setUseRecursiveGateways] = useState(false)
+  const [useLibp2p, setUseLibp2p] = useState(true)
 
   const setSuccess = useCallback((message: string | JSX.Element) => {
     setOutput(message)
@@ -234,8 +234,8 @@ function App(): JSX.Element {
               value={path}
             />
             <div className="flex flex-row mt-4 space-x-4">
-              <CustomCheckbox id="recursive-gateways" label="Recursive Gateways" checked={useRecursiveGateways} onChange={handleRecursiveGatewaysChange} />
               <CustomCheckbox id="p2p-retrieval" label="P2P Retrieval" checked={useLibp2p} onChange={handleUseLibp2pChange} />
+              <CustomCheckbox id="recursive-gateways" label="Recursive Gateways" checked={useRecursiveGateways} onChange={handleRecursiveGatewaysChange} />
             </div>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
