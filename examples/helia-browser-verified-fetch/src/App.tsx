@@ -7,7 +7,7 @@ import CustomCheckbox from './CustomCheckbox'
 import { getVerifiedFetch } from './utils'
 
 function App(): JSX.Element {
-  const [path, setPath] = useState<string>('ipfs://bafybeicklkqcnlvtiscr2hzkubjwnwjinvskffn4xorqeduft3wq7vm5u4')
+  const [path, setPath] = useState<string>('')
   const [output, setOutput] = useState<string | JSX.Element>('')
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<string>('')
