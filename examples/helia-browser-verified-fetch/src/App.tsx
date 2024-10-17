@@ -1,15 +1,19 @@
-import { verifiedFetch } from '@helia/verified-fetch'
+
 import { fileTypeFromBuffer } from '@sgtpooki/file-type'
 import { useCallback, useState } from 'react'
 import { Output } from './Output'
 import { helpText } from './constants'
+import CustomCheckbox from './CustomCheckbox'
+import { getVerifiedFetch } from './utils'
 
-function App (): JSX.Element {
+function App(): JSX.Element {
   const [path, setPath] = useState<string>('')
   const [output, setOutput] = useState<string | JSX.Element>('')
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<string>('')
   const [controller, setController] = useState<AbortController | null>(null)
+  const [recursiveGwsEnabled, setRecursiveGwsEnabled] = useState(false)
+  const [libp2pEnabled, setLibp2pEnabled] = useState(true)
 
   const setSuccess = useCallback((message: string | JSX.Element) => {
     setOutput(message)
@@ -59,29 +63,33 @@ function App (): JSX.Element {
     }
   }, [])
 
-  const onFetchJson = useCallback(async (jsonType: 'json' | 'dag-json' = 'json') => {
-    try {
-      controller?.abort() // abort any ongoing requests
-      setLoading(`Fetching ${jsonType} response...`)
-      const ctl = new AbortController()
-      setController(ctl)
-      const resp = await verifiedFetch(path, {
-        signal: ctl.signal,
-        headers: {
-          accept: jsonType === 'json' ? 'application/json' : 'application/vnd.ipld.dag-json'
+  const onFetchJson = useCallback(
+    async (jsonType: 'json' | 'dag-json' = 'json') => {
+      try {
+        controller?.abort() // abort any ongoing requests
+        setLoading(`Fetching ${jsonType} response...`)
+        const ctl = new AbortController()
+        setController(ctl)
+        const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
+        const resp = await verifiedFetch(path, {
+          signal: ctl.signal,
+          headers: {
+            accept: jsonType === 'json' ? 'application/json' : 'application/vnd.ipld.dag-json',
+          },
+        })
+        await handleJsonType(resp)
+      } catch (err: any) {
+        // TODO: simplify AbortErr handling to use err.name once https://github.com/libp2p/js-libp2p/pull/2446 is merged
+        if (err?.code === 'ABORT_ERR') {
+          return
         }
-      })
-      await handleJsonType(resp)
-    } catch (err: any) {
-      // TODO: simplify AbortErr handling to use err.name once https://github.com/libp2p/js-libp2p/pull/2446 is merged
-      if (err?.code === 'ABORT_ERR') {
-        return
+        if (err instanceof Error) {
+          setError(err.message)
+        }
       }
-      if (err instanceof Error) {
-        setError(err.message)
-      }
-    }
-  }, [path, handleJsonType])
+    },
+    [path, handleJsonType, libp2pEnabled, recursiveGwsEnabled],
+  )
 
   const onFetchImage = useCallback(async () => {
     try {
@@ -89,6 +97,7 @@ function App (): JSX.Element {
       setLoading('Fetching image response...')
       const ctl = new AbortController()
       setController(ctl)
+      const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleImageType(resp)
     } catch (err: any) {
@@ -100,7 +109,7 @@ function App (): JSX.Element {
         setError(err.message)
       }
     }
-  }, [path, handleImageType])
+  }, [path, handleImageType, libp2pEnabled, recursiveGwsEnabled])
 
   const onFetchFile = useCallback(async () => {
     try {
@@ -108,6 +117,7 @@ function App (): JSX.Element {
       setLoading('Fetching content to download...')
       const ctl = new AbortController()
       setController(ctl)
+      const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       const blob = await resp.blob()
       const url = URL.createObjectURL(blob)
@@ -125,7 +135,7 @@ function App (): JSX.Element {
         setError(err.message)
       }
     }
-  }, [path])
+  }, [path, libp2pEnabled, recursiveGwsEnabled])
 
   const onAbort = useCallback(async () => {
     if (controller != null) {
@@ -148,6 +158,7 @@ function App (): JSX.Element {
       setLoading('Fetching with automatic content detection...')
       const ctl = new AbortController()
       setController(ctl)
+      const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       const buffer = await resp.clone().arrayBuffer()
       let contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
@@ -182,7 +193,15 @@ function App (): JSX.Element {
         setError(err.message)
       }
     }
-  }, [path, handleImageType, handleJsonType, handleVideoType])
+  }, [path, handleImageType, handleJsonType, handleVideoType, libp2pEnabled, recursiveGwsEnabled])
+
+  const handleLibp2pEnabledChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setLibp2pEnabled(event.target.checked)
+  }, [setLibp2pEnabled])
+
+  const handleRecursiveGatewaysEnabledChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setRecursiveGwsEnabled(event.target.checked)
+  }, [setRecursiveGwsEnabled])
 
   return (
     <div className="">
@@ -199,12 +218,13 @@ function App (): JSX.Element {
                 />
               </a>
               <h1 className="text-2xl">
-                Verified Retrieval with <a href="https://github.com/ipfs/helia-verified-fetch/tree/main/packages/verified-fetch"><strong className='underline'>@helia/verified-fetch</strong></a>
+                Verified Retrieval with{' '}
+                <a href="https://github.com/ipfs/helia-verified-fetch/tree/main/packages/verified-fetch">
+                  <strong className="underline">@helia/verified-fetch</strong>
+                </a>
               </h1>
             </div>
-            <label className="block mt-4 mb-2 font-medium text-gray-900">
-              IPFS path to fetch
-            </label>
+            <label className="block mt-4 mb-2 font-medium text-gray-900">IPFS path to fetch</label>
             <input
               type="text"
               id="ipfs-path"
@@ -213,6 +233,10 @@ function App (): JSX.Element {
               onChange={onPathChange}
               value={path}
             />
+            <div className="flex flex-row mt-4 space-x-4">
+              <CustomCheckbox id="p2p-retrieval" label="P2P Retrieval" checked={libp2pEnabled} onChange={handleLibp2pEnabledChange} />
+              <CustomCheckbox id="recursive-gateways" label="Recursive Gateways" checked={recursiveGwsEnabled} onChange={handleRecursiveGatewaysEnabledChange} />
+            </div>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               id="button-fetch-json"
@@ -256,10 +280,21 @@ function App (): JSX.Element {
               ❌ Abort request
             </button>
 
-            <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">{helpText}</pre>
-            <a href="https://github.com/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch" className="text-2xl block mt-2 underline">Source for example</a>
-            <a href="https://github.com/ipfs/helia-verified-fetch/tree/main/packages/verified-fetch" className="text-2xl block mt-2 underline"><code>@helia/verified-fetch</code> API Docs</a>
-
+            <pre className="bg-black text-teal-300 rounded p-4 whitespace-pre-wrap break-words">
+              {helpText}
+            </pre>
+            <a
+              href="https://github.com/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch"
+              className="text-2xl block mt-2 underline"
+            >
+              Source for example
+            </a>
+            <a
+              href="https://github.com/ipfs/helia-verified-fetch/tree/main/packages/verified-fetch"
+              className="text-2xl block mt-2 underline"
+            >
+              <code>@helia/verified-fetch</code> API Docs
+            </a>
           </div>
 
           {/* Right 👇 */}
