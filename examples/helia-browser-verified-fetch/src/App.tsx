@@ -12,8 +12,8 @@ function App(): JSX.Element {
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<string>('')
   const [controller, setController] = useState<AbortController | null>(null)
-  const [useRecursiveGateways, setUseRecursiveGateways] = useState(false)
-  const [useLibp2p, setUseLibp2p] = useState(true)
+  const [recursiveGwsEnabled, setRecursiveGwsEnabled] = useState(false)
+  const [libp2pEnabled, setLibp2pEnabled] = useState(true)
 
   const setSuccess = useCallback((message: string | JSX.Element) => {
     setOutput(message)
@@ -70,7 +70,7 @@ function App(): JSX.Element {
         setLoading(`Fetching ${jsonType} response...`)
         const ctl = new AbortController()
         setController(ctl)
-        const verifiedFetch = await getVerifiedFetch({ useLibp2p, useRecursiveGateways })
+        const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
         const resp = await verifiedFetch(path, {
           signal: ctl.signal,
           headers: {
@@ -88,7 +88,7 @@ function App(): JSX.Element {
         }
       }
     },
-    [path, handleJsonType, useLibp2p, useRecursiveGateways],
+    [path, handleJsonType, libp2pEnabled, recursiveGwsEnabled],
   )
 
   const onFetchImage = useCallback(async () => {
@@ -97,7 +97,7 @@ function App(): JSX.Element {
       setLoading('Fetching image response...')
       const ctl = new AbortController()
       setController(ctl)
-      const verifiedFetch = await getVerifiedFetch({ useLibp2p, useRecursiveGateways })
+      const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       await handleImageType(resp)
     } catch (err: any) {
@@ -109,7 +109,7 @@ function App(): JSX.Element {
         setError(err.message)
       }
     }
-  }, [path, handleImageType, useLibp2p, useRecursiveGateways])
+  }, [path, handleImageType, libp2pEnabled, recursiveGwsEnabled])
 
   const onFetchFile = useCallback(async () => {
     try {
@@ -117,7 +117,7 @@ function App(): JSX.Element {
       setLoading('Fetching content to download...')
       const ctl = new AbortController()
       setController(ctl)
-      const verifiedFetch = await getVerifiedFetch({ useLibp2p, useRecursiveGateways })
+      const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       const blob = await resp.blob()
       const url = URL.createObjectURL(blob)
@@ -135,7 +135,7 @@ function App(): JSX.Element {
         setError(err.message)
       }
     }
-  }, [path, useLibp2p, useRecursiveGateways])
+  }, [path, libp2pEnabled, recursiveGwsEnabled])
 
   const onAbort = useCallback(async () => {
     if (controller != null) {
@@ -158,7 +158,7 @@ function App(): JSX.Element {
       setLoading('Fetching with automatic content detection...')
       const ctl = new AbortController()
       setController(ctl)
-      const verifiedFetch = await getVerifiedFetch({ useLibp2p, useRecursiveGateways })
+      const verifiedFetch = await getVerifiedFetch({ useLibp2p: libp2pEnabled, useRecursiveGateways: recursiveGwsEnabled })
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       const buffer = await resp.clone().arrayBuffer()
       let contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
@@ -193,15 +193,15 @@ function App(): JSX.Element {
         setError(err.message)
       }
     }
-  }, [path, handleImageType, handleJsonType, handleVideoType, useLibp2p, useRecursiveGateways])
+  }, [path, handleImageType, handleJsonType, handleVideoType, libp2pEnabled, recursiveGwsEnabled])
 
-  const handleUseLibp2pChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUseLibp2p(event.target.checked)
-  }
+  const handleLibp2pEnabledChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setLibp2pEnabled(event.target.checked)
+  }, [setLibp2pEnabled])
 
-  const handleRecursiveGatewaysChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUseRecursiveGateways(event.target.checked)
-  }
+  const handleRecursiveGatewaysEnabledChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setRecursiveGwsEnabled(event.target.checked)
+  }, [setRecursiveGwsEnabled])
 
   return (
     <div className="">
@@ -234,8 +234,8 @@ function App(): JSX.Element {
               value={path}
             />
             <div className="flex flex-row mt-4 space-x-4">
-              <CustomCheckbox id="p2p-retrieval" label="P2P Retrieval" checked={useLibp2p} onChange={handleUseLibp2pChange} />
-              <CustomCheckbox id="recursive-gateways" label="Recursive Gateways" checked={useRecursiveGateways} onChange={handleRecursiveGatewaysChange} />
+              <CustomCheckbox id="p2p-retrieval" label="P2P Retrieval" checked={libp2pEnabled} onChange={handleLibp2pEnabledChange} />
+              <CustomCheckbox id="recursive-gateways" label="Recursive Gateways" checked={recursiveGwsEnabled} onChange={handleRecursiveGatewaysEnabledChange} />
             </div>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
