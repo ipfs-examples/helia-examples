@@ -17,16 +17,16 @@
   "browserslist": "last 1 Chrome version",
   "dependencies": {
     "@helia/unixfs": "^4.0.0",
-    "helia": "^5.0.0"
+    "helia": "^5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
-    "@playwright/test": "^1.12.3",
-    "parcel": "^2.9.1",
-    "playwright": "^1.12.3",
+    "@babel/core": "^7.25.8",
+    "@playwright/test": "^1.48.1",
+    "parcel": "^2.12.0",
+    "playwright": "^1.48.1",
     "process": "^0.11.10",
     "rimraf": "^6.0.1",
-    "test-ipfs-example": "^1.0.0"
+    "test-ipfs-example": "^1.3.3"
   },
   "@parcel/resolver-default": {
     "packageExports": true
