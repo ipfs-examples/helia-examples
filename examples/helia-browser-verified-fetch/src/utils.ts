@@ -4,7 +4,6 @@ import { createDelegatedRoutingV1HttpApiClient } from '@helia/delegated-routing-
 import { createHelia } from 'helia'
 import * as libp2pInfo from 'libp2p/version'
 import { httpGatewayRouting, libp2pRouting } from '@helia/routers'
-import { enable } from '@libp2p/logger'
 import { createLibp2p, Libp2pOptions } from 'libp2p'
 import { webTransport } from '@libp2p/webtransport'
 import { noise } from '@chainsafe/libp2p-noise'
@@ -33,7 +32,6 @@ export async function getVerifiedFetch(
     return verifiedFetch
   }
 
-  enable('*')
   verifiedFetchP2P = verifiedFetchP2P ?? (await createVerifiedFetchP2P(options))
 
   return verifiedFetchP2P
