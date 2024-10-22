@@ -139,9 +139,10 @@ PeerId: 12D3KooWNj6PKy8boHWnDi39NTEJKomw4u6gW9umfpfRNzJPCv7e
 
 ## Usage
 
-You can use [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html) to build the project and then node to run it with:
+You can use [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html) to build the project and then node to run it or run these two commands:
 
 ```console
+% npm test
 % npm start
 ```
 
