@@ -142,6 +142,7 @@ PeerId: 12D3KooWNj6PKy8boHWnDi39NTEJKomw4u6gW9umfpfRNzJPCv7e
 You can use [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html) to build the project and then node to run it with:
 
 ```console
+% npm test
 % npm start
 ```
 
