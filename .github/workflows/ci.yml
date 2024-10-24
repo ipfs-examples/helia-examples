@@ -68,7 +68,7 @@ jobs:
         working-directory: examples/${{ matrix.project }}
     steps:
       - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@8f24390df009a496891208e5e36b8a1de1f45135 # v1.2.1
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
         with:
           bun-version: latest
       - name: Install dependencies

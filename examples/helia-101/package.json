@@ -14,17 +14,17 @@
   "dependencies": {
     "@chainsafe/libp2p-noise": "^16.0.0",
     "@chainsafe/libp2p-yamux": "^7.0.1",
-    "@helia/http": "^2.0.0",
+    "@helia/http": "^2.0.1",
     "@helia/unixfs": "^4.0.0",
-    "@libp2p/bootstrap": "^11.0.7",
-    "@libp2p/identify": "^3.0.7",
-    "@libp2p/tcp": "^10.0.8",
+    "@libp2p/bootstrap": "^11.0.9",
+    "@libp2p/identify": "^3.0.9",
+    "@libp2p/tcp": "^10.0.10",
     "blockstore-core": "^5.0.2",
     "datastore-core": "^10.0.2",
-    "helia": "^5.0.0",
-    "libp2p": "^2.1.6"
+    "helia": "^5.1.0",
+    "libp2p": "^2.1.10"
   },
   "devDependencies": {
-    "test-ipfs-example": "^1.3.0"
+    "test-ipfs-example": "^1.3.3"
   }
 }
