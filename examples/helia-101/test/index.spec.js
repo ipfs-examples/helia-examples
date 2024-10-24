@@ -6,6 +6,8 @@ import { waitForOutput } from 'test-ipfs-example/node'
  * @see https://bun.sh/guides/util/detect-bun
  */
 if (process.versions.bun) {
+  // eslint-disable-next-line no-console
+  console.log('Running tests with bun')
   /**
    * Polyfill required for bun for now
    *
