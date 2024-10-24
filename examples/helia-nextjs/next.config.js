@@ -15,8 +15,7 @@ const config = {
   }
 }
 
-export default (phase) => {
-
+export default () => {
   /**
    * `next start` requires either `undefined` or `'standalone'` output
    * @type {import('next').NextConfig['output']}
