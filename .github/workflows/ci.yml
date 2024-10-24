@@ -75,16 +75,16 @@ jobs:
       - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
         with:
           bun-version: latest
-      - name: re-alias node to bun
-        run: |
-          shopt -s expand_aliases
-          alias node=bun
+      # - name: re-alias node to bun
+      #   run: |
+      #     shopt -s expand_aliases
+      #     alias node=bun
       - name: Install dependencies
         run: bun install && bun pm trust protobufjs node-datachannel && bun install
       - name: Install Playwright
         run: bun add --global playwright && playwright install --with-deps
       - name: Run tests
-        run: bun run test
+        run: NODE_EXEC=bun bun run test
         env:
           CI: true
           NODE_EXEC: bun
