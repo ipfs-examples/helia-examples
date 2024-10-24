@@ -6,13 +6,6 @@ const config = {
     path: 'http://localhost:3000'
   },
   distDir: 'dist',
-  webpack: (config) => {
-    /**
-     * @see https://github.com/ipfs/helia/issues/553#issuecomment-2158940930
-     */
-    config.externals.push('node-datachannel/polyfill')
-    return config
-  }
 }
 
 export default () => {
