@@ -12,8 +12,6 @@
   <a href="https://helia.io/modules/helia.html">Explore the docs</a>
   ·
   <a href="https://stackblitz.com/github/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch">View in Dev Environment</a>
-  .
-  <a href="https://verified-fetch.vercel.app/">View Demo</a>
   ·
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
   ·

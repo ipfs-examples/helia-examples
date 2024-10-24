@@ -1,13 +1,22 @@
 /* eslint-disable no-console */
 
+import { createHeliaHTTP } from '@helia/http'
 import { unixfs } from '@helia/unixfs'
-import { createHelia } from 'helia'
 
 // create a Helia node
-const helia = await createHelia()
+const helia = await createHeliaHTTP()
 
 // create a filesystem on top of Helia, in this case it's UnixFS
 const fs = unixfs(helia)
+
+// add a file and wrap in a directory
+const readmeCid = await fs.addFile({
+  path: './README.md'
+}, {
+  wrapWithDirectory: true
+})
+
+console.log('Added README.md file:', readmeCid.toString())
 
 // we will use this TextEncoder to turn strings into Uint8Arrays
 const encoder = new TextEncoder()

@@ -2,6 +2,7 @@
   "name": "helia-browser-verified-fetch",
   "private": true,
   "version": "0.0.0",
+  "description": "Browser Verified Retrieval with @helia/verified-fetch",
   "type": "module",
   "scripts": {
     "clean": "rimraf ./dist",
@@ -12,7 +13,7 @@
     "test": "vite build -c ./test/vite.config.js && test-browser-example test"
   },
   "dependencies": {
-    "@helia/verified-fetch": "^1.3.2",
+    "@helia/verified-fetch": "^1.5.0",
     "@sgtpooki/file-type": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
