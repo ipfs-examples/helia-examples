@@ -67,7 +67,7 @@ Now open your browser at `http://localhost:5173`
 
 ## Usage
 
-In this example, you will find a boilerplate you can use to guide yourself into creating a react+vite app with helia, this provides a pattern to reuse the same client across components with the context API and suggests how to integrate it with custom hooks
+In this example, you will find a boilerplate you can use to guide yourself into creating a Vue+Vite app with Helia. This provides a pattern to reuse the same client across components using Vue's provide/inject feature and suggests how to integrate it with Vue composables.
 
 You should see the following:
 
