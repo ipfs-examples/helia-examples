@@ -1,29 +1,29 @@
-import { TestBed } from '@angular/core/testing'
-import { HeliaComponent } from './helia.component'
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
 
-describe('HeliaComponent', () => {
+describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeliaComponent]
-    }).compileComponents()
-  })
+      imports: [AppComponent],
+    }).compileComponents();
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(HeliaComponent)
-    const app = fixture.componentInstance
-    expect(app).toBeTruthy()
-  })
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
 
-  it('should have the \'helia-angular\' title', () => {
-    const fixture = TestBed.createComponent(HeliaComponent)
-    const app = fixture.componentInstance
-    expect(app.title).toEqual('helia-angular')
-  })
+  it(`should have the 'helia-angular-test' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('helia-angular-test');
+  });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(HeliaComponent)
-    fixture.detectChanges()
-    const compiled = fixture.nativeElement as HTMLElement
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, helia-angular')
-  })
-})
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, helia-angular-test');
+  });
+});

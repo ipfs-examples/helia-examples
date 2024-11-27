@@ -133,5 +133,3 @@ Read the [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of
   b. ensure quality, and
   c. reduce possible future bugs
 - **Add tests**. There can never be enough tests
-
-

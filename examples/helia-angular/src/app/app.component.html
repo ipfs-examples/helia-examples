@@ -57,19 +57,40 @@
       </svg>
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
-      <!-- ipfs.component.html -->
-       @if(!id){
-        <div *@If="!helia || !id">
+      <!-- helia.component.html -->
+      <div>
+        <div *ngIf="!helia || !id">
           <h2>Starting Helia...</h2>
         </div>
-       }
-
-       @if(id){
-        <div>
+      
+        <div *ngIf="id">
           <h4 data-test="id">ID: {{ id }}</h4>
-          <h4 data-test="status">Status: {{ isOnline ? 'Online' : 'Offline' }}</h4>
+          <h4 data-test="status">Status: {{ id ? 'Online' : 'Offline' }}</h4>
         </div>
-       }
+      </div>
+
+      <div>
+
+        <a
+            href="https://docs.ipfs.io/"
+            className="card"
+          >
+            <h2>IPFS Documentation &rarr;</h2>
+            <p>
+              Learn how to build the future of the internet
+            </p>
+          </a>
+
+           <a
+            href="https://proto.school/"
+            className="card"
+          >
+            <h2>IPFS Tutorials &rarr;</h2>
+            <p>
+              Interactive tutorials on decentralized web protocols
+            </p>
+          </a>
+        </div>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
@@ -176,4 +197,3 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-<router-outlet />
