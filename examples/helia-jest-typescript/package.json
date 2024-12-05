@@ -1,0 +1,19 @@
+{
+  "name": "helia-jest-typescript",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Test Helia with Jest and TypeScript",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "dependencies": {
+    "helia": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  }
+}

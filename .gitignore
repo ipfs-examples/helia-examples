@@ -12,3 +12,5 @@ yarn.lock
 test-results
 playwright-report
 .parcel-cache
+.envrc
+.tool-versions
