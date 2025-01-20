@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h3 align="center"><b>Helia remote pinning example via browser and nodeJS</b></h3>
+<h3 align="center"><b>How to pin content to a remote IPFS pinning service using Helia</b></h3>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jlord/forkngo/gh-pages/badges/cobalt.png" width="200">
@@ -18,17 +18,94 @@
   <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
 </p>
 
-## Table of Contents
+## About
 
-- [Table of Contents](#table-of-contents)
-- [About The Project](#about-the-project)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation and Running example](#installation-and-running-example)
-- [Usage](#usage)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Want to hack on IPFS?](#want-to-hack-on-ipfs)
+When we add content to an IPFS node, it needs to remain online in order for
+others to retrieve that content.
+
+Some environments such as web browsers are fundamentally short lived - the user
+may navigate away from the page, close their browser or laptop lid, for example.
+
+Where users are creating content in these environments, we should use a remote
+pinning service to ensure the content is resolvable long after the original
+creator has gone offline.
+
+A remote pinning service is a third party node that stores content on behalf of
+other nodes. It may be a commercial service or one you have set up yourself.
+
+## Network
+
+We are going to start four nodes.
+
+1. Publisher
+
+This is a browser node which we will use to create some content.
+
+1. Pinning service
+
+This will run under Node.js and it will be used to make the content available
+after the publisher has gone offline.
+
+3. Resolver
+
+Another browser node that wishes to fetch the content created by the publisher.
+
+4. Bootstrapper
+
+A Node.js node we will use to allow these peers to discover each other.
+
+## Start the servers
+
+First start the bootstrapper:
+
+```console
+$ npm run bootstrapper
+bootstrapper listening on
+/ip4/127.0.0.1/tcp/64484/p2p/12D3KooWNkqtx14iU9sJV76PgksX3nYW7CPdKZAQPG6ueqzAMgxD
+... more addresses here
+```
+
+Next start the pinning service:
+
+```console
+$ npm run pinning-service.js
+pinning service listening on
+http://127.0.0.1:64486
+```
+
+Now start the publisher:
+
+```console
+$ npm run publisher
+```
+
+A web browser will open.
+
+Wait for the status to become "Ready". When this has happened, the libp2p node
+running on the page has acquired a relay address from the bootstrap node and
+can accept incoming WebRTC connections from the pinning service node. This is
+necessary for the pinning service to request pinned blocks from the publisher.
+
+Enter some text into the input box and click the "Publish" button.
+
+Copy the CID that is shown on the screen.
+
+You may now close the publisher window if you wish.
+
+Finally start the resolver:
+
+```console
+$ npm run resolver
+```
+
+When the web browser opens, take the CID you copied previous and enter it into
+the input box.
+
+Click "Resolve", after a short delay you should see the content you entered into
+the input on the publisher page.
+
+You have just published content using a remote pinning service, then resolved
+that content using a different node.
 
 ## About The Project
 
@@ -39,60 +116,6 @@
 - Check out https://docs.ipfs.io for tips, how-tos and more
 - See https://blog.ipfs.io for news and more
 - Need help? Please ask 'How do I?' questions on https://discuss.ipfs.io
-
-## Getting Started
-
-### Prerequisites
-
-Make sure you have installed all of the following prerequisites on your development machine:
-
-- Git - [Download & Install Git](https://git-scm.com/downloads). OSX and Linux machines typically have this already installed.
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
-
-### Installation and Running example
-
-Before running either of the below, you should set two environment variables:
-
-* VITE_PINNING_ENDPOINT - the endpoint for the pinning provider you want to use
-* VITE_PINNING_TOKEN - the API key for the pinning provider you are using.
-
-#### Run the browser example
-
-```console
-> npm install
-> npm start
-```
-
-Now open your browser at `http://localhost:5173/`
-
-The environment variables mentioned above will pre-populate the inputs on the page if provided, otherwise you will need to enter them prior to proceeding.
-
-#### Run the node example
-
-The environment variables mentioned above are required to be set for this to succeed.
-
-```console
-> npm install
-> npm run start-node -- 'Some string you want to test'
-```
-
-The CID for the string you passed in will be output, as well as the result of the pin operation.
-
-#### Run the tests
-
-```console
-npx playwright install
-npm run test
-```
-
-
-## Usage
-
-In this example, you will find a boilerplate you can use to guide yourself into creating a react+vite app with helia, this provides a pattern to reuse the same client across components with the context API and suggests how to integrate it with custom hooks
-
-You should see the following:
-
-![](./public/hello-helia.gif)
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
