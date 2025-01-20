@@ -14,3 +14,4 @@ playwright-report
 .parcel-cache
 .envrc
 .tool-versions
+.env
