@@ -7,7 +7,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class HeliaComponent implements OnInit {
   title = 'helia-angular';
@@ -25,8 +25,12 @@ export class HeliaComponent implements OnInit {
         console.log('Helia initialized:', this.helia);
   
         // Fetch the node's ID
-        const peerId = await this.helia.libp2p.peerId;
-        this.id = peerId.toString();
+        if (this.helia.libp2p) {
+          const peerId = await this.helia.libp2p.peerId;
+          this.id = peerId.toString();
+        } else {
+          console.error('libp2p is not initialized in Helia.');
+        }
       } catch (error) {
         console.error('Error initializing Helia:', error);
       }
