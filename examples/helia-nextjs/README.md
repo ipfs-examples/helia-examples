@@ -32,7 +32,7 @@ https://github.com/ipfs-examples/helia-examples#prerequisites
 
 ```console
 > npm install
-> npm start
+> npm run dev
 ```
 
 Now open your browser at `http://localhost:3000`
