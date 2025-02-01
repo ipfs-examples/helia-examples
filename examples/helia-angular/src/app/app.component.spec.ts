@@ -14,16 +14,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'helia-angular' title`, () => {
+  it(`should have the 'Helia-Angular' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.text).toEqual('helia-angular');
+    expect(app.title).toEqual('Helia-Angular');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, helia-angular');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Helia-Angular app is running!');
   });
 });
+

@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  title = 'Helia-Angular';
   text: string = '';
   cidString: string = '';
   committedText: string = '';
