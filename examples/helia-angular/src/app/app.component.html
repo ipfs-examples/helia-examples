@@ -1,0 +1,20 @@
+<div class="App">
+  <div id="heliaStatus" [style.background-color]="heliaStatus.includes('Error') ? '#ff4444' : '#4caf50'">
+    {{ heliaStatus }}
+  </div>
+  <input
+    id="textInput"
+    [(ngModel)]="text"
+    type="text"
+    placeholder="Enter text here"
+  />
+  <button id="commitTextButton" (click)="addTextToNode()">Add Text To Node</button>
+  <div id="cidOutput">textCid: {{ cidString }}</div>
+  <div *ngIf="cidString">
+    <button id="fetchCommittedTextButton" (click)="fetchCommittedText()">Fetch Committed Text</button>
+    <div id="committedTextOutput">Committed Text: {{ committedText }}</div>
+  </div>
+  <div *ngIf="error" class="error-message" style="color: red; margin-top: 10px;">
+    {{ error }}
+  </div>
+</div>
