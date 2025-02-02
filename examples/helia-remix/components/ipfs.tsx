@@ -1,15 +1,6 @@
 import { createHelia } from 'helia'
 import React, { useState, useEffect } from 'react'
 
-// Define the types for the state variables
-interface HeliaNode {
-  libp2p: {
-    peerId: {
-      toString: () => string
-    }
-    status: string
-  }
-}
 
 const IpfsComponent: React.FC = () => {
   const [id, setId] = useState<string | null>(null)
