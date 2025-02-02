@@ -20,7 +20,7 @@ const IpfsComponent: React.FC = () => {
     const init = async () => {
       if (helia) return
 
-      const heliaNode = (await createHelia()) as HeliaNode
+      const heliaNode = await createHelia()
 
       const nodeId = heliaNode.libp2p.peerId.toString()
       const nodeIsOnline = heliaNode.libp2p.status === 'started'
