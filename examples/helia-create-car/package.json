@@ -28,6 +28,6 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
     "test-ipfs-example": "^1.0.0",
-    "vite": "^5.0.11"
+    "vite": "^6.0.9"
   }
 }
