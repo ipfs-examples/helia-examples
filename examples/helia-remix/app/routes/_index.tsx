@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import IpfsComponent from "../../components/ipfs";
+import HeliaComponent from "../../components/helia";
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,7 +14,7 @@ export default function Index() {
       <div className="flex flex-col items-center gap-16">
         <header className="flex flex-col items-center gap-9">
           <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Welcome to <span className="sr-only">Remix</span>
+            Welcome to <span className="">Helia Remix</span>
           </h1>
           <div className="h-[144px] w-[434px]">
             <img
@@ -55,7 +55,7 @@ export default function Index() {
           </a>
         
 
-        <IpfsComponent />
+        <HeliaComponent />
         </div>
         
 
