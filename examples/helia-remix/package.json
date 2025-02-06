@@ -12,11 +12,13 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "eslintConfig": {
+    "extends": "ipfs"
+  },
   "dependencies": {
     "@remix-run/node": "^2.14.0",
     "@remix-run/react": "^2.14.0",
     "@remix-run/serve": "^2.14.0",
-    "eslint-config-ipfs": "^7.0.6",
     "helia": "^5.1.1",
     "isbot": "^4.1.0",
     "react": "^18.2.0",

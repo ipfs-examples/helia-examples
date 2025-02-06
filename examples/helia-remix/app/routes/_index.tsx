@@ -3,8 +3,8 @@ import HeliaComponent from "../../components/helia";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "New Helia Remix App" },
+    { name: "description", content: "Welcome to Helia Remix!" },
   ];
 };
 
