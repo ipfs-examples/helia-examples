@@ -18,7 +18,7 @@ const HeliaComponent: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(false)
 
   useEffect(() => {
-    if (helia) return
+    if (helia != null) return
 
     const initHeliaNode = async () => {
       const { heliaNode, nodeId, nodeIsOnline } = await initHelia()
