@@ -30,7 +30,7 @@ const HeliaComponent: React.FC = () => {
     initHeliaNode()
   }, [helia])
 
-  if (!helia || !id) {
+  if (helia == null || id == null) {
     return <h4>Starting Helia...</h4>
   }
 
