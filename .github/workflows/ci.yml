@@ -21,6 +21,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-angular
           - helia-browser-verified-fetch
           - helia-cjs
           - helia-electron
@@ -95,6 +96,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-angular
           - helia-cjs
           - helia-browser-verified-fetch
           - helia-electron
