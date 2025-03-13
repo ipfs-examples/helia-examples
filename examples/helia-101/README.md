@@ -28,6 +28,7 @@
   - [Running Examples](#running-examples)
 - [Usage](#usage)
   - [101 - Basics](#101---basics)
+  - [102 - CID Profiles](#102---cid-profiles)
   - [201 - Storage](#201---storage)
     - [Blockstore](#blockstore)
     - [Datastore](#datastore)
@@ -131,6 +132,13 @@ console.log('Added file contents:', text)
 That's it!  We've created a Helia node, added a file to it, and retrieved that file.
 
 Next we will look at where the bytes that make up the file go.
+
+### 102 - CID Profiles
+
+The way UnixFS takes arbitrary inputs (files, folders, etc) and turns them into DAGs of smaller binary blocks (addressed by CID) involves a lot of tradeoffs and choices, particularly at the DAG level.
+If you need multiple different implementations to produce the same CID for a given input, you need to configure the CID generation accordingly, matching certain configuration variables to those defined in "CID profiles", like those exposed in the `ipfs config profile apply` command in kubo ([docs](https://docs.ipfs.tech/reference/kubo/cli/#ipfs-config-profile-apply)).
+
+When experimenting with these options, it can be helpful to play with the DAG generator at dag.ipfs.tech.
 
 ### 201 - Storage
 
