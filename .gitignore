@@ -15,3 +15,4 @@ playwright-report
 .envrc
 .tool-versions
 .env
+examples/helia-101/2600-h.htm

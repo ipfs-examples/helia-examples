@@ -23,6 +23,7 @@ const cidBigHTML = await fs.addFile(
   }
 )
 
+//CID: bafybeifrc2vrh76j7dccg2hgihoy66su7jw2vvxoihrswevbdaazlquhpq 
 console.log('bigHtmlFile test-cid-v1 profile: ', cidBigHTML.toString())
 const stats = await fs.stat(cidBigHTML)
 console.log('Stats:', stats)
@@ -45,6 +46,7 @@ const cidBigHTML2 = await fs.addFile(
   }
 )
 
+//CID: QmaYSLS6tenji27mAV9Nzr69pZNapQ4PdDp48ESRToYXSr
 console.log('bigHtmlFile legacy-cid-v0 profile: ', cidBigHTML2.toString())
 const stats2 = await fs.stat(cidBigHTML2)
 console.log('Stats:', stats2)
