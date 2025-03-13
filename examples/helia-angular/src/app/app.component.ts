@@ -1,9 +1,9 @@
 import { isPlatformBrowser, CommonModule } from '@angular/common'
-import { Component, PLATFORM_ID, Inject, type OnInit, type OnDestroy } from '@angular/core'
+import { Component, PLATFORM_ID, Inject, OnInit, OnDestroy } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { type Subscription } from 'rxjs'
-import { type CommitTextService } from './services/commit-text.service'
-import { type HeliaService } from './services/helia.service'
+import { Subscription } from 'rxjs'
+import { CommitTextService } from './services/commit-text.service'
+import { HeliaService } from './services/helia.service'
 
 @Component({
   selector: 'app-root',

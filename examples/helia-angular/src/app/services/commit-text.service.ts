@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common'
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core'
 import { CID } from 'multiformats/cid'
-import { type HeliaService } from './helia.service'
+import { HeliaService } from './helia.service'
 
 @Injectable({
   providedIn: 'root'

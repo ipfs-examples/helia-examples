@@ -13,9 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": [
-  "helia"
-],
+            "allowedCommonJsDependencies": ["helia"],
             "outputPath": "dist/helia-angular",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -75,6 +73,13 @@
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
+          "configurations": {
+            "ci": {
+              "browsers": ["ChromeHeadlessCI"],
+              "watch": false,
+              "progress": false
+            }
+          },
           "options": {
             "polyfills": [
               "zone.js",
