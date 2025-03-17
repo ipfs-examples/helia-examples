@@ -3,6 +3,8 @@
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
 import { createHelia } from 'helia'
+import { mdns } from '@libp2p/mdns'
+
 
 // the blockstore is where we store the blocks that make up files. this blockstore
 // stores everything in-memory - other blockstores are available:
@@ -10,11 +12,10 @@ import { createHelia } from 'helia'
 //   - https://www.npmjs.com/package/blockstore-idb - an IndexDB blockstore (for use in browsers)
 //   - https://www.npmjs.com/package/blockstore-level - a LevelDB blockstore (for node or browsers,
 //                                        though storing files in a database is rarely a good idea)
-const blockstore = new MemoryBlockstore()
 
 // create a Helia node
 const helia = await createHelia({
-  blockstore,
+  blockstore: new MemoryBlockstore(),
   libp2p: {
     addresses: {
       listen: [
@@ -22,7 +23,9 @@ const helia = await createHelia({
         '/ip4/127.0.0.1/tcp/0',
       ]
     },
-    peerDiscovery: []
+    peerDiscovery: [
+      mdns()
+    ]
   }
 })
 
@@ -43,13 +46,16 @@ console.log('Added file:', cid.toString())
 
 // create a second Helia node using the same blockstore
 const helia2 = await createHelia({
-  blockstore,
+  blockstore: new MemoryBlockstore(),
   libp2p: {
     addresses: {
       listen: [
         '/ip4/127.0.0.1/tcp/0',
       ]
     },
+    peerDiscovery: [
+      mdns()
+    ]
   }
 })
 // create a second filesystem
