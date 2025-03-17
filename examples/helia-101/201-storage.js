@@ -26,6 +26,10 @@ const helia = await createHelia({
   }
 })
 
+helia.libp2p.addEventListener('peer:connect', (peerId) => {
+  console.log('peer connected', peerId)
+})
+
 // create a filesystem on top of Helia, in this case it's UnixFS
 const fs = unixfs(helia)
 
@@ -69,6 +73,4 @@ console.log('helia.libp2p.getConnections()', await helia.libp2p.getConnections()
 
 console.log('Added file contents:', text)
 
-setTimeout(() => {
-  process.exit(0)
-}, 1000)
+process.exit(0)
