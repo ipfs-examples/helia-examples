@@ -138,7 +138,7 @@ Next we will look at where the bytes that make up the file go.
 The way UnixFS takes arbitrary inputs (files, folders, etc) and turns them into [DAGs](https://proto.school/merkle-dags/03) of smaller binary blocks (addressed by CID) involves a lot of tradeoffs and choices, particularly in the shape and structure of the DAG.
 If you need multiple different implementations to produce the same CID for a given input, configure CID generation accordingly, matching certain configuration variables to those defined in CID profiles, like those exposed in the `ipfs config profile apply` command in kubo ([docs](https://docs.ipfs.tech/reference/kubo/cli/#ipfs-config-profile-apply)).
 
-When experimenting with these options, it can be helpful to play with the DAG generator at dag.ipfs.tech.
+When experimenting with these options, it can be helpful to play with the [DAG Build](https://dag.ipfs.tech/) .
 
 ### 201 - Storage
 
