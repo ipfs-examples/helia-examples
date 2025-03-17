@@ -14,7 +14,16 @@ const blockstore = new MemoryBlockstore()
 
 // create a Helia node
 const helia = await createHelia({
-  blockstore
+  blockstore,
+  libp2p: {
+    addresses: {
+      listen: [
+        // only listen on localhost TCP for simplicity
+        '/ip4/127.0.0.1/tcp/0',
+      ]
+    },
+    peerDiscovery: []
+  }
 })
 
 // create a filesystem on top of Helia, in this case it's UnixFS
@@ -30,9 +39,15 @@ console.log('Added file:', cid.toString())
 
 // create a second Helia node using the same blockstore
 const helia2 = await createHelia({
-  blockstore
+  blockstore,
+  libp2p: {
+    addresses: {
+      listen: [
+        '/ip4/127.0.0.1/tcp/0',
+      ]
+    },
+  }
 })
-
 // create a second filesystem
 const fs2 = unixfs(helia2)
 
@@ -47,4 +62,13 @@ for await (const chunk of fs2.cat(cid)) {
   })
 }
 
+console.log('helia2.libp2p.getPeers()', await helia2.libp2p.getPeers())
+console.log('helia2.libp2p.getConnections()', await helia2.libp2p.getConnections())
+console.log('helia.libp2p.getPeers()', await helia.libp2p.getPeers())
+console.log('helia.libp2p.getConnections()', await helia.libp2p.getConnections())
+
 console.log('Added file contents:', text)
+
+setTimeout(() => {
+  process.exit(0)
+}, 1000)
