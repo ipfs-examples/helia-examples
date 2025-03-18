@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 // @ts-check
+import { createHeliaHTTP } from '@helia/http'
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
-import { createHeliaHTTP } from '@helia/http'
 import { FsBlockstore } from 'blockstore-fs'
 
 // the blockstore is where we store the blocks that make up files. this blockstore
@@ -14,7 +14,7 @@ import { FsBlockstore } from 'blockstore-fs'
 
 // Create a new Helia node with an in-memory blockstore
 const helia1 = await createHeliaHTTP({
-  blockstore: new MemoryBlockstore(),
+  blockstore: new MemoryBlockstore()
 })
 
 // create a UnixFS filesystem on top of Helia
@@ -48,5 +48,3 @@ try {
 }
 
 process.exit(0)
-
-
