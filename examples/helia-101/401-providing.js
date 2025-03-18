@@ -2,9 +2,6 @@
 // @ts-check
 import { unixfs } from '@helia/unixfs'
 import { createHelia } from 'helia'
-import { NotFoundError } from '@libp2p/interface'
-import { FsBlockstore } from 'blockstore-fs'
-import { FsDatastore } from 'datastore-fs'
 
 const helia = await createHelia()
 
