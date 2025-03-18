@@ -9,6 +9,7 @@
     "101-basics": "node 101-basics.js",
     "201-storage": "node 201-storage.js",
     "301-networking": "node 301-networking.js",
+    "401-providing": "node 401-providing.js",
     "test": "test-node-example test/*"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "blockstore-core": "^5.0.2",
     "blockstore-fs": "^2.0.2",
     "datastore-core": "^10.0.2",
+    "datastore-fs": "^10.0.2",
     "helia": "^5.3.0",
     "libp2p": "^2.8.1"
   },

@@ -69,13 +69,14 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm run 101-basics
 > npm run 201-storage
 > npm run 301-networking
+> npm run 401-providing
 ```
 
 ## Usage
 
 In this tutorial, we go through spawning a Helia node and interacting with [UnixFS](https://docs.ipfs.tech/concepts/glossary/#unixfs), adding bytes, directories, and files to the node and retrieving them.
 
-It is split into three parts, each part builds on the previous one - basics of interaction with UnixFS, storage and finally networking.
+It is split into multiple parts, each part builds on the previous one - basics of interaction with UnixFS, storage, networking, and finally providing, garbage collection and pinning.
 
 For this tutorial, you need to install all dependencies in the `package.json` using `npm install`.
 
@@ -193,6 +194,25 @@ const libp2p = await createLibp2p({
 })
 ```
 
+### 401 - Providing
+
+The final example is [401-providing.js](./401-providing.js).
+
+This example shows:
+
+- How to run garbage collection,
+- Pin blocks to prevent them from being garbage collected
+- Add metadata to pins
+- Provide it to the DHT so that other nodes can find and retrieve it.
+
+To run it, use the following command:
+
+```console
+> npm run 401-providing
+```
+
+
+
 ### Putting it all together
 
 Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
@@ -205,7 +225,7 @@ Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 # https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 ```
 
-That's it! You just added and retrieved a file from the Distributed Web!
+That's it! You just added and retrieved a file from IPFS!
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
