@@ -20,6 +20,7 @@
     "@libp2p/identify": "^3.0.26",
     "@libp2p/tcp": "^10.1.7",
     "blockstore-core": "^5.0.2",
+    "blockstore-fs": "^2.0.2",
     "datastore-core": "^10.0.2",
     "helia": "^5.3.0",
     "libp2p": "^2.8.1"
