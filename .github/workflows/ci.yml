@@ -55,7 +55,7 @@ jobs:
         # This step has been observed to hang indefinitely when failing to download browsers.
         timeout-minutes: 10
       - name: Run tests
-        run: npm run test -- --configuration ci
+        run: npm run test -- --configurations ci
         env:
           CI: true
         # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
