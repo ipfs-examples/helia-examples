@@ -21,6 +21,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-angular
           - helia-browser-verified-fetch
           - helia-cjs
           - helia-electron
@@ -54,7 +55,7 @@ jobs:
         # This step has been observed to hang indefinitely when failing to download browsers.
         timeout-minutes: 10
       - name: Run tests
-        run: npm run test
+        run: npm run test -- --configurations ci
         env:
           CI: true
         # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
@@ -95,6 +96,7 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-angular
           - helia-cjs
           - helia-browser-verified-fetch
           - helia-electron
