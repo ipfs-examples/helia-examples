@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "101-basics": "node 101-basics.js",
+    "102-cid-profiles": "node 102-cid-profiles.js",
     "201-storage": "node 201-storage.js",
     "301-networking": "node 301-networking.js",
     "test": "test-node-example test/*"
@@ -16,13 +17,18 @@
     "@chainsafe/libp2p-yamux": "^7.0.1",
     "@helia/http": "^2.0.0",
     "@helia/unixfs": "^4.0.0",
+    "@ipld/unixfs": "^3.0.0",
     "@libp2p/bootstrap": "^11.0.7",
     "@libp2p/identify": "^3.0.7",
     "@libp2p/tcp": "^10.0.8",
     "blockstore-core": "^5.0.2",
     "datastore-core": "^10.0.2",
     "helia": "^5.0.0",
-    "libp2p": "^2.1.6"
+    "ipfs-unixfs": "^11.2.0",
+    "ipfs-unixfs-exporter": "^13.6.1",
+    "ipfs-unixfs-importer": "^15.3.1",
+    "libp2p": "^2.1.6",
+    "multiformats": "^13.3.1"
   },
   "devDependencies": {
     "test-ipfs-example": "^1.0.0"
