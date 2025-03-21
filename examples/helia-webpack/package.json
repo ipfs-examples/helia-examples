@@ -19,8 +19,8 @@
   "dependencies": {
     "@helia/unixfs": "^4.0.0",
     "helia": "^5.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
@@ -37,7 +37,7 @@
     "style-loader": "^4.0.0",
     "test-ipfs-example": "^1.0.0",
     "webpack": "^5.45.1",
-    "webpack-cli": "^5.0.1",
+    "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.0.3",
     "webpack-merge": "^6.0.1"
   }
