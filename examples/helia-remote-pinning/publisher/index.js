@@ -36,6 +36,8 @@ libp2p.connectionGater = {
 const helia = heliaWithRemotePins(await createHelia({
   libp2p
 }), {
+  // this is the local pinning service API, for production use, specify the
+  // self-hosted or third party service/token here
   endpointUrl: 'http://127.0.0.1:64486',
   accessToken: 'SHHH-VERY-SECRET'
 })
