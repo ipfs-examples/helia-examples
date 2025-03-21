@@ -9,3 +9,5 @@ await waitForOutput('PeerId', 'electron', [
   '--no-sandbox',
   path.resolve(`${__dirname}/../main.js`)
 ])
+
+process.exit(0)
