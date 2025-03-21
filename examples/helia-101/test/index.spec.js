@@ -9,3 +9,5 @@ await waitForOutput('Added file contents: Hello World 101', 'node', [path.resolv
 await waitForOutput('Added file contents: Hello World 201', 'node', [path.resolve(__dirname, '../201-storage.js')])
 
 await waitForOutput('Fetched file contents: Hello World 301', 'node', [path.resolve(__dirname, '../301-networking.js')])
+
+await waitForOutput('CID provided to the DHT:', 'node', [path.resolve(__dirname, '../401-providing.js')])

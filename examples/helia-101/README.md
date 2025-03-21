@@ -69,78 +69,44 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm run 101-basics
 > npm run 201-storage
 > npm run 301-networking
+> npm run 401-providing
 ```
 
 ## Usage
 
-In this tutorial, we go through spawning a Helia node, adding a file and cating the file [CID][] locally and through the gateway.
+In this tutorial, we go through spawning a Helia node and interacting with [UnixFS](https://docs.ipfs.tech/concepts/glossary/#unixfs), adding bytes, directories, and files to the node and retrieving them.
 
-It it split into three parts, each part builds on the previous one - basics, storage and finally networking.
+It is split into multiple parts, each part builds on the previous one - basics of interaction with UnixFS, storage, networking, and finally providing, garbage collection and pinning.
 
 For this tutorial, you need to install all dependencies in the `package.json` using `npm install`.
 
 ### 101 - Basics
 
-In the [101-basics.js](./101-basics.js) example the first thing we do is create a Helia node:
+The [first example](./101-basics.js) goes into the the basics of interacting with UnixFS, adding bytes, directories, and files to the node and retrieving them.
 
-```js
-import { createHelia } from 'helia'
+To run it, use the following command:
 
-// create a Helia node
-const helia = await createHelia()
+```console
+> npm run 101-basics
 ```
-
-This node allows us to add blocks and later to retrieve them.
-
-Next we use `@helia/unixfs` to add some data to our node:
-
-```js
-import { unixfs } from '@helia/unixfs'
-
-// create a filesystem on top of Helia, in this case it's UnixFS
-const fs = unixfs(helia)
-
-// we will use this TextEncoder to turn strings into Uint8Arrays
-const encoder = new TextEncoder()
-const bytes = encoder.encode('Hello World 101')
-
-// add the bytes to your node and receive a unique content identifier
-const cid = await fs.addBytes(bytes)
-
-console.log('Added file:', cid.toString())
-```
-
-The `bytes` value we have passed to `unixfs` has now been turned into a UnixFS DAG and stored in the helia node.
-
-We can access it by using the `cat` API and passing the [CID][] that was returned from the invocation of `addBytes`:
-
-```js
-// this decoder will turn Uint8Arrays into strings
-const decoder = new TextDecoder()
-let text = ''
-
-for await (const chunk of fs.cat(cid)) {
-  text += decoder.decode(chunk, {
-    stream: true
-  })
-}
-
-console.log('Added file contents:', text)
-```
-
-That's it!  We've created a Helia node, added a file to it, and retrieved that file.
-
-Next we will look at where the bytes that make up the file go.
 
 ### 201 - Storage
 
-Out of the box Helia will store all data in-memory.  This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
+Out of the box Helia will store all data in-memory. This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
 
 Take a look at [201-storage.js](./201-storage.js) where we explore how to configure different types of persistent storage for your Helia node.
 
+To run it, use the following command:
+
+```console
+> npm run 201-storage
+```
+
+If you run the example twice: you may notice that the second time the file is found in the blockstore without being added again.
+
 #### Blockstore
 
-At it's heart the Interplanetary Filesystem is about blocks.  When you add a file to your local Helia node, it is split up into a number of blocks, all of which are stored in a [blockstore](https://www.npmjs.com/package/interface-blockstore).
+At it's heart IPFS is about blocks of data addressed by a [CID][]. When you add a file to your local Helia node, it is split up into a number of blocks, all of which are stored in a [blockstore](https://www.npmjs.com/package/interface-blockstore).
 
 Each block has a [CID][], an identifier that is unique to that block and can be used to request it from other nodes in the network.
 
@@ -228,6 +194,25 @@ const libp2p = await createLibp2p({
 })
 ```
 
+### 401 - Providing
+
+The final example is [401-providing.js](./401-providing.js).
+
+This example shows:
+
+- How to run garbage collection,
+- Pin blocks to prevent them from being garbage collected
+- Add metadata to pins
+- Provide it to the DHT so that other nodes can find and retrieve it.
+
+To run it, use the following command:
+
+```console
+> npm run 401-providing
+```
+
+
+
 ### Putting it all together
 
 Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
@@ -240,7 +225,7 @@ Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 # https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
 ```
 
-That's it! You just added and retrieved a file from the Distributed Web!
+That's it! You just added and retrieved a file from IPFS!
 
 _For more examples, please refer to the [Documentation](#documentation)_
 
