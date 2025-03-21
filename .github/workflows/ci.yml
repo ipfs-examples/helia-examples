@@ -58,6 +58,9 @@ jobs:
         run: npx xvfb-maybe npm run test
         # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
         timeout-minutes: 10
+        env:
+          # https://stackoverflow.com/questions/70422318/getting-failed-to-connect-to-the-bus-could-not-parse-server-address-error-whe#comment125974781_70422318
+          DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
 
   monorepo:
     runs-on: ubuntu-latest
@@ -79,6 +82,9 @@ jobs:
         run: npx xvfb-maybe npm run test -- --concurrency 1
         # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
         timeout-minutes: 10
+        env:
+          # https://stackoverflow.com/questions/70422318/getting-failed-to-connect-to-the-bus-could-not-parse-server-address-error-whe#comment125974781_70422318
+          DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
 
   push-changes:
     name: Push changes
