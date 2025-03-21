@@ -1,10 +1,10 @@
 interface OutputProps {
-  output: string | JSX.Element
+  output: string | React.JSX.Element
   loading?: string
   err: string
 }
 
-export function Output ({ output, loading, err }: OutputProps): JSX.Element {
+export function Output ({ output, loading, err }: OutputProps): React.JSX.Element {
   if (err.length > 0) {
     return (
       <div className="bg-red-300">
@@ -32,7 +32,7 @@ export function Output ({ output, loading, err }: OutputProps): JSX.Element {
   return output
 }
 
-export function Loading ({ message }: { message: string }): JSX.Element {
+export function Loading ({ message }: { message: string }): React.JSX.Element {
   return (
     <div className="bg-yellow-300">
       <pre className="bg-black text-yellow-300 rounded p-4 flex flex-row items-center gap-x-2">
@@ -43,7 +43,7 @@ export function Loading ({ message }: { message: string }): JSX.Element {
   )
 }
 
-const Spinner = (): JSX.Element => (
+const Spinner = (): React.JSX.Element => (
   <svg
     aria-hidden="true"
     className="w-8 h-8 animate-spin dark:text-gray-600 fill-red-600"
