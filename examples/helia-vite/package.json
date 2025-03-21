@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.31.2",
-    "@types/react": "^18.0.28",
+    "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
     "@vitejs/plugin-react": "^4.0.0",
     "test-ipfs-example": "^1.0.0",
