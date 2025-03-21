@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   examples:
     runs-on: ubuntu-latest
     name: Test ${{ matrix.project }}
@@ -30,6 +31,7 @@ jobs:
           - helia-nestjs
           - helia-nextjs
           - helia-parcel
+          - helia-remote-pinning
           - helia-script-tag
           - helia-ts-node
           - helia-typescript
@@ -42,39 +44,41 @@ jobs:
       run:
         working-directory: examples/${{ matrix.project }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+        # This step has been observed to hang indefinitely when failing to download browsers.
+        timeout-minutes: 10
       - name: Run tests
-        run: npm run test
-        env:
-          CI: true
+        run: npx xvfb-maybe npm run test
+        # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
+        timeout-minutes: 10
 
   monorepo:
     runs-on: ubuntu-latest
     name: Test monorepo
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+        # This step has been observed to hang indefinitely when failing to download browsers.
+        timeout-minutes: 10
       - name: Run linting
         run: npm run lint
-        env:
-          CI: true
       - name: Run tests
-        run: npm run test -- --concurrency 1
-        env:
-          CI: true
+        run: npx xvfb-maybe npm run test -- --concurrency 1
+        # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
+        timeout-minutes: 10
 
   push-changes:
     name: Push changes
@@ -94,6 +98,7 @@ jobs:
           - helia-jest-typescript
           - helia-nestjs
           - helia-parcel
+          - helia-remote-pinning
           - helia-nextjs
           - helia-script-tag
           - helia-ts-node
