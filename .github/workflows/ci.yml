@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   examples:
     runs-on: ubuntu-latest
     name: Test ${{ matrix.project }}
@@ -44,8 +45,8 @@ jobs:
       run:
         working-directory: examples/${{ matrix.project }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
@@ -55,9 +56,7 @@ jobs:
         # This step has been observed to hang indefinitely when failing to download browsers.
         timeout-minutes: 10
       - name: Run tests
-        run: npm run test -- --configurations ci
-        env:
-          CI: true
+        run: npm run test
         # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
         timeout-minutes: 10
 
@@ -65,8 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Test monorepo
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
@@ -77,12 +76,8 @@ jobs:
         timeout-minutes: 10
       - name: Run linting
         run: npm run lint
-        env:
-          CI: true
       - name: Run tests
         run: npm run test -- --concurrency 1
-        env:
-          CI: true
         # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
         timeout-minutes: 10
 
