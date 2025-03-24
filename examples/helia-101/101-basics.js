@@ -42,9 +42,13 @@ const readmeCid = await fs.addFile({
   path: './README.md'
 })
 
-// stat returns a UnixFSStats object, which contains information about the file or directory
+// stat returns a UnixFSStats object, which contains information about the directory
 const readmeStats = await fs.stat(readmeCid)
 console.log('README.md stats:', readmeStats)
+
+// To get the size of a directory, we need extended stats, which traverse the DAG
+const readmeExStats = await fs.stat(readmeCid, { extended: true })
+console.log('README.md stats (extended):', readmeExStats)
 
 // this decoder will turn Uint8Arrays into strings
 const decoder = new TextDecoder()
