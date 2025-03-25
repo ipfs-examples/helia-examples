@@ -19,6 +19,7 @@ const fs = unixfs(helia)
 const encoder = new TextEncoder()
 
 // addBytes takes raw bytes and returns a raw block CID for the content
+// (larger (over 1 MiB) binary arrays are chunked and return a dag-pb block CID instead)
 // The `bytes` value we have passed to `unixfs` has now been turned into a UnixFS DAG and stored in the helia node.
 const cid = await fs.addBytes(encoder.encode('Hello World 101'), {
   onProgress: (evt) => {
