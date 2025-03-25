@@ -15,7 +15,7 @@
     "@chainsafe/libp2p-noise": "^16.0.0",
     "@chainsafe/libp2p-yamux": "^7.0.1",
     "@helia/http": "^2.0.0",
-    "@helia/unixfs": "^4.0.0",
+    "@helia/unixfs": "^5.0.0",
     "@libp2p/bootstrap": "^11.0.7",
     "@libp2p/identify": "^3.0.7",
     "@libp2p/tcp": "^10.0.8",
