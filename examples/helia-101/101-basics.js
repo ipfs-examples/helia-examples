@@ -29,9 +29,7 @@ const cid = await fs.addBytes(encoder.encode('Hello World 101'), {
 console.log('Added file:', cid.toString())
 
 // Create an empty directory
-const directoryCid = await fs.addDirectory({
-  path: 'my-dir'
-})
+const directoryCid = await fs.addDirectory()
 
 // Add a raw block CID to the directory as a file with the name `hello.txt`
 const updatedCid = await fs.cp(cid, directoryCid, 'hello.txt')
