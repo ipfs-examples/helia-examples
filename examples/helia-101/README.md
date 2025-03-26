@@ -90,10 +90,29 @@ To run it, use the following command:
 > npm run 101-basics
 ```
 
+### 102 - UnixFS Dirs
+
+The [second example](./102-unixfs-dirs.js) goes into the basics of working with directories with UnixFS.
+
+To run it, use the following command:
+
+```console
+> npm run 102-unixfs-dirs
+```
+
+### 103 - Glob UnixFS
+
+The [third example](./103-glob-unixfs.js) goes into using [`globSource`] to merkelize files and directories from your local file system into UnixFS and exporting the UnixFS DAG as a CAR file.
+
+To run it, use the following command:
+
+```console
+> npm run 103-glob-unixfs
+```
+
+
+
 ### 201 - Storage
-
-Out of the box Helia will store all data in-memory. This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
-
 Take a look at [201-storage.js](./201-storage.js) where we explore how to configure different types of persistent storage for your Helia node.
 
 To run it, use the following command:
