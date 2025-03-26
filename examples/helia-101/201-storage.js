@@ -47,4 +47,5 @@ try {
   console.log('Added file:', cid2.toString())
 }
 
-process.exit(0)
+await helia1.stop()
+await helia2.stop()

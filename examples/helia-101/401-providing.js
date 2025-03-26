@@ -73,3 +73,5 @@ console.log('Pin:', pin)
 await helia.routing.provide(cid)
 
 console.log('CID provided to the DHT:', cid.toString())
+
+await helia.stop()
