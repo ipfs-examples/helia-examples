@@ -31,6 +31,7 @@ jobs:
           - helia-nestjs
           - helia-nextjs
           - helia-parcel
+          - helia-remix
           - helia-remote-pinning
           - helia-script-tag
           - helia-ts-node
@@ -97,9 +98,10 @@ jobs:
           - helia-jest
           - helia-jest-typescript
           - helia-nestjs
-          - helia-parcel
-          - helia-remote-pinning
           - helia-nextjs
+          - helia-parcel
+          - helia-remix
+          - helia-remote-pinning
           - helia-script-tag
           - helia-ts-node
           - helia-typescript
