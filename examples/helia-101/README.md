@@ -35,7 +35,9 @@
     - [libp2p](#libp2p)
   - [302 - Local Peer Discovery](#302---local-peer-discovery)
   - [303 - Prometheus Metrics](#303---prometheus-metrics)
-  - [401 - Providing](#401---providing)
+  - [401 - Pinning](#401---pinning)
+  - [402 - Providing](#402---providing)
+  - [403 - Block Brokers](#403---block-brokers)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -70,11 +72,15 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ```console
 > npm run 101-basics
+> npm run 102-unixfs-dirs
+> npm run 103-glob-unixfs
 > npm run 201-storage
 > npm run 301-networking
 > npm run 302-mdns
 > npm run 303-metrics
-> npm run 401-providing
+> npm run 401-pinning
+> npm run 402-providing
+> npm run 403-block-brokers
 ```
 
 ## Usage
@@ -284,40 +290,42 @@ To run this example, use the following command:
 > npm run 303-metrics
 ```
 
-### 401 - Providing
+### 401 - Pinning
 
-The final example is [401-providing.js](./401-providing.js).
-
-This example shows:
-
-- How to run garbage collection,
+The [401-pinning.js](./401-pinning.js) example demonstrates how to:
+- Run garbage collection
 - Pin blocks to prevent them from being garbage collected
 - Add metadata to pins
-- Provide it to the DHT so that other nodes can find and retrieve it.
 
 To run it, use the following command:
 
 ```console
-> npm run 401-providing
+> npm run 401-pinning
 ```
 
+### 402 - Providing
 
+The [402-providing.js](./402-providing.js) example shows how to:
+- Provide content to the DHT (Distributed Hash Table)
+- Make content discoverable by other nodes in the network
 
-### Putting it all together
+To run it, use the following command:
 
-Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
-
-```bash
-> npm run 301-networking
-
-Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
-# Copy that hash and load it on the gateway, here is a prefilled url:
-# https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
+```console
+> npm run 402-providing
 ```
 
-That's it! You just added and retrieved a file from IPFS!
+### 403 - Block Brokers
 
-_For more examples, please refer to the [Documentation](#documentation)_
+The [403-block-brokers.js](./403-block-brokers.js) example demonstrates how to:
+- Configure different block brokers (Bitswap and Trustless Gateway)
+- Set up routing options (libp2p and HTTP Gateway)
+
+To run it, use the following command:
+
+```console
+> npm run 403-block-brokers
+```
 
 ## Documentation
 

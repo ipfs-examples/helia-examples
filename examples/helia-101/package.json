@@ -11,7 +11,9 @@
     "301-networking": "node 301-networking.js",
     "302-mdns": "node 302-mdns.js",
     "303-metrics": "node 303-metrics.js",
-    "401-providing": "node 401-providing.js",
+    "401-pinning": "node 401-pinning.js",
+    "402-providing": "node 402-providing.js",
+    "403-block-brokers": "node 403-block-brokers.js",
     "test": "test-node-example test/*"
   },
   "dependencies": {
