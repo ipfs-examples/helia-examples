@@ -34,12 +34,8 @@ const fs = unixfs(helia)
 
 // Glob source will recursively add all files and directories in the path
 const source = globSource(path, '**/*', {
-  hidden: false
+  hidden: false // ignore hidden files
 })
-
-// for await (const entry of source) {
-//   console.log(entry.path)
-// }
 
 let last
 // add all files and directories in the path and wrap it all in a directory

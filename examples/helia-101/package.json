@@ -9,6 +9,8 @@
     "101-basics": "node 101-basics.js",
     "201-storage": "node 201-storage.js",
     "301-networking": "node 301-networking.js",
+    "302-mdns": "node 302-mdns.js",
+    "303-metrics": "node 303-metrics.js",
     "401-providing": "node 401-providing.js",
     "test": "test-node-example test/*"
   },

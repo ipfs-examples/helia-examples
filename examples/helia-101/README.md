@@ -33,6 +33,9 @@
     - [Datastore](#datastore)
   - [301 - Networking](#301---networking)
     - [libp2p](#libp2p)
+  - [302 - Local Peer Discovery](#302---local-peer-discovery)
+  - [303 - Prometheus Metrics](#303---prometheus-metrics)
+  - [401 - Providing](#401---providing)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -69,6 +72,8 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm run 101-basics
 > npm run 201-storage
 > npm run 301-networking
+> npm run 302-mdns
+> npm run 303-metrics
 > npm run 401-providing
 ```
 
@@ -110,9 +115,8 @@ To run it, use the following command:
 > npm run 103-glob-unixfs
 ```
 
-
-
 ### 201 - Storage
+
 Take a look at [201-storage.js](./201-storage.js) where we explore how to configure different types of persistent storage for your Helia node.
 
 To run it, use the following command:
@@ -211,6 +215,73 @@ const libp2p = await createLibp2p({
     identify: identifyService()
   }
 })
+```
+
+### 302 - Local Peer Discovery
+
+The [302-mdns.js](./302-mdns.js) example demonstrates how to use multicast DNS for local peer discovery.
+
+This allows Helia nodes on the same local network to automatically discover each other without requiring bootstrap nodes or DHT lookups.
+
+```js
+import { mdns } from '@libp2p/mdns'
+
+// Configure libp2p with mDNS discovery
+const libp2p = await createLibp2p({
+  // ... other configuration ...
+  peerDiscovery: [
+    mdns()
+  ],
+  // ... rest of configuration ...
+})
+
+// Listen for peer discovery events
+node.libp2p.addEventListener('peer:discovery', (evt) => {
+  console.log(`Discovered new peer (${evt.detail.id.toString()}) via MDNS`)
+  node.libp2p.dial(evt.detail.multiaddrs)
+})
+```
+
+To run this example, use the following command:
+
+```console
+> npm run 302-mdns
+```
+
+### 303 - Prometheus Metrics
+
+The [303-metrics.js](./303-metrics.js) example shows how to enable and expose Prometheus metrics for your Helia node, and how to expose the Prometheus HTTP metrics endpoint.
+
+This is useful for monitoring the performance and behavior of your node in production environments.
+
+```js
+import { prometheusMetrics } from '@libp2p/prometheus-metrics'
+import { register } from 'prom-client'
+
+const helia = await createHelia({
+  // ... other configuration ...
+  libp2p: {
+    metrics: prometheusMetrics(),
+  }
+})
+
+// Create a simple HTTP server to expose metrics
+const metricsServer = createServer((req, res) => {
+  if (req.url === '/metrics' && req.method === 'GET') {
+    register.metrics()
+      .then((metrics) => {
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        res.end(metrics)
+      })
+  }
+})
+metricsServer.listen(9999, '0.0.0.0')
+```
+
+To run this example, use the following command:
+
+```console
+> npm run 303-metrics
 ```
 
 ### 401 - Providing
