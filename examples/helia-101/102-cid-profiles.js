@@ -1,5 +1,5 @@
 import { createReadStream } from 'node:fs'
-import { unixfs } from '@helia/unixfs'
+import { globSource, unixfs } from '@helia/unixfs'
 import { createHelia } from 'helia'
 import { fixedSize } from 'ipfs-unixfs-importer/chunker'
 import { balanced } from 'ipfs-unixfs-importer/layout'
@@ -27,7 +27,6 @@ const cidBigHTML = await fs.addFile(
   }
 )
 
-//kubo CID: bafybeifrc2vrh76j7dccg2hgihoy66su7jw2vvxoihrswevbdaazlquhpq 
 console.log('bigHtmlFile test-cid-v1 profile: ', cidBigHTML.toString())
 const stats = await fs.stat(cidBigHTML)
 console.log('Stats:', stats)
@@ -51,47 +50,51 @@ const cidBigHTML2 = await fs.addFile(
   }
 )
 
-//kubo CID: QmaYSLS6tenji27mAV9Nzr69pZNapQ4PdDp48ESRToYXSr
 console.log('bigHtmlFile legacy-cid-v0 profile: ', cidBigHTML2.toString())
 const stats2 = await fs.stat(cidBigHTML2)
 console.log('Stats:', stats2)
 
 //--------------------------------directory inputs
 
-// big-directory populated with enough small files to trigger HAMT behavior
+// big-directory populated with many small files and subdirectories to trigger
+// recursive encoding, but not enough to trigger a HAMT-directory
 
-// generate CID according to Helia defaults (~== kubo v1 profile) from a big directory:
-const cidBigDirectory = await fs.addDirectory(
-  { 
-    path: 'big-directory/*', 
-  }, {
-    wrapWithDirectory: false 
-  }
-)
+// generate CID according to Helia defaults (~== kubo v1 profile) from a big
+// directory via the globSource function (see
+// https://ipfs.github.io/helia/functions/_helia_unixfs.index.globSource.html ):
 
-//CID: bafybeid5dv43dj6iwwd5wddkwiztty2i7ln55ri2yz4za5oboqrjtw7x54 
-console.log('bigDirectory test-cid-v1 profile: ', cidBigDirectory.toString())
-const stats3 = await fs.stat(cidBigDirectory)
-console.log('Stats:', stats3)
+for await (const entry of fs.addAll(globSource(
+   './big_directory',
+   '**/*'
+  ), {
+      wrapWithDirectory: true 
+    }
+  )
+){
+  console.log('bigDirectory test-cid-v1 profile: ', entry.cid.toString())
+  const stats3 = await fs.stat(entry.cid)
+  console.log('Stats:', stats3)
+}
+   
+// generate CID according to Kubo legacy-cid-v0 profile from same directory:
 
-// generate CID according to Kubo legacy-cid-v0 profile from bif directory:
-const cidBigDirectory2 = await fs.addDirectory(
-  { 
-    path: 'big-directory/*', 
-  }, {
-    cidVersion: 0,
-    rawLeaves: false,
-    layout: balanced({
-      maxChildrenPerNode: 256
-    }),
-    chunker: fixedSize({
-      chunkSize: 262_144
-    }),
-    wrapWithDirectory: false 
-  }
-)
-
-//kubo CID: QmeyiUNRgGQg5g68GvgGm817i7qMv6YqSNvNNLdZtbBsba
-console.log('bigDirectory legacy-cid-v0 profile: ', cidBigDirectory2.toString())
-const stats4 = await fs.stat(cidBigDirectory2)
-console.log('Stats:', stats4)
+for await (const entry of fs.addAll(globSource(
+  './big_directory',
+  '**/*'
+ ), {
+  cidVersion: 0,
+  rawLeaves: false,
+  layout: balanced({
+    maxChildrenPerNode: 256
+  }),
+  chunker: fixedSize({
+    chunkSize: 262_144
+  }),
+  wrapWithDirectory: true 
+ }
+ )
+){
+  console.log('bigDirectory kubo-cid-v0 profile: ', entry.cid.toString())
+  const stats4 = await fs.stat(entry.cid)
+  console.log('Stats:', stats4)
+}
