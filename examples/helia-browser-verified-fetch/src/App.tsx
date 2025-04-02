@@ -4,14 +4,14 @@ import { useCallback, useState } from 'react'
 import { Output } from './Output'
 import { helpText } from './constants'
 
-function App (): JSX.Element {
+function App (): React.JSX.Element {
   const [path, setPath] = useState<string>('')
-  const [output, setOutput] = useState<string | JSX.Element>('')
+  const [output, setOutput] = useState<string | React.JSX.Element>('')
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<string>('')
   const [controller, setController] = useState<AbortController | null>(null)
 
-  const setSuccess = useCallback((message: string | JSX.Element) => {
+  const setSuccess = useCallback((message: string | React.JSX.Element) => {
     setOutput(message)
     setLoadingTo('')
     setErr('')

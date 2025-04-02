@@ -1,6 +1,8 @@
 node_modules
 build
 dist
+blockstore
+datastore
 .docs
 .coverage
 node_modules
