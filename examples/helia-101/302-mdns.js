@@ -54,11 +54,16 @@ async function createNode () {
 const node1 = await createNode()
 
 // listen for peer discovery events triggered by the mdns peer discovery module
-node1.libp2p.addEventListener('peer:discovery', (evt) => {
+node1.libp2p.addEventListener('peer:discovery', async (evt) => {
   console.log(evt)
   console.log(evt.detail)
   console.log(`Discovered new peer (${evt.detail.id.toString()}) via MDNS. Dialling...`, evt.detail.multiaddrs.map(ma => ma.toString()))
-  node1.libp2p.dial(evt.detail.multiaddrs) // dial the new peer
+  try {
+    await node1.libp2p.dial(evt.detail.multiaddrs) // dial the new peer
+    console.log(`Successfully dialed peer (${evt.detail.id.toString()})`)
+  } catch (err) {
+    console.error(`Failed to dial peer (${evt.detail.id.toString()}):`, err)
+  }
 })
 
 // create a second helia node

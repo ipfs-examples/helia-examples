@@ -14,8 +14,7 @@ const args = process.argv.slice(2)
 // Example of how to use arguments
 if (args.length === 0) {
   console.error('No argument provided')
-  console.error('Usage: node 102-add-folder-unixfs.js <path-to-add> <output-car-file>')
-  process.exit(1)
+  console.error('Usage: node 103-glob-unixfs.js <path-to-add> <output-car-file>')
 }
 
 const path = args[0]
