@@ -19,9 +19,6 @@ console.log('Added file:', contentCid.toString())
 let rootDirectoryCid = await unixfs.addDirectory()
 console.log('rootDirectoryCid (empty):', rootDirectoryCid)
 
-// The problem with this is that we don't get the CID of `my-books`
-// which makes it harder to add files to `my-books`
-// rootDirectoryCid = await fs.mkdir(rootDirectoryCid, 'my-books')
 
 // Create a new empty UnixFS directory to which we will add files
 let myBooks = await unixfs.addDirectory()
