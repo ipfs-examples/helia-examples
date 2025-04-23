@@ -1,11 +1,8 @@
 /* eslint-disable no-console */
 // @ts-check
 
-import * as nodefs from 'fs'
-import { devNull } from 'node:os'
-import { pipeline } from 'stream/promises'
 import { createHeliaHTTP } from '@helia/http'
-import { unixfs as UnixFS, urlSource } from '@helia/unixfs'
+import { unixfs as UnixFS } from '@helia/unixfs'
 
 const helia = await createHeliaHTTP()
 
