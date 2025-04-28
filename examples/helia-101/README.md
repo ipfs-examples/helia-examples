@@ -290,6 +290,13 @@ To run this example, use the following command:
 > npm run 303-metrics
 ```
 
+#### Other Metrics Implementations
+
+js-libp2p supports two other metrics implementations:
+
+- [@libp2p/devtools-metrics](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-devtools): for use in the browser with the [js-libp2p DevTools browser extension](https://github.com/libp2p/js-libp2p-devtools)
+- [@libp2p/opentelemetry](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-opentelemetry): for use with OpenTelemetry for both metrics and tracing
+
 ### 401 - Pinning
 
 The [401-pinning.js](./401-pinning.js) example demonstrates how to:
