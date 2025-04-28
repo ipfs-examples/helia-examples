@@ -6,13 +6,18 @@ import { unixfs as UnixFS } from '@helia/unixfs'
 
 const helia = await createHeliaHTTP()
 
-// UnixFS allows you to encode files and directories such that they are addressed by CIDs
+// UnixFS allows you to encode files and directories such that they are
+// addressed by CIDs
 const unixfs = UnixFS(helia)
 
 
 const encoder = new TextEncoder()
-const contentCid = await unixfs.addBytes(encoder.encode('UnixFS is a standard for encoding files and directories in IPFS.'))
-const contentCid2 = await unixfs.addBytes(encoder.encode('everything in UnixFS has a CID'))
+const contentCid = await unixfs.addBytes(
+  encoder.encode('UnixFS is a standard for encoding files and directories in IPFS.'),
+)
+const contentCid2 = await unixfs.addBytes(
+  encoder.encode('everything in UnixFS has a CID'),
+)
 console.log('Added file:', contentCid.toString())
 
 // Create an empty root directory
@@ -28,7 +33,8 @@ console.log('myBooks (empty):', myBooks)
 let myJournal = await unixfs.addDirectory()
 console.log('myJournal (empty):', myJournal)
 
-// Add the first file to `my-books`. cp will return the cid of the updated target directory
+// Add the first file to `my-books`. cp will return the cid of the updated
+// target directory
 myBooks = await unixfs.cp(contentCid, myBooks, 'hello.txt')
 
 // Add the second file to `my-journal`

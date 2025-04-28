@@ -22,7 +22,8 @@ const helia = await createHelia({
 helia.libp2p.addEventListener('self:peer:update', (evt) => {
   console.log(
     'self:peer:update',
-    evt.detail.peer.addresses.map((a) => a.multiaddr.encapsulate('/p2p/' + evt.detail.peer.id.toString()))
+    evt.detail.peer.addresses.map(
+      (a) => a.multiaddr.encapsulate('/p2p/' + evt.detail.peer.id.toString()))
   )
 })
 

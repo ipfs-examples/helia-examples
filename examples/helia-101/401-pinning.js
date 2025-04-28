@@ -39,7 +39,8 @@ await helia.gc({
 
 // This will fail because the block is not pinned
 try {
-  const stats = await fs.stat(cid, { offline: true }) // offline to avoid fetching the block from the network
+  // offline to avoid fetching the block from the network
+  const stats = await fs.stat(cid, { offline: true })
   console.log('Stats:', stats)
 } catch (err) {
   if (err?.name === 'NotFoundError') {

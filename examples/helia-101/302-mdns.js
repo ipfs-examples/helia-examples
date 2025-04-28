@@ -58,7 +58,10 @@ const node1 = await createNode()
 node1.libp2p.addEventListener('peer:discovery', async (evt) => {
   console.log(evt)
   console.log(evt.detail)
-  console.log(`Discovered new peer (${evt.detail.id.toString()}) via MDNS. Dialling...`, evt.detail.multiaddrs.map(ma => ma.toString()))
+  console.log(
+    `Discovered new peer (${evt.detail.id.toString()}) via MDNS. Dialling...`,
+    evt.detail.multiaddrs.map((ma) => ma.toString())
+  )
   try {
     await node1.libp2p.dial(evt.detail.multiaddrs) // dial the new peer
     console.log(`Successfully dialed peer (${evt.detail.id.toString()})`)

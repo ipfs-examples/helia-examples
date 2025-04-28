@@ -32,7 +32,7 @@ console.log('Added file:', cid.toString())
 
 // Provide the block to the DHT so that other nodes can find and retrieve it
 await helia.routing.provide(cid, {
-  signal: AbortSignal.timeout(30_000)
+  signal: AbortSignal.timeout(30_000) // Set a timeout of 30 seconds
 })
 
 console.log('CID provided to the DHT:', cid.toString())

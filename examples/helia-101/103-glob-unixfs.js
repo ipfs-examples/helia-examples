@@ -7,7 +7,9 @@ import { createHeliaHTTP } from '@helia/http'
 import { car as CAR } from '@helia/car'
 import { unixfs, globSource } from '@helia/unixfs'
 
-// This is a script showing how to use globSource to merkelize files and directories from your local file system into 
+// This is a script showing how to use globSource to merkelize files
+// and directories from your local file system into a CAR file.
+
 // Take the first argument as the path of the folder to add
 const args = process.argv.slice(2)
 
@@ -28,18 +30,19 @@ if (!nodefs.existsSync(path)) {
 
 const helia = await createHeliaHTTP()
 
-// UnixFS allows you to encode files and directories such that they are addressed by CIDs and can be retrieved by other nodes on the network
+// UnixFS allows you to encode files and directories such that they are
+// addressed by CIDs and can be retrieved by other nodes on the network
 const fs = unixfs(helia)
 
 // Glob source will recursively add all files and directories in the path
 const source = globSource(path, '**/*', {
-  hidden: false // ignore hidden files
+  hidden: false, // ignore hidden files
 })
 
 let last
 // add all files and directories in the path and wrap it all in a directory
 for await (const entry of fs.addAll(source, { wrapWithDirectory: true })) {
-  console.log(entry.cid, entry.path, entry.unixfs?.fileSize() , entry.unixfs?.type ?? 'raw')
+  console.log(entry.cid, entry.path, entry.unixfs?.fileSize(), entry.unixfs?.type ?? 'raw')
   last = entry.cid
 }
 

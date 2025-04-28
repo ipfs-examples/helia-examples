@@ -5,12 +5,12 @@ import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
 import { FsBlockstore } from 'blockstore-fs'
 
-// the blockstore is where we store the blocks that make up files. this blockstore
-// stores everything in-memory - other blockstores are available:
-//   - https://www.npmjs.com/package/blockstore-fs - a filesystem blockstore (for use in node)
-//   - https://www.npmjs.com/package/blockstore-idb - an IndexDB blockstore (for use in browsers)
-//   - https://www.npmjs.com/package/blockstore-level - a LevelDB blockstore (for node or browsers,
-//                                        though storing files in a database is rarely a good idea)
+// the blockstore is where we store the blocks that make up files.
+// By default, the in-memory blockstore is used.
+// Other blockstores are available:
+// - https://www.npmjs.com/package/blockstore-fs - a filesystem blockstore (for use in node)
+// - https://www.npmjs.com/package/blockstore-idb - an IndexDB blockstore (for use in browsers)
+// - https://www.npmjs.com/package/blockstore-level - a LevelDB blockstore (for node or browsers)
 
 // Create a new Helia node with an in-memory blockstore
 const helia1 = await createHeliaHTTP({
@@ -37,8 +37,11 @@ const helia2 = await createHeliaHTTP({
 
 const fs2 = unixfs(helia2)
 try {
-  // Check if the CID is in the blockstore, which will be true if we ran this script before
-  const stats = await fs2.stat(cid1, { offline: true }) // `offline: true` will prevent the node from trying to fetch the block from the network
+  // Check if the CID is in the blockstore, which will be true if we ran this
+  // script before
+  // `offline: true` will prevent the node from trying to fetch the block from
+  // the network
+  const stats = await fs2.stat(cid1, { offline: true })
   console.log(`Found ${cid1.toString()} in blockstore:`, stats)
 } catch (error) {
   console.log("CID can't be found in the blockstore. We will add it now.")
