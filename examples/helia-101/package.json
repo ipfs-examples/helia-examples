@@ -21,6 +21,7 @@
     "@chainsafe/libp2p-noise": "^16.1.2",
     "@chainsafe/libp2p-yamux": "^7.0.1",
     "@helia/car": "^4.0.4",
+    "@helia/dag-cbor": "^4.0.3",
     "@helia/http": "^2.0.5",
     "@helia/ipns": "^8.2.0",
     "@helia/unixfs": "^5.0.0",
