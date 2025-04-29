@@ -25,10 +25,7 @@ const cid = await dcbor.add({
 const record = await ipns.publish(privateKey, cid, {
   lifetime: 1000 * 60 * 60 * 24 * 30, // 30 days
   ttl: 1000 * 60, // 1 minute TTL
-  signal: AbortSignal.timeout(10_000), // 60 seconds timeout for publishing
-  onProgress: (event) => {
-    // console.log('IPNS publish progress:', event)
-  }
+  signal: AbortSignal.timeout(60_000), // 60 seconds timeout for publishing
 })
 
 console.log(`Published IPNS name: 
