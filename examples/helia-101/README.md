@@ -38,6 +38,7 @@
   - [401 - Pinning](#401---pinning)
   - [402 - Providing](#402---providing)
   - [403 - Block Brokers](#403---block-brokers)
+  - [501 - IPNS](#501---ipns)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -332,6 +333,20 @@ To run it, use the following command:
 
 ```console
 > npm run 403-block-brokers
+```
+
+### 501 - IPNS
+
+The [501-ipns.js](./501-ipns.js) example demonstrates how to:
+
+- Create and manage IPNS (InterPlanetary Name System) records
+- Use DAG-CBOR for encoding data
+- Set record lifetime and TTL
+
+To run it, use the following command:
+
+```console
+> npm run 501-ipns
 ```
 
 ## Documentation

@@ -14,6 +14,7 @@
     "401-pinning": "node 401-pinning.js",
     "402-providing": "node 402-providing.js",
     "403-block-brokers": "node 403-block-brokers.js",
+    "501-ipns": "node 501-ipns.js",
     "test": "test-node-example test/*"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "@helia/http": "^2.0.5",
     "@helia/unixfs": "^5.0.0",
     "@libp2p/bootstrap": "^11.0.35",
+    "@libp2p/crypto": "^5.1.1",
     "@libp2p/identify": "^3.0.29",
     "@libp2p/prometheus-metrics": "^4.3.18",
     "@libp2p/tcp": "^10.1.10",

@@ -23,3 +23,5 @@ await waitForOutput('Pinned CID', 'node', [path.resolve(__dirname, '../401-pinni
 await waitForOutput('CID provided to the DHT:', 'node', [path.resolve(__dirname, '../402-providing.js')])
 
 await waitForOutput('Stats:', 'node', [path.resolve(__dirname, '../403-block-brokers-routers.js')])
+
+await waitForOutput('Published IPNS name:', 'node', [path.resolve(__dirname, '../501-ipns.js')])
