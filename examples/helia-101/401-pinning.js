@@ -39,7 +39,8 @@ await helia.gc({
 
 // This will fail because the block is not pinned
 try {
-  const stats = await fs.stat(cid, { offline: true }) // offline to avoid fetching the block from the network
+  // offline to avoid fetching the block from the network
+  const stats = await fs.stat(cid, { offline: true })
   console.log('Stats:', stats)
 } catch (err) {
   if (err?.name === 'NotFoundError') {
@@ -68,10 +69,5 @@ for await (const pinnedCid of helia.pins.add(cid, {
 
 const pin = await helia.pins.get(cid)
 console.log('Pin:', pin)
-
-// Provide the block to the DHT so that other nodes can find and retrieve it
-await helia.routing.provide(cid)
-
-console.log('CID provided to the DHT:', cid.toString())
 
 await helia.stop()

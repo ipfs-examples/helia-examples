@@ -33,6 +33,12 @@
     - [Datastore](#datastore)
   - [301 - Networking](#301---networking)
     - [libp2p](#libp2p)
+  - [302 - Local Peer Discovery](#302---local-peer-discovery)
+  - [303 - Prometheus Metrics](#303---prometheus-metrics)
+  - [401 - Pinning](#401---pinning)
+  - [402 - Providing](#402---providing)
+  - [403 - Block Brokers](#403---block-brokers)
+  - [501 - IPNS](#501---ipns)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -67,9 +73,15 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ```console
 > npm run 101-basics
+> npm run 102-unixfs-dirs
+> npm run 103-glob-unixfs
 > npm run 201-storage
 > npm run 301-networking
-> npm run 401-providing
+> npm run 302-mdns
+> npm run 303-metrics
+> npm run 401-pinning
+> npm run 402-providing
+> npm run 403-block-brokers
 ```
 
 ## Usage
@@ -90,9 +102,27 @@ To run it, use the following command:
 > npm run 101-basics
 ```
 
-### 201 - Storage
+### 102 - UnixFS Dirs
 
-Out of the box Helia will store all data in-memory. This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
+The [second example](./102-unixfs-dirs.js) goes into the basics of working with directories with UnixFS.
+
+To run it, use the following command:
+
+```console
+> npm run 102-unixfs-dirs
+```
+
+### 103 - Glob UnixFS
+
+The [third example](./103-glob-unixfs.js) goes into using [`globSource`] to merkelize files and directories from your local file system into UnixFS and exporting the UnixFS DAG as a CAR file.
+
+To run it, use the following command:
+
+```console
+> npm run 103-glob-unixfs
+```
+
+### 201 - Storage
 
 Take a look at [201-storage.js](./201-storage.js) where we explore how to configure different types of persistent storage for your Helia node.
 
@@ -194,40 +224,130 @@ const libp2p = await createLibp2p({
 })
 ```
 
-### 401 - Providing
+### 302 - Local Peer Discovery
 
-The final example is [401-providing.js](./401-providing.js).
+The [302-mdns.js](./302-mdns.js) example demonstrates how to use multicast DNS for local peer discovery.
 
-This example shows:
+This allows Helia nodes on the same local network to automatically discover each other without requiring bootstrap nodes or DHT lookups.
 
-- How to run garbage collection,
+```js
+import { mdns } from '@libp2p/mdns'
+
+// Configure libp2p with mDNS discovery
+const libp2p = await createLibp2p({
+  // ... other configuration ...
+  peerDiscovery: [
+    mdns()
+  ],
+  // ... rest of configuration ...
+})
+
+// Listen for peer discovery events
+node.libp2p.addEventListener('peer:discovery', (evt) => {
+  console.log(`Discovered new peer (${evt.detail.id.toString()}) via MDNS`)
+  node.libp2p.dial(evt.detail.multiaddrs)
+})
+```
+
+To run this example, use the following command:
+
+```console
+> npm run 302-mdns
+```
+
+### 303 - Prometheus Metrics
+
+The [303-metrics.js](./303-metrics.js) example shows how to enable and expose Prometheus metrics for your Helia node, and how to expose the Prometheus HTTP metrics endpoint.
+
+This is useful for monitoring the performance and behavior of your node in production environments.
+
+```js
+import { prometheusMetrics } from '@libp2p/prometheus-metrics'
+import { register } from 'prom-client'
+
+const helia = await createHelia({
+  // ... other configuration ...
+  libp2p: {
+    metrics: prometheusMetrics(),
+  }
+})
+
+// Create a simple HTTP server to expose metrics
+const metricsServer = createServer((req, res) => {
+  if (req.url === '/metrics' && req.method === 'GET') {
+    register.metrics()
+      .then((metrics) => {
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        res.end(metrics)
+      })
+  }
+})
+metricsServer.listen(9999, '0.0.0.0')
+```
+
+To run this example, use the following command:
+
+```console
+> npm run 303-metrics
+```
+
+#### Other Metrics Implementations
+
+js-libp2p supports two other metrics implementations:
+
+- [@libp2p/devtools-metrics](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-devtools): for use in the browser with the [js-libp2p DevTools browser extension](https://github.com/libp2p/js-libp2p-devtools)
+- [@libp2p/opentelemetry](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-opentelemetry): for use with OpenTelemetry for both metrics and tracing
+
+### 401 - Pinning
+
+The [401-pinning.js](./401-pinning.js) example demonstrates how to:
+- Run garbage collection
 - Pin blocks to prevent them from being garbage collected
 - Add metadata to pins
-- Provide it to the DHT so that other nodes can find and retrieve it.
 
 To run it, use the following command:
 
 ```console
-> npm run 401-providing
+> npm run 401-pinning
 ```
 
+### 402 - Providing
 
+The [402-providing.js](./402-providing.js) example shows how to:
+- Provide content to the DHT (Distributed Hash Table)
+- Make content discoverable by other nodes in the network
 
-### Putting it all together
+To run it, use the following command:
 
-Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
-
-```bash
-> npm run 301-networking
-
-Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
-# Copy that hash and load it on the gateway, here is a prefilled url:
-# https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
+```console
+> npm run 402-providing
 ```
 
-That's it! You just added and retrieved a file from IPFS!
+### 403 - Block Brokers
 
-_For more examples, please refer to the [Documentation](#documentation)_
+The [403-block-brokers.js](./403-block-brokers.js) example demonstrates how to:
+- Configure different block brokers (Bitswap and Trustless Gateway)
+- Set up routing options (libp2p and HTTP Gateway)
+
+To run it, use the following command:
+
+```console
+> npm run 403-block-brokers
+```
+
+### 501 - IPNS
+
+The [501-ipns.js](./501-ipns.js) example demonstrates how to:
+
+- Create and manage IPNS (InterPlanetary Name System) records
+- Use DAG-CBOR for encoding data
+- Set record lifetime and TTL
+
+To run it, use the following command:
+
+```console
+> npm run 501-ipns
+```
 
 ## Documentation
 
