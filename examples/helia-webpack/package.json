@@ -17,7 +17,7 @@
     "last 1 Chrome version"
   ],
   "dependencies": {
-    "@helia/unixfs": "^4.0.0",
+    "@helia/unixfs": "^5.0.2",
     "helia": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

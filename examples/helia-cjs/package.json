@@ -12,7 +12,7 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "@helia/unixfs": "^4.0.0",
+    "@helia/unixfs": "^5.0.2",
     "helia": "^5.0.0"
   },
   "devDependencies": {
