@@ -13,7 +13,7 @@
     "test": "vite build -c ./test/vite.config.js && test-browser-example test"
   },
   "dependencies": {
-    "@helia/verified-fetch": "^2.3.1",
+    "@helia/verified-fetch": "^3.1.0",
     "@sgtpooki/file-type": "^1.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
