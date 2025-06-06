@@ -309,18 +309,6 @@ The [304-pnet.js](./304-pnet.js) example demonstrates how to:
 
 This is useful for creating isolated IPFS networks where only nodes with the correct pre-shared key can connect and share content.
 
-```js
-import { preSharedKey, generateKey } from '@libp2p/pnet'
-
-// Generate a swarm key
-const swarmKey = new Uint8Array(95)
-generateKey(swarmKey)
-
-// Create nodes with the same swarm key to form a private network
-const node1 = await createPrivateSwarmNode(swarmKey)
-const node2 = await createPrivateSwarmNode(swarmKey)
-```
-
 To run this example, use the following command:
 
 ```console
