@@ -35,6 +35,7 @@
     - [libp2p](#libp2p)
   - [302 - Local Peer Discovery](#302---local-peer-discovery)
   - [303 - Prometheus Metrics](#303---prometheus-metrics)
+  - [304 - Private Network](#304---private-network)
   - [401 - Pinning](#401---pinning)
   - [402 - Providing](#402---providing)
   - [403 - Block Brokers](#403---block-brokers)
@@ -79,6 +80,7 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm run 301-networking
 > npm run 302-mdns
 > npm run 303-metrics
+> npm run 304-pnet
 > npm run 401-pinning
 > npm run 402-providing
 > npm run 403-block-brokers
@@ -297,6 +299,33 @@ js-libp2p supports two other metrics implementations:
 
 - [@libp2p/devtools-metrics](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-devtools): for use in the browser with the [js-libp2p DevTools browser extension](https://github.com/libp2p/js-libp2p-devtools)
 - [@libp2p/opentelemetry](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-opentelemetry): for use with OpenTelemetry for both metrics and tracing
+
+### 304 - Private Network
+
+The [304-pnet.js](./304-pnet.js) example demonstrates how to:
+- Create a private IPFS network using pre-shared keys
+- Connect nodes in a private swarm
+- Share content between nodes in the private network
+
+This is useful for creating isolated IPFS networks where only nodes with the correct pre-shared key can connect and share content.
+
+```js
+import { preSharedKey, generateKey } from '@libp2p/pnet'
+
+// Generate a swarm key
+const swarmKey = new Uint8Array(95)
+generateKey(swarmKey)
+
+// Create nodes with the same swarm key to form a private network
+const node1 = await createPrivateSwarmNode(swarmKey)
+const node2 = await createPrivateSwarmNode(swarmKey)
+```
+
+To run this example, use the following command:
+
+```console
+> npm run 304-pnet
+```
 
 ### 401 - Pinning
 

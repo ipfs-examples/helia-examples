@@ -18,6 +18,8 @@ await waitForOutput('Discovered new peer', 'node', [path.resolve(__dirname, '../
 
 await waitForOutput('Metrics server listening', 'node', [path.resolve(__dirname, '../303-metrics.js')])
 
+await waitForOutput('Fetched file contents: Hello from a private swarm example', 'node', [path.resolve(__dirname, '../304-pnet.js')])
+
 await waitForOutput('Pinned CID', 'node', [path.resolve(__dirname, '../401-pinning.js')])
 
 await waitForOutput('CID provided to the DHT:', 'node', [path.resolve(__dirname, '../402-providing.js')])
