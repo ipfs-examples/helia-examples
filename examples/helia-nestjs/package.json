@@ -31,7 +31,7 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.3",
     "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.2",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.7.4",
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
