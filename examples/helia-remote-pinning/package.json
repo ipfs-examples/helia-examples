@@ -23,7 +23,7 @@
     "@libp2p/crypto": "^5.0.9",
     "@libp2p/devtools-metrics": "^1.1.6",
     "@libp2p/identify": "^3.0.15",
-    "@libp2p/kad-dht": "^14.2.0",
+    "@libp2p/kad-dht": "^15.1.5",
     "@libp2p/tcp": "^10.0.15",
     "@libp2p/websockets": "^9.1.2",
     "helia": "^5.0.0",
