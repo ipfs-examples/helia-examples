@@ -162,7 +162,7 @@ There are many blockstore implementations available. Some common ones are:
 
 #### Datastore
 
-The [datastore](https://www.npmjs.com/package/interface-datastore). is used to store Helia and libp2p state, such as IPNS names, MFS root CID, pin metadata, kad-dht routing table, and peer store data including WebRTC certificates.
+The [datastore](https://www.npmjs.com/package/interface-datastore) stores Helia and libp2p state, such as IPNS names, MFS root CID, pin metadata, kad-dht routing table, and peer store data including WebRTC certificates.
 
 Similar to the blockstore, a datastore is a key/value store where the keys are strings and the values are [Uint8Array][]s.
 
