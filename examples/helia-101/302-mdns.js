@@ -5,12 +5,12 @@ import { yamux } from '@chainsafe/libp2p-yamux'
 import { unixfs } from '@helia/unixfs'
 import { bootstrap } from '@libp2p/bootstrap'
 import { identify } from '@libp2p/identify'
+import { mdns } from '@libp2p/mdns'
 import { tcp } from '@libp2p/tcp'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
-import { mdns } from '@libp2p/mdns'
 
 async function createNode () {
   // the blockstore is where we store the blocks that make up files

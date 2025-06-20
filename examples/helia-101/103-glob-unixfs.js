@@ -3,8 +3,8 @@
 
 import * as nodefs from 'fs'
 import { pipeline } from 'stream/promises'
-import { createHeliaHTTP } from '@helia/http'
 import { car as CAR } from '@helia/car'
+import { createHeliaHTTP } from '@helia/http'
 import { unixfs, globSource } from '@helia/unixfs'
 
 // This is a script showing how to use globSource to merkelize files
@@ -36,7 +36,7 @@ const fs = unixfs(helia)
 
 // Glob source will recursively add all files and directories in the path
 const source = globSource(path, '**/*', {
-  hidden: false, // ignore hidden files
+  hidden: false // ignore hidden files
 })
 
 let last
