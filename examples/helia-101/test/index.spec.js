@@ -12,6 +12,8 @@ await waitForOutput('Wrote car file to output.car', 'node', [path.resolve(__dirn
 
 await waitForOutput('Added file contents: Hello World 201', 'node', [path.resolve(__dirname, '../201-storage.js')])
 
+await waitForOutput('Started Helia node with Peer ID:', 'node', [path.resolve(__dirname, '../202-persisent-peer.js')])
+
 await waitForOutput('Fetched file contents: Hello World 301', 'node', [path.resolve(__dirname, '../301-networking.js')])
 
 await waitForOutput('Discovered new peer', 'node', [path.resolve(__dirname, '../302-mdns.js')])

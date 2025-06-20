@@ -7,7 +7,10 @@
   "license": "MIT",
   "scripts": {
     "101-basics": "node 101-basics.js",
+    "102-unixfs-dirs": "node 102-unixfs-dirs.js",
+    "103-glob-unixfs": "node 103-glob-unixfs.js",
     "201-storage": "node 201-storage.js",
+    "202-persistent-peer": "node 202-persisent-peer.js",
     "301-networking": "node 301-networking.js",
     "302-mdns": "node 302-mdns.js",
     "303-metrics": "node 303-metrics.js",
