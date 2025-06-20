@@ -90,7 +90,7 @@ try {
     }),
     // Uncomment only one of the three lines below:
     // 👇 devNull is a writable stream that discards all data written to it
-    nodefs.createWriteStream(devNull),
+    nodefs.createWriteStream(devNull)
     // 👇 stream file to the console
     // process.stdout,
     // 👇 stream to a file on the local file system

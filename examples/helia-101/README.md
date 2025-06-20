@@ -31,6 +31,7 @@
   - [201 - Storage](#201---storage)
     - [Blockstore](#blockstore)
     - [Datastore](#datastore)
+  - [202 - Persistent Peer ID](#202---persistent-peer-id)
   - [301 - Networking](#301---networking)
     - [libp2p](#libp2p)
   - [302 - Local Peer Discovery](#302---local-peer-discovery)
@@ -77,6 +78,7 @@ Make sure you have installed all of the following prerequisites on your developm
 > npm run 102-unixfs-dirs
 > npm run 103-glob-unixfs
 > npm run 201-storage
+> npm run 202-persistent-peer
 > npm run 301-networking
 > npm run 302-mdns
 > npm run 303-metrics
@@ -160,7 +162,7 @@ There are many blockstore implementations available. Some common ones are:
 
 #### Datastore
 
-Some facility to store information is required, this needs a [datastore](https://www.npmjs.com/package/interface-datastore).
+The [datastore](https://www.npmjs.com/package/interface-datastore) stores Helia and libp2p state, such as IPNS names, MFS root CID, pin metadata, kad-dht routing table, and peer store data including WebRTC certificates.
 
 Similar to the blockstore, a datastore is a key/value store where the keys are strings and the values are [Uint8Array][]s.
 
@@ -175,6 +177,19 @@ Commonly used datastore implementations are:
 - [datastore-level](https://www.npmjs.com/package/datastore-level) - store key/value pairs in a [LevelDB](https://github.com/google/leveldb) instance
 - [datastore-idb](https://www.npmjs.com/package/datastore-idb) - store key/value pairs in [IndexedDB][] in the browser
 - [datastore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
+
+### 202 - Persistent Peer ID
+
+The [202-persistent-peer.js](./202-persistent-peer.js) example demonstrates how to create a Helia node with a persistent peer ID using the [FsDatastore](https://www.npmjs.com/package/datastore-fs).
+
+This is useful when you want your node to maintain the same identity in the network, allowing other peers to recognize and trust your node consistently.
+To run it, use the following command:
+
+```console
+> npm run 202-persistent-peer
+```
+
+If you run the example twice, you will see that the peer ID is the same.
 
 ### 301 - Networking
 

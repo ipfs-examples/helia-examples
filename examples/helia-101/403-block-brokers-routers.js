@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 // @ts-check
-import { CID } from 'multiformats/cid'
-import { createHelia } from 'helia'
 import { bitswap, trustlessGateway } from '@helia/block-brokers'
 import { httpGatewayRouting, libp2pRouting, delegatedHTTPRouting } from '@helia/routers'
 import { unixfs } from '@helia/unixfs'
+import { createHelia } from 'helia'
+import { CID } from 'multiformats/cid'
 
 const cid = CID.parse('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi') // a known CID with multiple providers
 
@@ -32,12 +32,11 @@ const cid = CID.parse('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbz
 //    Useful as a fallback when direct providers cannot be found or for
 //    when you know in advance that a gateway is the provider for CIDs
 
-
 // This node will use the delegated routing endpoint to find providers and
 // bitswap over libp2p connections to retrieve blocks
 const bitswapDelegatedRoutingNode = await createHelia({
   blockBrokers: [bitswap()],
-  routers: [delegatedHTTPRouting('https://delegated-ipfs.dev')],
+  routers: [delegatedHTTPRouting('https://delegated-ipfs.dev')]
 })
 const fsBitswap = unixfs(bitswapDelegatedRoutingNode)
 
@@ -46,7 +45,7 @@ console.log('Stats:', await fsBitswap.stat(cid))
 // This node will just try fetching blocks IPFS gateways as a provider and trustless gateways over HTTP(S) to find providers
 const gatewayNode = await createHelia({
   blockBrokers: [trustlessGateway()],
-  routers: [httpGatewayRouting({ gateways: ['https://ipfs.io', 'https://w3s.link'] })],
+  routers: [httpGatewayRouting({ gateways: ['https://ipfs.io', 'https://w3s.link'] })]
 })
 
 const fsGateways = unixfs(gatewayNode)

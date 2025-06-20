@@ -24,7 +24,7 @@ const encoder = new TextEncoder()
 const text = 'Hello World 🗺️🌎🌍🌏 402!'
 
 // add the bytes to your node and receive a unique content identifier
-let cid = await fs.addFile({
+const cid = await fs.addFile({
   content: encoder.encode(text),
   path: './hello-world.txt'
 })
