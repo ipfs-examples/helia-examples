@@ -37,6 +37,6 @@
     "@vitejs/plugin-react": "^4.0.4",
     "rimraf": "^6.0.1",
     "test-ipfs-example": "^1.0.0",
-    "vite": "^6.0.9"
+    "vite": "^7.0.0"
   }
 }
