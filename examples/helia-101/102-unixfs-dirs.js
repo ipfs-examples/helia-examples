@@ -10,20 +10,18 @@ const helia = await createHeliaHTTP()
 // addressed by CIDs
 const unixfs = UnixFS(helia)
 
-
 const encoder = new TextEncoder()
 const contentCid = await unixfs.addBytes(
-  encoder.encode('UnixFS is a standard for encoding files and directories in IPFS.'),
+  encoder.encode('UnixFS is a standard for encoding files and directories in IPFS.')
 )
 const contentCid2 = await unixfs.addBytes(
-  encoder.encode('everything in UnixFS has a CID'),
+  encoder.encode('everything in UnixFS has a CID')
 )
 console.log('Added file:', contentCid.toString())
 
 // Create an empty root directory
 let rootDirectoryCid = await unixfs.addDirectory()
 console.log('rootDirectoryCid (empty):', rootDirectoryCid)
-
 
 // Create a new empty UnixFS directory to which we will add files
 let myBooks = await unixfs.addDirectory()
@@ -44,11 +42,10 @@ myJournal = await unixfs.cp(contentCid2, myJournal, 'hello2.txt')
 rootDirectoryCid = await unixfs.cp(myBooks, rootDirectoryCid, 'my-books')
 rootDirectoryCid = await unixfs.cp(myJournal, rootDirectoryCid, 'my-journal')
 
-
 await listDirectoryContents(rootDirectoryCid)
 
 // Function to list directory contents recursively
-async function listDirectoryContents(cid, indent = '') {
+async function listDirectoryContents (cid, indent = '') {
   for await (const entry of unixfs.ls(cid)) {
     console.log(`${indent}${entry.name} (${entry.type})`)
     if (entry.type === 'directory') {
@@ -56,5 +53,3 @@ async function listDirectoryContents(cid, indent = '') {
     }
   }
 }
-
-

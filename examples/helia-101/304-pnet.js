@@ -6,13 +6,12 @@ import { yamux } from '@chainsafe/libp2p-yamux'
 import { unixfs } from '@helia/unixfs'
 import { bootstrap } from '@libp2p/bootstrap'
 import { identify } from '@libp2p/identify'
+import { preSharedKey, generateKey } from '@libp2p/pnet'
 import { tcp } from '@libp2p/tcp'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
 import { createLibp2p } from 'libp2p'
-import { preSharedKey, generateKey } from '@libp2p/pnet'
-
 
 async function createPrivateSwarmNode (pnetKey) {
   // the blockstore is where we store the blocks that make up files
