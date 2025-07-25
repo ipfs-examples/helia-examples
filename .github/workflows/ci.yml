@@ -26,6 +26,7 @@ jobs:
           - helia-cjs
           - helia-electron
           - helia-esbuild
+          - helia-github-actions
           - helia-jest
           - helia-jest-typescript
           - helia-nestjs
@@ -94,6 +95,7 @@ jobs:
           - helia-browser-verified-fetch
           - helia-electron
           - helia-esbuild
+          - helia-github-actions
           - helia-jest
           - helia-jest-typescript
           - helia-nestjs
