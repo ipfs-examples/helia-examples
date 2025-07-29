@@ -12,7 +12,7 @@
     "helia": "^5.0.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "test-ipfs-example": "^1.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
