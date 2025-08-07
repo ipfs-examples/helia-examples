@@ -22,7 +22,7 @@
     "@playwright/test": "^1.42.1",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^5.0.0",
     "test-ipfs-example": "^1.0.0",
     "typescript": "^5.4.3",
     "vite": "^6.0.9"
