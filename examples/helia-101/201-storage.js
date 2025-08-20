@@ -4,13 +4,19 @@ import { createHeliaHTTP } from '@helia/http'
 import { unixfs } from '@helia/unixfs'
 import { MemoryBlockstore } from 'blockstore-core'
 import { FsBlockstore } from 'blockstore-fs'
+import { LevelDatastore } from 'datastore-level'
 
-// the blockstore is where we store the blocks that make up files.
+// the blockstore is where Helia stores the blocks that make up files.
 // By default, the in-memory blockstore is used.
 // Other blockstores are available:
 // - https://www.npmjs.com/package/blockstore-fs - a filesystem blockstore (for use in node)
 // - https://www.npmjs.com/package/blockstore-idb - an IndexDB blockstore (for use in browsers)
-// - https://www.npmjs.com/package/blockstore-level - a LevelDB blockstore (for node or browsers)
+
+// The datastore is where Helia stores pins, IPNS records, and provider records
+// By default, the in-memory datastore is used.
+// Other datastores are available:
+// - https://www.npmjs.com/package/datastore-level - a LevelDB datastore (for use in node)
+// - https://www.npmjs.com/package/datastore-idb - an IndexDB datastore (for use in browsers)
 
 // Create a new Helia node with an in-memory blockstore
 const helia1 = await createHeliaHTTP({
@@ -32,7 +38,8 @@ console.log('Added file contents:', message)
 
 // Create a new Helia node with a filesystem blockstore
 const helia2 = await createHeliaHTTP({
-  blockstore: new FsBlockstore('./blockstore')
+  blockstore: new FsBlockstore('./blockstore'),
+  datastore: new LevelDatastore('./datastore')
 })
 
 const fs2 = unixfs(helia2)
