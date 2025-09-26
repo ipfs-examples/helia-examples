@@ -14,7 +14,7 @@
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "@chainsafe/libp2p-noise": "^16.0.0",
+    "@chainsafe/libp2p-noise": "^17.0.0",
     "@chainsafe/libp2p-yamux": "^7.0.1",
     "@helia/pinning-service-api-server": "^1.0.0",
     "@helia/remote-pinning": "^2.0.0",
