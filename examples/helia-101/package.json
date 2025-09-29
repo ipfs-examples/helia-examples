@@ -33,7 +33,7 @@
     "@libp2p/crypto": "^5.1.1",
     "@libp2p/identify": "^3.0.29",
     "@libp2p/pnet": "^2.0.39",
-    "@libp2p/prometheus-metrics": "^4.3.18",
+    "@libp2p/prometheus-metrics": "^5.0.2",
     "@libp2p/tcp": "^10.1.10",
     "blockstore-core": "^5.0.2",
     "blockstore-fs": "^2.0.2",
