@@ -23,7 +23,7 @@
     "@playwright/test": "^1.32.1",
     "eslint": "^8.36.0",
     "eslint-config-next": "^15.1.5",
-    "interface-datastore": "^8.2.0",
+    "interface-datastore": "^9.0.2",
     "playwright": "^1.32.1",
     "rimraf": "^6.0.1",
     "test-ipfs-example": "^1.0.0"
