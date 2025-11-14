@@ -29,7 +29,7 @@
     "@helia/http": "^2.0.5",
     "@helia/ipns": "^8.2.0",
     "@helia/unixfs": "^5.0.0",
-    "@libp2p/bootstrap": "^11.0.35",
+    "@libp2p/bootstrap": "^12.0.10",
     "@libp2p/crypto": "^5.1.1",
     "@libp2p/identify": "^3.0.29",
     "@libp2p/pnet": "^2.0.39",
