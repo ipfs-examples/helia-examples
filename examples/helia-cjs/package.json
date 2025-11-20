@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@helia/unixfs": "^4.0.0",
-    "helia": "^5.0.0"
+    "helia": "^6.0.11"
   },
   "devDependencies": {
     "test-ipfs-example": "^1.0.0"
