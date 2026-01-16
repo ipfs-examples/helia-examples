@@ -28,7 +28,7 @@
     "@helia/dag-cbor": "^4.0.3",
     "@helia/http": "^2.0.5",
     "@helia/ipns": "^8.2.0",
-    "@helia/unixfs": "^5.0.0",
+    "@helia/unixfs": "^7.0.1",
     "@libp2p/bootstrap": "^11.0.35",
     "@libp2p/crypto": "^5.1.1",
     "@libp2p/identify": "^3.0.29",
