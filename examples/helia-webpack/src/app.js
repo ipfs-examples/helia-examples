@@ -72,7 +72,7 @@ function App () {
         }
 
         showStatus(`\u2514\u2500 ${entry.name} ${text}`)
-        showStatus(`Preview: https://inbrowser.link/ipfs/${entry.cid}`, COLORS.success)
+        showStatus(`Preview: <a href="https://inbrowser.link/ipfs/${entry.cid}">https://inbrowser.link/ipfs/${entry.cid}</a>`, COLORS.success)
       }
     }
   }

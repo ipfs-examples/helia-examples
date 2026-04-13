@@ -10,6 +10,7 @@ import { tcp } from '@libp2p/tcp'
 import { webSockets } from '@libp2p/websockets'
 import { createLibp2p } from 'libp2p'
 import { fromString } from 'uint8arrays/from-string'
+import { ping } from '@libp2p/ping'
 
 const boostrapperKey = 'CAESQOr+wN1cDgutS/juD5EjvL+nps5/lsIFrO/AjsNnT+petDqTQaus6teAHNTEY0YP3HZdYd1cPgWtpKHASiC5Ers'
 const protobuf = fromString(boostrapperKey, 'base64')
@@ -36,6 +37,7 @@ const bootstrapper = await createLibp2p({
   services: {
     identify: identify(),
     kadDHT: kadDHT(),
+    ping: ping(),
     relay: circuitRelayServer({
       reservations: {
         maxReservations: Infinity

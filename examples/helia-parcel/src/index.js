@@ -70,8 +70,23 @@ const App = async () => {
 
     const text = await cat(cid)
 
-    showStatus(`\u2514\u2500 ${name} ${text.toString()}`)
-    showStatus(`Preview: <a href="https://ipfs.io/ipfs/${cid}">https://ipfs.io/ipfs/${cid}</a>`, COLORS.success)
+    for await (const entry of fs.ls(cid)) {
+      const stat = await fs.stat(entry.cid)
+
+      if (stat.type === 'file' | stat.type === 'raw') {
+        const decoder = new TextDecoder()
+        let text = ''
+
+        for await (const chunk of fs.cat(entry.cid)) {
+          text += decoder.decode(chunk, {
+            stream: true
+          })
+        }
+
+        showStatus(`\u2514\u2500 ${entry.name} ${text}`)
+        showStatus(`Preview: <a href="https://inbrowser.link/ipfs/${entry.cid}">https://inbrowser.link/ipfs/${entry.cid}</a>`, COLORS.success)
+      }
+    }
   }
 
   // Event listeners

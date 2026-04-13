@@ -13,6 +13,7 @@ import { createHelia, libp2pDefaults } from 'helia'
 import { createLibp2p } from 'libp2p'
 import { setup, expect } from 'test-ipfs-example/browser'
 import { fromString } from 'uint8arrays/from-string'
+import { ping } from '@libp2p/ping'
 
 // Setup
 const test = setup({
@@ -61,6 +62,7 @@ async function spawnBootstrapper () {
     services: {
       identify: identify(),
       kadDHT: kadDHT(),
+      ping: ping(),
       relay: circuitRelayServer({
         reservations: {
           maxReservations: Infinity

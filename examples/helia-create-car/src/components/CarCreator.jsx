@@ -2,7 +2,6 @@
 
 import { car } from '@helia/car'
 import { unixfs } from '@helia/unixfs'
-import { CarWriter } from '@ipld/car/writer'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFiles } from '../hooks/useFiles'
 import { useHelia } from '../hooks/useHelia'
@@ -81,14 +80,14 @@ export default function CarCreator () {
         rootCID = await heliaFs.cp(fileCid, rootCID, file.name)
       }
 
-      const { writer, out } = await CarWriter.create(rootCID)
-
-      // don't await yet..
-      const carBlob = carWriterOutToBlob(out)
       // await the heliaCar.export, where heliaCar will write blocks to the writer
-      await heliaCar.export(rootCID, writer)
+      const chunks = []
+      for await (const buf of heliaCar.export(rootCID)) {
+        chunks.push(buf)
+      }
+
       // await the blob since `out` will have things yielded from the heliaCar.export above.
-      setCarBlob(await carBlob)
+      setCarBlob(new Blob(chunks))
       setRootCID(rootCID)
     }
     asyncFn()
