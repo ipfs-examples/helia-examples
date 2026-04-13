@@ -13,8 +13,8 @@
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "@helia/unixfs": "^4.0.0",
-    "helia": "^5.0.0",
+    "@helia/unixfs": "^7.2.1",
+    "helia": "^6.1.2",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

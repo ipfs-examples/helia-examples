@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 import webpack from 'webpack'
 import { merge } from 'webpack-merge'
+import { NodeProtocolUrlPlugin } from 'node-stdlib-browser/helpers/webpack/plugin'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -102,8 +103,14 @@ const common = {
       ]
     }),
 
+    // support loading modules with "node:" prefix
+    // see https://github.com/webpack/webpack/issues/14166
+    // see https://github.com/Richienb/node-polyfill-webpack-plugin/issues/19
+    new NodeProtocolUrlPlugin(),
+
     // fixes Module not found: Error: Can't resolve 'stream' in '.../node_modules/nofilter/lib'
     new NodePolyfillPlugin(),
+
     // Note: stream-browserify has assumption about `Buffer` global in its
     // dependencies causing runtime errors. This is a workaround to provide
     // global `Buffer` until https://github.com/isaacs/core-util-is/issues/29

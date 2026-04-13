@@ -57,17 +57,24 @@ function App () {
 
     showStatus(`Added to ${cid}`, COLORS.success, cid)
     showStatus('Reading file...', COLORS.active)
-    const decoder = new TextDecoder()
-    let text = ''
 
-    for await (const chunk of fs.cat(cid)) {
-      text += decoder.decode(chunk, {
-        stream: true
-      })
+    for await (const entry of fs.ls(cid)) {
+      const stat = await fs.stat(entry.cid)
+
+      if (stat.type === 'file' | stat.type === 'raw') {
+        const decoder = new TextDecoder()
+        let text = ''
+
+        for await (const chunk of fs.cat(entry.cid)) {
+          text += decoder.decode(chunk, {
+            stream: true
+          })
+        }
+
+        showStatus(`\u2514\u2500 ${entry.name} ${text}`)
+        showStatus(`Preview: https://inbrowser.link/ipfs/${entry.cid}`, COLORS.success)
+      }
     }
-
-    showStatus(`\u2514\u2500 ${name} ${text}`)
-    showStatus(`Preview: https://ipfs.io/ipfs/${cid}`, COLORS.success)
   }
 
   const handleSubmit = async (e) => {
