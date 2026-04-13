@@ -14,7 +14,10 @@
   },
   "dependencies": {
     "@helia/verified-fetch": "^7.2.5",
-    "@sgtpooki/file-type": "^1.0.1",
+    "@ipld/dag-cbor": "^9.2.6",
+    "@ipld/dag-json": "^10.2.7",
+    "file-type": "^22.0.1",
+    "multiformats": "^13.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

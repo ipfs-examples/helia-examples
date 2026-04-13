@@ -8,7 +8,7 @@ test.describe('Use @helia/verified-fetch With react and vite', () => {
   // DOM
   const ipfsPathInput = '#ipfs-path'
   const fetchOutput = '#output'
-  const fetchAutoBtn = '#button-fetch-auto'
+  const fetchAutoBtn = '#button-fetch'
 
   test.beforeEach(async ({ servers, page }) => {
     await page.goto(servers[0].url)
