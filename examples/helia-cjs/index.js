@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
-// this file is regular CommonJS
+// this file is regular CommonJS, require works just fine
+
+const { createHelia } = require('helia')
+const { unixfs } = require('@helia/unixfs')
 
 async function main () {
-  const { createHelia } = await import('helia')
-  const { unixfs } = await import('@helia/unixfs')
-
   // create a Helia node
   const helia = await createHelia()
 

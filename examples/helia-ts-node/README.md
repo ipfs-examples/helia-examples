@@ -24,14 +24,6 @@
   - [Prerequisites](#prerequisites)
   - [Installation and Running example](#installation-and-running-example)
 - [Usage](#usage)
-  - [tsconfig.json](#tsconfigjson)
-    - [target](#target)
-    - [module](#module)
-    - [moduleResolution](#moduleresolution)
-  - [package.json](#packagejson)
-    - [type](#type)
-  - [ts-node](#ts-node)
-    - [esm flag](#esm-flag)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -65,93 +57,21 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ## Usage
 
+> [!NOTE]
+> Since Node 22 you can run `.ts` files directly with the `--experimental-strip-types` option (and `--experimental-transform-types` if enum support is required), and also `require` ESM modules that do not await promises at the top level so this tool is effectively no longer necessary.
+
 [ts-node](https://typestrong.org/ts-node/) is a [TypeScript](https://www.typescriptlang.org/) execution and [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) tool for running TypeScript files from the command line, similar to how you would run JavaScript files with node.js.
 
 It gives the illusion of compilation-free code execution by using [JIT compilation](https://en.wikipedia.org/wiki/Just-in-time_compilation) to turn your TypeScript code into JavaScript at runtime and is a useful development tool.
 
 Because TypeScript outputs [CommonJS](https://en.wikipedia.org/wiki/CommonJS) by default, and Helia is written using more modern [ECMAScript Modules](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/) it's necessary to override the default configuration `ts-node` uses.
 
-### tsconfig.json
-
-This is the minimum config that is required.
-
-#### target
-
-The [target](https://www.typescriptlang.org/tsconfig#target) to `ES2021` - this will ensure ESM is output and not CJS.
-
-#### module
-
-[module](https://www.typescriptlang.org/tsconfig#module) should be set to at least `ES2022` - this is necessary to support things like [private class fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
-
-#### moduleResolution
-
-[moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution) should be set to `node` or `node16` to enable use of `import` as well as `require`.
-
-### package.json
-
-We have to tell node that this is an ESM project.
-
-#### type
-
-The `type` field in your `package.json` should be set to `module`.  This means the `.js` extension is interpreted as ESM by default.
-
-It also means that import paths within your own project need file extensions, so any `import foo from './bar/baz'` will need to be changed to `import foo from './bar/baz.js'`.
-
-TypeScript [will not add this for you](https://github.com/microsoft/TypeScript/issues/16577).
-
-### ts-node
-
-> :warning: Currently ts-node is [broken on Node.js v20](https://github.com/TypeStrong/ts-node/issues/1997) so the instructions below will not work until the issue is fixed.
->
-> The workaround is to pass `ts-node/esm` as a loader:
->
-> ```console
-> $ node --loader ts-node/esm ./src/index.ts
-> ```
->
-> Alternatively consider using [TypeScript Execute](https://www.npmjs.com/package/tsx) which works in a similar way but does not have the same problem.
-
-#### esm flag
-
-`ts-node` has an `--esm` flag that is slightly counter-intuitively necessary to enable loading `.ts` files for JIT compilation via `import`:
-
-```console
-% npx ts-node --help | grep esm
-  --esm   Bootstrap with the ESM loader, enabling full ESM support
-```
-
-It is necessary to pass this flag when running `ts-node`
-
 ### Putting it all together
 
-`tsconfig.json`
-
-```js
-{
-  "compilerOptions": {
-    "module": "ES2022",
-    "target": "ES2021",
-    "moduleResolution": "node"
-  },
-  // other settings here
-}
-```
-
-`package.json`
-
-```js
-{
-  "type": "module",
-  // other settings here
-}
-```
-
-You can now run ts code using ts-node:
-
-> :warning: As of Node.js v20 the following command will not work, please see the [note above](#ts-node).
+You can run ts code using ts-node:
 
 ```bash
-> npx ts-node --esm ./src/index.ts
+> npx ts-node ./src/index.ts
 
 Helia is running
 PeerId: 12D3KooWMUv1MYSYrgsEg3ykfZ6nDZwaT72LtVCheRNhH15kzroz

@@ -58,13 +58,26 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ## Usage
 
-This tutorial is a port of [helia-101](https://github.com/ipfs-examples/helia-101) but the main file is [CommonJS](https://en.wikipedia.org/wiki/CommonJS) and not [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+This tutorial is a port of [helia-101](https://github.com/ipfs-examples/helia-101)
+but the main file is [CommonJS](https://en.wikipedia.org/wiki/CommonJS) and not
+[ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
 
-If you are seeing errors like `ERR_REQUIRE_ESM` or `ERR_PACKAGE_PATH_NOT_EXPORTED` when trying to use Helia or other ESM modules from CJS, this is the example for you.
+ESM modules using `import` can await top-level promises - this means they have
+to be loaded asynchronously which is incompatible with Node.js' `require`
+function.
 
-It consists of one file, `index.js` which is a CommonJS file that uses [dynamic imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) to load an ESM module from CommonJS source code.
+As of Node.js 22, a special `module-sync` field can be added to the exports map
+which indicates a module file that does not await any top-level promises - this
+allows it to be loaded by `require` even if the module contains ESM syntax.
 
-Everything else is the same as the [helia-101](https://github.com/ipfs-examples/helia-101) - please see that example for a full breakdown of the code.
+Helia awaits on no promises during loading so has `module-sync` defined for all
+entry points.
+
+The example consists of one file, `index.js` which is a CommonJS file that loads
+Helia using `require`.
+
+Everything else is the same as the [helia-101](https://github.com/ipfs-examples/helia-101).
+Please see that example for a full breakdown of the code.
 
 _For more examples, please refer to the [Documentation](#documentation)_
 

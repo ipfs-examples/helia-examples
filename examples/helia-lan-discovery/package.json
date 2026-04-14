@@ -7,14 +7,12 @@
   "scripts": {
     "server": "node src/server.js",
     "client": "node src/client.js",
-    "test": "npm run test1 && npm run test2",
-    "test1": "npm run server & npm run client",
-    "test2": "npm run client & npm run server"
+    "test": "test-node-example test/*"
   },
   "dependencies": {
     "@helia/dag-cbor": "^5.1.1",
+    "@libp2p/utils": "^7.0.15",
     "helia": "^6.1.2",
-    "it-length-prefixed-stream": "^2.0.6",
     "multiformats": "^13.4.2"
   }
 }

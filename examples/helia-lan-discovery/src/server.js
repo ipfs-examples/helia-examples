@@ -1,19 +1,15 @@
 /* eslint-disable no-console */
 // server.js
 import { dagCbor } from '@helia/dag-cbor'
+import { lpStream } from '@libp2p/utils'
 import { createHelia } from 'helia'
-import { lpStream } from 'it-length-prefixed-stream'
 import { PROTOCOL } from './utils.js'
 
 const helia = await createHelia()
 const heliaDagCbor = dagCbor(helia)
 
-//
 const str = `${new Date().toLocaleString()}: My test string that you only know if I send you the CID for it or you could guess but you'd have to be very lucky`
 const cid = await heliaDagCbor.add(str)
-const cidString = cid.toString()
-
-console.log('CID: %s', cidString)
 
 // handle custom protocol - the expected interaction is:
 //
@@ -21,7 +17,7 @@ console.log('CID: %s', cidString)
 // 2. server sends CID to client
 // 3. client responds with ACK message
 // 4. both ends close the stream
-helia.libp2p.handle(PROTOCOL, ({ stream }) => {
+await helia.libp2p.handle(PROTOCOL, ({ stream }) => {
   // lpStream will prefix every message send with the length and handle
   // reading the correct number of bytes from the remote
   const lp = lpStream(stream)
@@ -42,9 +38,8 @@ helia.libp2p.handle(PROTOCOL, ({ stream }) => {
       console.error('server error', err)
       lp.unwrap().abort(err)
     })
-    .finally(async () => {
-      console.log('server finished')
-      await helia.stop()
-      process.exit(0)
-    })
 })
+
+console.log('server ready')
+console.log('peer: %s', helia.libp2p.peerId)
+console.log('CID: %s', cid)
