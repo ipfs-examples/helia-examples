@@ -5,9 +5,9 @@ import { waitForOutput, matchOutput } from 'test-ipfs-example/node'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const {
-  process: server
-} = await matchOutput(/(ready)/m, 'node', [path.resolve(__dirname, '../src/server.js')])
+  process: client
+} = await matchOutput(/(ready)/m, 'node', [path.resolve(__dirname, '../src/client.js')])
 
-await waitForOutput('client finished', 'node', [path.resolve(__dirname, '../src/client.js')])
+await waitForOutput('server close stream', 'node', [path.resolve(__dirname, '../src/server.js')])
 
-server.kill()
+client.kill()

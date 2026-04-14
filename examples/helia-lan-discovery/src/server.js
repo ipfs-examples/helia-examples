@@ -17,7 +17,7 @@ const cid = await heliaDagCbor.add(str)
 // 2. server sends CID to client
 // 3. client responds with ACK message
 // 4. both ends close the stream
-await helia.libp2p.handle(PROTOCOL, ({ stream }) => {
+await helia.libp2p.handle(PROTOCOL, (stream) => {
   // lpStream will prefix every message send with the length and handle
   // reading the correct number of bytes from the remote
   const lp = lpStream(stream)

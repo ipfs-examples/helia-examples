@@ -9,7 +9,7 @@ import { PROTOCOL } from './utils.js'
 const helia = await createHelia()
 const heliaDagCbor = dagCbor(helia)
 
-helia.libp2p.register(PROTOCOL, {
+await helia.libp2p.register(PROTOCOL, {
   onConnect: (remotePeerId) => {
     console.log('client discovered server: %s', remotePeerId)
     let lp
@@ -51,3 +51,5 @@ helia.libp2p.register(PROTOCOL, {
       })
   }
 })
+
+console.info('client ready')
