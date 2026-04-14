@@ -9,6 +9,13 @@ import { PROTOCOL } from './utils.js'
 const helia = await createHelia()
 const heliaDagCbor = dagCbor(helia)
 
+helia.libp2p.addEventListener('peer:discovery', (evt) => {
+  helia.libp2p.dial(evt.detail.id, {
+    signal: AbortSignal.timeout(5_000)
+  })
+    .catch()
+})
+
 await helia.libp2p.register(PROTOCOL, {
   onConnect: (remotePeerId) => {
     console.log('client discovered server: %s', remotePeerId)
