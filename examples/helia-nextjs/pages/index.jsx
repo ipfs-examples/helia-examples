@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/legacy/image'
 import { React } from 'react'
-import IpfsComponent from '../components/ipfs'
+import IpfsComponent from '../components/ipfs.jsx'
 import styles from '../styles/Home.module.css'
 
 export default function Home () {

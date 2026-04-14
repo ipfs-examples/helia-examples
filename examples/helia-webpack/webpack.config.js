@@ -85,7 +85,7 @@ const dev = {
  */
 const common = {
 // Where webpack looks to start building the bundle
-  entry: [paths.src + '/index.js'],
+  entry: [paths.src + '/index.jsx'],
 
   // Customize the webpack build process
   plugins: [
@@ -135,7 +135,7 @@ const common = {
     rules: [
       // JavaScript: Use Babel to transpile JavaScript files
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

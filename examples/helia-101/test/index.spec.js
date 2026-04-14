@@ -24,8 +24,8 @@ await waitForOutput('Fetched file contents: Hello from a private swarm example',
 
 await waitForOutput('Pinned CID', 'node', [path.resolve(__dirname, '../401-pinning.js')])
 
-// await waitForOutput('CID provided to the DHT:', 'node', [path.resolve(__dirname, '../402-providing.js')])
+await waitForOutput('CID provided to the DHT:', 'node', [path.resolve(__dirname, '../402-providing.js')])
 
 await waitForOutput('Stats:', 'node', [path.resolve(__dirname, '../403-block-brokers-routers.js')])
 
-// await waitForOutput('Published IPNS record:', 'node', [path.resolve(__dirname, '../501-ipns.js')])
+await waitForOutput('Published IPNS record:', 'node', [path.resolve(__dirname, '../501-ipns.js')])
