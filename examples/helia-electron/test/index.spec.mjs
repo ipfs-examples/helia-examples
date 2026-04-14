@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 await waitForOutput('PeerId', 'electron', [
-  // workaround for https://github.com/jprichardson/electron-mocha/issues/195
+  // fixes otherwise fatal setuid_sandbox_host.cc error on linux
   '--no-sandbox',
   path.resolve(`${__dirname}/../main.js`)
 ])
