@@ -58,7 +58,8 @@ export const HeliaProvider = ({ children }) => {
         error,
         starting
       }}
-    >{children}</HeliaContext.Provider>
+    >{children}
+    </HeliaContext.Provider>
   )
 }
 

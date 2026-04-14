@@ -1,22 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import type { Helia } from 'helia';
+import { Injectable } from '@nestjs/common'
+import type { Helia } from 'helia'
 
 @Injectable()
 export class AppService {
-  private helia?: Helia;
+  private helia?: Helia
 
-  async getHelia(): Promise<Helia> {
+  async getHelia (): Promise<Helia> {
     if (this.helia == null) {
-      const { createHelia } = await import('helia');
-      this.helia = await createHelia();
+      const { createHelia } = await import('helia')
+      this.helia = await createHelia()
     }
 
-    return this.helia;
+    return this.helia
   }
 
-  async onApplicationShutdown(): Promise<void> {
+  async onApplicationShutdown (): Promise<void> {
     if (this.helia != null) {
-      await this.helia.stop();
+      await this.helia.stop()
     }
   }
 }
