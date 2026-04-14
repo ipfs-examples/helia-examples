@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
-
-import { bootstrap } from '@libp2p/bootstrap'
 import { inspectorMetrics } from '@ipshipyard/libp2p-inspector-metrics'
+import { bootstrap } from '@libp2p/bootstrap'
 import { createHelia, libp2pDefaults } from 'helia'
 import { CID } from 'multiformats/cid'
 

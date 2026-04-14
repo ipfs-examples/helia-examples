@@ -2,7 +2,6 @@
 
 import { car } from '@helia/car'
 import { unixfs } from '@helia/unixfs'
-import { CarWriter } from '@ipld/car/writer'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFiles } from '../hooks/useFiles'
 import { useHelia } from '../hooks/useHelia'
@@ -37,19 +36,6 @@ async function readFileAsUint8Array (file) {
 
     reader.readAsArrayBuffer(file)
   })
-}
-
-/**
- *
- * @param {AsyncIterable<Uint8Array>} carReaderIterable
- * @returns {Promise<Blob>}
- */
-async function carWriterOutToBlob (carReaderIterable) {
-  const parts = []
-  for await (const part of carReaderIterable) {
-    parts.push(part)
-  }
-  return new Blob(parts, { type: 'application/car' })
 }
 
 export default function CarCreator () {
@@ -88,8 +74,10 @@ export default function CarCreator () {
         parts.push(part)
       }
 
-      // don't await yet..
-      const carBlob = new Blob(parts)
+      const carBlob = new Blob(parts, {
+        type: 'application/car'
+      })
+
       setCarBlob(carBlob)
       setRootCID(rootCID)
     }
@@ -125,9 +113,9 @@ export default function CarCreator () {
     <div style={{ borderRadius: '3px', padding: '1rem' }}>
       <div>
         <b>Car file CID: </b>
-        <span id="carFileCID">{rootCID.toString()}</span>
+        <span id='carFileCID'>{rootCID.toString()}</span>
       </div>
-      <button id="downloadCarFile" onClick={downloadCarFile}>Download Car file</button>
+      <button id='downloadCarFile' onClick={downloadCarFile}>Download Car file</button>
     </div>
   )
 }

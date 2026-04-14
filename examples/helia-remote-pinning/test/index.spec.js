@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { createPinningServiceAPIServer } from '@helia/pinning-service-api-server'
@@ -116,7 +115,6 @@ test.describe('remote pinning example:', () => {
   let bootstrapper
   let pinningService
 
-  // eslint-disable-next-line no-empty-pattern
   test.beforeAll(async ({ servers }, testInfo) => {
     testInfo.setTimeout(5 * 60_000)
     bootstrapper = await spawnBootstrapper()
