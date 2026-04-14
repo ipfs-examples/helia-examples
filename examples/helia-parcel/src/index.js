@@ -40,19 +40,6 @@ const App = async () => {
     scrollToBottom(log)
   }
 
-  const cat = async (cid) => {
-    const decoder = new TextDecoder()
-    let content = ''
-
-    for await (const chunk of fs.cat(cid)) {
-      content += decoder.decode(chunk, {
-        stream: true
-      })
-    }
-
-    return content
-  }
-
   const store = async (name, content) => {
     const id = helia.libp2p.peerId
     showStatus(`Helia node peer ID ${id}`, COLORS.active)

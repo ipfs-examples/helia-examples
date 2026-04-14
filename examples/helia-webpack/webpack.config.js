@@ -3,9 +3,9 @@ import { fileURLToPath } from 'url'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
+import { NodeProtocolUrlPlugin } from 'node-stdlib-browser/helpers/webpack/plugin'
 import webpack from 'webpack'
 import { merge } from 'webpack-merge'
-import { NodeProtocolUrlPlugin } from 'node-stdlib-browser/helpers/webpack/plugin'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 

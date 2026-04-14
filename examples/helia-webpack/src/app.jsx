@@ -97,47 +97,47 @@ function App () {
 
   return (
     <>
-      <header className="flex items-center pa3 bg-navy">
-        <a href="https://github.com/ipfs/helia" title="home">
+      <header className='flex items-center pa3 bg-navy'>
+        <a href='https://github.com/ipfs/helia' title='home'>
           <img
-            alt="Helia logo"
-            src="https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-wordmark.svg"
+            alt='Helia logo'
+            src='https://unpkg.com/@helia/css@1.0.1/logos/outlined/helia-wordmark.svg'
             style={{ height: 60 }}
-            className="v-top"
+            className='v-top'
           />
         </a>
       </header>
 
-      <main className="pa4-l bg-snow mw7 mv5 center pa4">
-        <h1 className="pa0 f2 ma0 mb4 navy tc">Add data to Helia</h1>
+      <main className='pa4-l bg-snow mw7 mv5 center pa4'>
+        <h1 className='pa0 f2 ma0 mb4 navy tc'>Add data to Helia</h1>
 
-        <form id="add-file" onSubmit={handleSubmit}>
-          <label htmlFor="file-name" className="f5 ma0 pb2 navy fw4 db">Name</label>
+        <form id='add-file' onSubmit={handleSubmit}>
+          <label htmlFor='file-name' className='f5 ma0 pb2 navy fw4 db'>Name</label>
           <input
-            className="input-reset bn black-80 bg-white pa3 w-100 mb3"
-            id="file-name"
-            name="file-name"
-            type="text"
-            placeholder="file.txt"
+            className='input-reset bn black-80 bg-white pa3 w-100 mb3'
+            id='file-name'
+            name='file-name'
+            type='text'
+            placeholder='file.txt'
             required
             value={fileName} onChange={(e) => setFileName(e.target.value)}
           />
 
-          <label htmlFor="file-content" className="f5 ma0 pb2 navy fw4 db">Content</label>
+          <label htmlFor='file-content' className='f5 ma0 pb2 navy fw4 db'>Content</label>
           <input
-            className="input-reset bn black-80 bg-white pa3 w-100 mb3 ft"
-            id="file-content"
-            name="file-content"
-            type="text"
-            placeholder="Hello world"
+            className='input-reset bn black-80 bg-white pa3 w-100 mb3 ft'
+            id='file-content'
+            name='file-content'
+            type='text'
+            placeholder='Hello world'
             required
             value={fileContent} onChange={(e) => setFileContent(e.target.value)}
           />
 
           <button
-            className="button-reset pv3 tc bn bg-animate bg-black-80 hover-bg-aqua white pointer w-100"
-            id="add-submit"
-            type="submit"
+            className='button-reset pv3 tc bn bg-animate bg-black-80 hover-bg-aqua white pointer w-100'
+            id='add-submit'
+            type='submit'
           >
             Add file
           </button>
@@ -145,18 +145,16 @@ function App () {
 
         <h3>Output</h3>
 
-        <div className="window">
-          <div className="header"></div>
-          <div id="terminal" className="terminal" ref={terminalEl}>
-            { output.length > 0 &&
-              <div id="output">
-                { output.map((log, index) =>
+        <div className='window'>
+          <div className='header' />
+          <div id='terminal' className='terminal' ref={terminalEl}>
+            {output.length > 0 &&
+              <div id='output'>
+                {output.map((log, index) =>
                   <p key={index} style={{ color: log.color }} id={log.id}>
                     {log.content}
-                  </p>)
-                }
-              </div>
-            }
+                  </p>)}
+              </div>}
           </div>
         </div>
       </main>

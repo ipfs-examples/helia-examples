@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 import { createHeliaNode } from '../src/index.js'
 import type { Helia } from 'helia'
 

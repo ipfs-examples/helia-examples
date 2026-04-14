@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 // @ts-check
 import { bitswap, trustlessGateway } from '@helia/block-brokers'
-import { httpGatewayRouting, libp2pRouting, delegatedHTTPRouting } from '@helia/routers'
+import { httpGatewayRouting, delegatedHTTPRouting } from '@helia/routers'
 import { unixfs } from '@helia/unixfs'
 import { createHelia } from 'helia'
 import { CID } from 'multiformats/cid'

@@ -16,3 +16,4 @@ playwright-report
 .tool-versions
 .env
 output.car
+tsconfig-check.aegir.tsbuildinfo
