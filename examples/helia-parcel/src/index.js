@@ -68,8 +68,6 @@ const App = async () => {
     showStatus(`Added ${cid}`, COLORS.success, cid)
     showStatus('Reading file', COLORS.active)
 
-    const text = await cat(cid)
-
     for await (const entry of fs.ls(cid)) {
       const stat = await fs.stat(entry.cid)
 
