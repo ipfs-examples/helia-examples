@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-    "module": "ES2022",
-    "target": "ES2021",
-    "moduleResolution": "node",
+    "module": "node20",
+    "target": "ES2022",
+
+    "moduleResolution": "node16",
+    "skipLibCheck": true,
+    "types": [
+      "jest"
+    ],
 
     // only necessary for the example linting check, your project may not need
     // these settings
-    "strictNullChecks": true,
-    "skipLibCheck": true
+    "strictNullChecks": true
   }
 }
