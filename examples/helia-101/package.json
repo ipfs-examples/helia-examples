@@ -39,6 +39,7 @@
     "blockstore-fs": "^3.0.3",
     "datastore-core": "^11.0.3",
     "datastore-fs": "^11.0.3",
+    "datastore-level": "^12.0.3",
     "helia": "^6.1.2",
     "libp2p": "^3.2.0",
     "prom-client": "^15.1.3"
