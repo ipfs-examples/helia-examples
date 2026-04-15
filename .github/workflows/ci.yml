@@ -52,9 +52,9 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
-        # This step has been observed to hang indefinitely when failing to
-        # download browsers, but it can also be quite slow.
-        timeout-minutes: 30
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
+        timeout-minutes: 10
       - name: Run tests
         run: npm run test
         # This step has been observed to hang indefinitely when the browsers
@@ -73,9 +73,9 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
-        # This step has been observed to hang indefinitely when failing to
-        # download browsers, but it can also be quite slow.
-        timeout-minutes: 30
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
+        timeout-minutes: 10
       - name: Run linting
         run: npm run lint
       - name: Run tests
