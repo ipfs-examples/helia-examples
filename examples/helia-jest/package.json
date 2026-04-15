@@ -11,6 +11,6 @@
     "helia": "^6.1.2"
   },
   "devDependencies": {
-    "jest": "^29.6.2"
+    "jest": "^30.3.0"
   }
 }

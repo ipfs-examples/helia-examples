@@ -18,3 +18,4 @@ playwright-report
 output.car
 tsconfig-check.aegir.tsbuildinfo
 tsconfig-check.aegir.json
+tsconfig.build.tsbuildinfo
