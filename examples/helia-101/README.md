@@ -24,14 +24,23 @@
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation and Running example](#installation-and-running-example)
+  - [Installation](#installation)
+  - [Running Examples](#running-examples)
 - [Usage](#usage)
   - [101 - Basics](#101---basics)
-  - [202 - Storage](#202---storage)
+  - [201 - Storage](#201---storage)
     - [Blockstore](#blockstore)
     - [Datastore](#datastore)
+  - [202 - Persistent Peer ID](#202---persistent-peer-id)
   - [301 - Networking](#301---networking)
     - [libp2p](#libp2p)
+  - [302 - Local Peer Discovery](#302---local-peer-discovery)
+  - [303 - Prometheus Metrics](#303---prometheus-metrics)
+  - [304 - Private Network](#304---private-network)
+  - [401 - Pinning](#401---pinning)
+  - [402 - Providing](#402---providing)
+  - [403 - Block Brokers](#403---block-brokers)
+  - [501 - IPNS](#501---ipns)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -56,83 +65,82 @@ Make sure you have installed all of the following prerequisites on your developm
 - Git - [Download & Install Git](https://git-scm.com/downloads). OSX and Linux machines typically have this already installed.
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 
-### Installation and Running example
+### Installation
 
 ```console
 > npm install
-> npm start
+```
+
+### Running Examples
+
+```console
+> npm run 101-basics
+> npm run 102-unixfs-dirs
+> npm run 103-glob-unixfs
+> npm run 201-storage
+> npm run 202-persistent-peer
+> npm run 301-networking
+> npm run 302-mdns
+> npm run 303-metrics
+> npm run 304-pnet
+> npm run 401-pinning
+> npm run 402-providing
+> npm run 403-block-brokers
 ```
 
 ## Usage
 
-In this tutorial, we go through spawning a Helia node, adding a file and cating the file [CID][] locally and through the gateway.
+In this tutorial, we go through spawning a Helia node and interacting with [UnixFS](https://docs.ipfs.tech/concepts/glossary/#unixfs), adding bytes, directories, and files to the node and retrieving them.
 
-It it split into three parts, each part builds on the previous one - basics, storage and finally networking.
+It is split into multiple parts, each part builds on the previous one - basics of interaction with UnixFS, storage, networking, and finally providing, garbage collection and pinning.
 
 For this tutorial, you need to install all dependencies in the `package.json` using `npm install`.
 
 ### 101 - Basics
 
-In the [101-basics.js](./101-basics.js) example the first thing we do is create a Helia node:
+The [first example](./101-basics.js) goes into the the basics of interacting with UnixFS, adding bytes, directories, and files to the node and retrieving them.
 
-```js
-import { createHelia } from 'helia'
+To run it, use the following command:
 
-// create a Helia node
-const helia = await createHelia()
+```console
+> npm run 101-basics
 ```
 
-This node allows us to add blocks and later to retrieve them.
+### 102 - UnixFS Dirs
 
-Next we use `@helia/unixfs` to add some data to our node:
+The [second example](./102-unixfs-dirs.js) goes into the basics of working with directories with UnixFS.
 
-```js
-import { unixfs } from '@helia/unixfs'
+To run it, use the following command:
 
-// create a filesystem on top of Helia, in this case it's UnixFS
-const fs = unixfs(helia)
-
-// we will use this TextEncoder to turn strings into Uint8Arrays
-const encoder = new TextEncoder()
-const bytes = encoder.encode('Hello World 101')
-
-// add the bytes to your node and receive a unique content identifier
-const cid = await fs.addBytes(bytes)
-
-console.log('Added file:', cid.toString())
+```console
+> npm run 102-unixfs-dirs
 ```
 
-The `bytes` value we have passed to `unixfs` has now been turned into a UnixFS DAG and stored in the helia node.
+### 103 - Glob UnixFS
 
-We can access it by using the `cat` API and passing the [CID][] that was returned from the invocation of `addBytes`:
+The [third example](./103-glob-unixfs.js) goes into using [`globSource`] to merkelize files and directories from your local file system into UnixFS and exporting the UnixFS DAG as a CAR file.
 
-```js
-// this decoder will turn Uint8Arrays into strings
-const decoder = new TextDecoder()
-let text = ''
+To run it, use the following command:
 
-for await (const chunk of fs.cat(cid)) {
-  text += decoder.decode(chunk, {
-    stream: true
-  })
-}
-
-console.log('Added file contents:', text)
+```console
+> npm run 103-glob-unixfs
 ```
 
-That's it!  We've created a Helia node, added a file to it, and retrieved that file.
-
-Next we will look at where the bytes that make up the file go.
-
-### 202 - Storage
-
-Out of the box Helia will store all data in-memory.  This makes it easy to get started, and to create short-lived nodes that do not persist state between restarts, but what if you want to store large amounts of data for long amounts of time?
+### 201 - Storage
 
 Take a look at [201-storage.js](./201-storage.js) where we explore how to configure different types of persistent storage for your Helia node.
 
+To run it, use the following command:
+
+```console
+> npm run 201-storage
+```
+
+If you run the example twice: you may notice that the second time the file is found in the blockstore without being added again.
+
 #### Blockstore
 
-At it's heart the Interplanetary Filesystem is about blocks.  When you add a file to your local Helia node, it is split up into a number of blocks, all of which are stored in a [blockstore](https://www.npmjs.com/package/interface-blockstore).
+At it's heart IPFS is about blocks of data addressed by a [CID][]. When you add a file to your local Helia node, it is split up into a number of blocks, all of which are stored in a [blockstore](https://www.npmjs.com/package/interface-blockstore).
 
 Each block has a [CID][], an identifier that is unique to that block and can be used to request it from other nodes in the network.
 
@@ -154,7 +162,7 @@ There are many blockstore implementations available. Some common ones are:
 
 #### Datastore
 
-Some facility to store information is required, this needs a [datastore](https://www.npmjs.com/package/interface-datastore).
+The [datastore](https://www.npmjs.com/package/interface-datastore) stores Helia and libp2p state, such as IPNS names, MFS root CID, pin metadata, kad-dht routing table, and peer store data including WebRTC certificates.
 
 Similar to the blockstore, a datastore is a key/value store where the keys are strings and the values are [Uint8Array][]s.
 
@@ -168,7 +176,20 @@ Commonly used datastore implementations are:
 
 - [datastore-level](https://www.npmjs.com/package/datastore-level) - store key/value pairs in a [LevelDB](https://github.com/google/leveldb) instance
 - [datastore-idb](https://www.npmjs.com/package/datastore-idb) - store key/value pairs in [IndexedDB][] in the browser
-- [blockstore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
+- [datastore-s3](https://www.npmjs.com/package/datastore-s3) - store key/value pairs in an AWS [S3][] bucket
+
+### 202 - Persistent Peer ID
+
+The [202-persistent-peer.js](./202-persistent-peer.js) example demonstrates how to create a Helia node with a persistent peer ID using the [FsDatastore](https://www.npmjs.com/package/datastore-fs).
+
+This is useful when you want your node to maintain the same identity in the network, allowing other peers to recognize and trust your node consistently.
+To run it, use the following command:
+
+```console
+> npm run 202-persistent-peer
+```
+
+If you run the example twice, you will see that the peer ID is the same.
 
 ### 301 - Networking
 
@@ -198,7 +219,7 @@ const libp2p = await createLibp2p({
   transports: [
     webSockets()
   ],
-  connectionEncryption: [
+  connectionEncrypters: [
     noise()
   ],
   streamMuxers: [
@@ -220,21 +241,145 @@ const libp2p = await createLibp2p({
 })
 ```
 
-### Putting it all together
+### 302 - Local Peer Discovery
 
-Since your Helia node is configured with a libp2p node, you can go to an IPFS Gateway and load the printed hash. Go ahead and try it!
+The [302-mdns.js](./302-mdns.js) example demonstrates how to use multicast DNS for local peer discovery.
 
-```bash
-> node 301-networking.js
+This allows Helia nodes on the same local network to automatically discover each other without requiring bootstrap nodes or DHT lookups.
 
-Added file: bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
-# Copy that hash and load it on the gateway, here is a prefilled url:
-# https://ipfs.io/ipfs/bafkreife2klsil6kaxqhvmhgldpsvk5yutzm4i5bgjoq6fydefwtihnesa
+```js
+import { mdns } from '@libp2p/mdns'
+
+// Configure libp2p with mDNS discovery
+const libp2p = await createLibp2p({
+  // ... other configuration ...
+  peerDiscovery: [
+    mdns()
+  ],
+  // ... rest of configuration ...
+})
+
+// Listen for peer discovery events
+node.libp2p.addEventListener('peer:discovery', (evt) => {
+  console.log(`Discovered new peer (${evt.detail.id.toString()}) via MDNS`)
+  node.libp2p.dial(evt.detail.multiaddrs)
+})
 ```
 
-That's it! You just added and retrieved a file from the Distributed Web!
+To run this example, use the following command:
 
-_For more examples, please refer to the [Documentation](#documentation)_
+```console
+> npm run 302-mdns
+```
+
+### 303 - Prometheus Metrics
+
+The [303-metrics.js](./303-metrics.js) example shows how to enable and expose Prometheus metrics for your Helia node, and how to expose the Prometheus HTTP metrics endpoint.
+
+This is useful for monitoring the performance and behavior of your node in production environments.
+
+```js
+import { prometheusMetrics } from '@libp2p/prometheus-metrics'
+import { register } from 'prom-client'
+
+const helia = await createHelia({
+  // ... other configuration ...
+  libp2p: {
+    metrics: prometheusMetrics(),
+  }
+})
+
+// Create a simple HTTP server to expose metrics
+const metricsServer = createServer((req, res) => {
+  if (req.url === '/metrics' && req.method === 'GET') {
+    register.metrics()
+      .then((metrics) => {
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        res.end(metrics)
+      })
+  }
+})
+metricsServer.listen(9999, '0.0.0.0')
+```
+
+To run this example, use the following command:
+
+```console
+> npm run 303-metrics
+```
+
+#### Other Metrics Implementations
+
+js-libp2p supports two other metrics implementations:
+
+- [@libp2p/devtools-metrics](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-devtools): for use in the browser with the [js-libp2p DevTools browser extension](https://github.com/libp2p/js-libp2p-devtools)
+- [@libp2p/opentelemetry](https://github.com/libp2p/js-libp2p/tree/main/packages/metrics-opentelemetry): for use with OpenTelemetry for both metrics and tracing
+
+### 304 - Private Network
+
+The [304-pnet.js](./304-pnet.js) example demonstrates how to:
+- Create a private IPFS network using pre-shared keys
+- Connect nodes in a private swarm
+- Share content between nodes in the private network
+
+This is useful for creating isolated IPFS networks where only nodes with the correct pre-shared key can connect and share content.
+
+To run this example, use the following command:
+
+```console
+> npm run 304-pnet
+```
+
+### 401 - Pinning
+
+The [401-pinning.js](./401-pinning.js) example demonstrates how to:
+- Run garbage collection
+- Pin blocks to prevent them from being garbage collected
+- Add metadata to pins
+
+To run it, use the following command:
+
+```console
+> npm run 401-pinning
+```
+
+### 402 - Providing
+
+The [402-providing.js](./402-providing.js) example shows how to:
+- Provide content to the DHT (Distributed Hash Table)
+- Make content discoverable by other nodes in the network
+
+To run it, use the following command:
+
+```console
+> npm run 402-providing
+```
+
+### 403 - Block Brokers
+
+The [403-block-brokers.js](./403-block-brokers.js) example demonstrates how to:
+- Configure different block brokers (Bitswap and Trustless Gateway)
+- Set up routing options (libp2p and HTTP Gateway)
+
+To run it, use the following command:
+
+```console
+> npm run 403-block-brokers
+```
+
+### 501 - IPNS
+
+The [501-ipns.js](./501-ipns.js) example demonstrates how to:
+
+- Create and manage IPNS (InterPlanetary Name System) records
+- Use DAG-CBOR for encoding data
+- Set record lifetime and TTL
+
+To run it, use the following command:
+
+```console
+> npm run 501-ipns
+```
 
 ## Documentation
 

@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   examples:
     runs-on: ubuntu-latest
     name: Test ${{ matrix.project }}
@@ -21,53 +22,68 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-browser-verified-fetch
           - helia-cjs
           - helia-create-react-app
           - helia-electron
           - helia-esbuild
+          - helia-jest
+          - helia-jest-typescript
+          - helia-nestjs
           - helia-nextjs
           - helia-parcel
+          - helia-remote-pinning
           - helia-script-tag
+          - helia-ts-node
+          - helia-typescript
           - helia-vite
           - helia-vue
           - helia-webpack
+          - helia-create-car
+          - helia-lan-discovery
     defaults:
       run:
         working-directory: examples/${{ matrix.project }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
+        timeout-minutes: 10
       - name: Run tests
         run: npm run test
-        env:
-          CI: true
+        # This step has been observed to hang indefinitely when the browsers
+        # weren't correctly downloaded.
+        timeout-minutes: 10
 
   monorepo:
     runs-on: ubuntu-latest
     name: Test monorepo
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
+        timeout-minutes: 10
       - name: Run linting
         run: npm run lint
-        env:
-          CI: true
       - name: Run tests
-        run: npm run test
-        env:
-          CI: true
+        run: npm run test -- --concurrency 1
+        # This step has been observed to hang indefinitely when the browsers
+        # weren't correctly downloaded.
+        timeout-minutes: 10
 
   push-changes:
     name: Push changes
@@ -79,16 +95,25 @@ jobs:
       matrix:
         project:
           - helia-101
+          - helia-browser-verified-fetch
           - helia-cjs
           - helia-create-react-app
           - helia-electron
           - helia-esbuild
+          - helia-jest
+          - helia-jest-typescript
+          - helia-nestjs
           - helia-parcel
+          - helia-remote-pinning
           - helia-nextjs
           - helia-script-tag
+          - helia-ts-node
+          - helia-typescript
           - helia-vite
           - helia-vue
           - helia-webpack
+          - helia-create-car
+          - helia-lan-discovery
     steps:
       - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
         with:

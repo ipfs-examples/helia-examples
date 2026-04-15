@@ -12,3 +12,10 @@ yarn.lock
 test-results
 playwright-report
 .parcel-cache
+.envrc
+.tool-versions
+.env
+output.car
+tsconfig-check.aegir.tsbuildinfo
+tsconfig-check.aegir.json
+tsconfig.build.tsbuildinfo

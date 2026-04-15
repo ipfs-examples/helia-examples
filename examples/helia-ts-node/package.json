@@ -1,0 +1,19 @@
+{
+  "name": "helia-ts-node",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Running Helia with ts-node",
+  "scripts": {
+    "start": "node src/index.ts",
+    "test": "test-node-example test/*"
+  },
+  "dependencies": {
+    "helia": "^6.1.2"
+  },
+  "devDependencies": {
+    "test-ipfs-example": "^1.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  }
+}

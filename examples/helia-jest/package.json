@@ -1,0 +1,16 @@
+{
+  "name": "helia-jest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Test Helia with Jest",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+  },
+  "dependencies": {
+    "helia": "^6.1.2"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0"
+  }
+}

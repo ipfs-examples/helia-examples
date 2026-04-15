@@ -6,3 +6,12 @@ updates:
     interval: daily
     time: "11:00"
   open-pull-requests-limit: 50
+  commit-message:
+    prefix: "deps"
+    prefix-development: "deps(dev)"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  commit-message:
+    prefix: ci
