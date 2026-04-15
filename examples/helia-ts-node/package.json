@@ -5,11 +5,11 @@
   "type": "module",
   "description": "Running Helia with ts-node",
   "scripts": {
-    "start": "cross-env NODE_OPTIONS=\"--loader=ts-node/esm\" node src/index.ts",
-    "test": "cross-env NODE_OPTIONS=\"--loader=ts-node/esm\" test-node-example test/*"
+    "start": "node src/index.ts",
+    "test": "test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^5.0.0"
+    "helia": "^6.1.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

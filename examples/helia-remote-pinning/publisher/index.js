@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
-
 import { heliaWithRemotePins } from '@helia/remote-pinning'
+import { inspectorMetrics } from '@ipshipyard/libp2p-inspector-metrics'
 import { bootstrap } from '@libp2p/bootstrap'
-import { devToolsMetrics } from '@libp2p/devtools-metrics'
 import { createHelia, libp2pDefaults } from 'helia'
 import drain from 'it-drain'
 import { CID } from 'multiformats/cid'
@@ -20,7 +18,7 @@ const DOM = {
 // 1. use our local bootstrapper to join the network
 // 2. reconfigure the WebSocket transport to allow connecting to insecure local addresses
 const libp2p = libp2pDefaults()
-libp2p.metrics = devToolsMetrics()
+libp2p.metrics = inspectorMetrics()
 libp2p.peerDiscovery = [
   bootstrap({
     list: [

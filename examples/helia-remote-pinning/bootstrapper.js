@@ -5,7 +5,6 @@ import { yamux } from '@chainsafe/libp2p-yamux'
 import { circuitRelayServer } from '@libp2p/circuit-relay-v2'
 import { privateKeyFromProtobuf } from '@libp2p/crypto/keys'
 import { identify } from '@libp2p/identify'
-import { kadDHT } from '@libp2p/kad-dht'
 import { tcp } from '@libp2p/tcp'
 import { webSockets } from '@libp2p/websockets'
 import { createLibp2p } from 'libp2p'
@@ -35,7 +34,6 @@ const bootstrapper = await createLibp2p({
   ],
   services: {
     identify: identify(),
-    kadDHT: kadDHT(),
     relay: circuitRelayServer({
       reservations: {
         maxReservations: Infinity

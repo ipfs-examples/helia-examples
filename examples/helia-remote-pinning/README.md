@@ -68,7 +68,7 @@ bootstrapper listening on
 Next start the pinning service:
 
 ```console
-$ npm run pinning-service.js
+$ npm run pinning-service
 pinning service listening on
 http://127.0.0.1:64486
 ```

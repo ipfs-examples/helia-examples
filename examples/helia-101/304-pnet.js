@@ -4,7 +4,6 @@
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { unixfs } from '@helia/unixfs'
-import { bootstrap } from '@libp2p/bootstrap'
 import { identify } from '@libp2p/identify'
 import { preSharedKey, generateKey } from '@libp2p/pnet'
 import { tcp } from '@libp2p/tcp'
