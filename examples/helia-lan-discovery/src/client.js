@@ -13,7 +13,7 @@ helia.libp2p.addEventListener('peer:discovery', (evt) => {
   helia.libp2p.dial(evt.detail.id, {
     signal: AbortSignal.timeout(5_000)
   })
-    .catch()
+    .catch(() => {})
 })
 
 await helia.libp2p.register(PROTOCOL, {
