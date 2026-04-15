@@ -65,9 +65,9 @@ export const useUnixFS = () => {
   const addFile = async (name, dirCid, content) => {
     if (error.value.length === 0 && !loading.value) {
       try {
-        const res = await fs.value.addFile({
-          content: encoder.encode(content)
-        })
+        const res = await fs.value.addBytes(
+          encoder.encode(content)
+        )
         const updatedCid = await fs.value.cp(res, dirCid, name)
         return { status: 'success', data: { dirCid: updatedCid, fileCid: res } }
       } catch (e) {

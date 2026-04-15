@@ -56,6 +56,6 @@ const car = CAR(helia)
 const out = nodefs.createWriteStream(outputCarFile)
 
 // stream the car file to the output file
-await pipeline(car.stream(last), out)
+await pipeline(car.export(last), out)
 
 console.log(`Wrote car file to ${outputCarFile}`)

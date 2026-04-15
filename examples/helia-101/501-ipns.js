@@ -3,19 +3,11 @@
 
 import { dagCbor } from '@helia/dag-cbor'
 import { ipns as IPNS } from '@helia/ipns'
-import { generateKeyPair } from '@libp2p/crypto/keys'
 import { createHelia } from 'helia'
 
 const helia = await createHelia()
 const dcbor = dagCbor(helia)
 const ipns = IPNS(helia)
-
-// create a keypair to publish an IPNS name
-const privateKey = await generateKeyPair('Ed25519')
-
-console.log(`Created IPNS name:
-  ${privateKey.publicKey.toCID()} (as CID)
-  ${privateKey.publicKey.toString()} (as base58btc string)`)
 
 // Use dag-cbor to encode a
 const cid = await dcbor.add({
@@ -24,7 +16,7 @@ const cid = await dcbor.add({
 })
 
 try {
-  const record = await ipns.publish(privateKey, cid, {
+  const record = await ipns.publish('my-ipns-name', cid, {
     lifetime: 1000 * 60 * 60 * 24 * 30, // 30 days
     ttl: 1000 * 60, // 1 minute TTL
     signal: AbortSignal.timeout(60_000) // 60 seconds timeout for publishing

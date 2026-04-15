@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 // @ts-check
 import { bitswap, trustlessGateway } from '@helia/block-brokers'
-import { httpGatewayRouting, libp2pRouting, delegatedHTTPRouting } from '@helia/routers'
+import { httpGatewayRouting, delegatedHTTPRouting } from '@helia/routers'
 import { unixfs } from '@helia/unixfs'
 import { createHelia } from 'helia'
 import { CID } from 'multiformats/cid'
@@ -36,7 +36,11 @@ const cid = CID.parse('bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbz
 // bitswap over libp2p connections to retrieve blocks
 const bitswapDelegatedRoutingNode = await createHelia({
   blockBrokers: [bitswap()],
-  routers: [delegatedHTTPRouting('https://delegated-ipfs.dev')]
+  routers: [
+    delegatedHTTPRouting({
+      url: 'https://delegated-ipfs.dev'
+    })
+  ]
 })
 const fsBitswap = unixfs(bitswapDelegatedRoutingNode)
 

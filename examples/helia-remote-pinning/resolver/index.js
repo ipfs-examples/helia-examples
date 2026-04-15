@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
-
+import { inspectorMetrics } from '@ipshipyard/libp2p-inspector-metrics'
 import { bootstrap } from '@libp2p/bootstrap'
-import { devToolsMetrics } from '@libp2p/devtools-metrics'
 import { createHelia, libp2pDefaults } from 'helia'
 import { CID } from 'multiformats/cid'
 
@@ -15,7 +13,7 @@ const DOM = {
 // 1. use our local bootstrapper to join the network
 // 2. reconfigure the WebSocket transport to allow connecting to insecure local addresses
 const libp2p = libp2pDefaults()
-libp2p.metrics = devToolsMetrics()
+libp2p.metrics = inspectorMetrics()
 libp2p.peerDiscovery = [
   bootstrap({
     list: [
@@ -43,13 +41,22 @@ DOM.resolveButton().onclick = async (event) => {
 
     DOM.output().innerText += `Resolving ${cid}\n`
 
+    let text = ''
+    const decoder = new TextDecoder()
+
     // load the pinned block
-    const data = await helia.blockstore.get(cid, {
+    for await (const buf of helia.blockstore.get(cid, {
       signal: AbortSignal.timeout(5000)
-    })
+    })) {
+      text += decoder.decode(buf, {
+        stream: true
+      })
+    }
+
+    text += decoder.decode()
 
     // show the contents
-    DOM.output().innerText += `Resolved ${new TextDecoder().decode(data)}\n`
+    DOM.output().innerText += `Resolved ${text}\n`
   } catch (err) {
     DOM.output().innerText += `Error ${err.toString()}\n`
   }

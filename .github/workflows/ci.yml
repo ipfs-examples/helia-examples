@@ -52,11 +52,13 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
-        # This step has been observed to hang indefinitely when failing to download browsers.
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
         timeout-minutes: 10
       - name: Run tests
         run: npm run test
-        # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
+        # This step has been observed to hang indefinitely when the browsers
+        # weren't correctly downloaded.
         timeout-minutes: 10
 
   monorepo:
@@ -71,13 +73,15 @@ jobs:
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
-        # This step has been observed to hang indefinitely when failing to download browsers.
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
         timeout-minutes: 10
       - name: Run linting
         run: npm run lint
       - name: Run tests
         run: npm run test -- --concurrency 1
-        # This step has been observed to hang indefinitely when the browsers weren't correctly downloaded.
+        # This step has been observed to hang indefinitely when the browsers
+        # weren't correctly downloaded.
         timeout-minutes: 10
 
   push-changes:

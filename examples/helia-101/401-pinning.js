@@ -43,7 +43,7 @@ try {
   const stats = await fs.stat(cid, { offline: true })
   console.log('Stats:', stats)
 } catch (err) {
-  if (err?.name === 'NotFoundError') {
+  if (err?.name === 'BlockNotFoundWhileOfflineError') {
     console.log('Block not found, as expected')
   } else {
     throw err

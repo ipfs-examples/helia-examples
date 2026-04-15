@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { createPinningServiceAPIServer } from '@helia/pinning-service-api-server'
@@ -6,7 +5,6 @@ import { bootstrap } from '@libp2p/bootstrap'
 import { circuitRelayServer } from '@libp2p/circuit-relay-v2'
 import { privateKeyFromProtobuf } from '@libp2p/crypto/keys'
 import { identify } from '@libp2p/identify'
-import { kadDHT } from '@libp2p/kad-dht'
 import { tcp } from '@libp2p/tcp'
 import { webSockets } from '@libp2p/websockets'
 import { createHelia, libp2pDefaults } from 'helia'
@@ -60,7 +58,6 @@ async function spawnBootstrapper () {
     ],
     services: {
       identify: identify(),
-      kadDHT: kadDHT(),
       relay: circuitRelayServer({
         reservations: {
           maxReservations: Infinity
@@ -118,7 +115,6 @@ test.describe('remote pinning example:', () => {
   let bootstrapper
   let pinningService
 
-  // eslint-disable-next-line no-empty-pattern
   test.beforeAll(async ({ servers }, testInfo) => {
     testInfo.setTimeout(5 * 60_000)
     bootstrapper = await spawnBootstrapper()

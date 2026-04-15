@@ -16,16 +16,17 @@ function App () {
   }
 
   return (
-    <div className="App">
+    <div className='App'>
       <div
-        id="heliaStatus"
+        id='heliaStatus'
         style={{
           border: `4px solid ${statusColor}`,
           paddingBottom: '4px',
           width: '100%'
         }}
-      >Helia Status</div>
-      <br/>
+      >Helia Status
+      </div>
+      <br />
       <FileProvider>
         <FileUploader />
         <CarCreator />
