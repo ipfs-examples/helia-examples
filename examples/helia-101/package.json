@@ -24,14 +24,17 @@
   "dependencies": {
     "@chainsafe/libp2p-noise": "^17.0.0",
     "@chainsafe/libp2p-yamux": "^8.0.1",
+    "@helia/block-brokers": "^5.2.3",
     "@helia/car": "^5.4.1",
     "@helia/dag-cbor": "^5.1.1",
     "@helia/http": "^3.1.2",
     "@helia/ipns": "^9.2.1",
+    "@helia/routers": "^5.1.1",
     "@helia/unixfs": "^7.2.1",
     "@libp2p/bootstrap": "^12.0.16",
-    "@libp2p/crypto": "^5.1.15",
+    "@libp2p/config": "^1.1.29",
     "@libp2p/identify": "^4.1.0",
+    "@libp2p/mdns": "^12.0.18",
     "@libp2p/pnet": "^3.0.16",
     "@libp2p/prometheus-metrics": "^5.0.16",
     "@libp2p/tcp": "^11.0.15",
@@ -42,6 +45,7 @@
     "datastore-level": "^12.0.3",
     "helia": "^6.1.2",
     "libp2p": "^3.2.0",
+    "multiformats": "^13.4.2",
     "prom-client": "^15.1.3"
   },
   "devDependencies": {
