@@ -1,0 +1,22 @@
+name: Publish Static Website to Distributed Press
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish to Distributed Press
+        uses: hyphacoop/actions-distributed-press@v1.1.0
+        with:
+          publish_dir: ./ # Change to your static files directory, e.g., public
+          dp_url: https://api.distributed.press
+          refresh_token: ${{ secrets.DISTRIBUTED_PRESS_TOKEN }}
+          site_url: example.com # Replace with your custom domain
+          deploy_http: false
+          deploy_hyper: true
+          deploy_ipfs: true
