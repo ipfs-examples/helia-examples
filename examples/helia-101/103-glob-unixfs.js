@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 // @ts-check
 
-import * as nodefs from 'fs'
-import { pipeline } from 'stream/promises'
+import * as nodefs from 'node:fs'
+import { pipeline } from 'node:stream/promises'
 import { car as CAR } from '@helia/car'
 import { createHeliaHTTP } from '@helia/http'
 import { unixfs, globSource } from '@helia/unixfs'
