@@ -33,6 +33,7 @@
     "@libp2p/config": "^1.1.29",
     "@libp2p/crypto": "^5.1.15",
     "@libp2p/identify": "^4.1.0",
+    "@libp2p/mdns": "^12.0.18",
     "@libp2p/pnet": "^3.0.16",
     "@libp2p/prometheus-metrics": "^5.0.16",
     "@libp2p/tcp": "^11.0.15",
