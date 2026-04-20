@@ -1,5 +1,0 @@
-{
-  "tasks": {
-    "test": "deno run --allow-env --allow-read --allow-run test/index.spec.js"
-  }
-}

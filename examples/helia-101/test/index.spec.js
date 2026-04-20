@@ -4,8 +4,7 @@ import { waitForOutput } from 'test-ipfs-example/node'
 
 const isDenoRun = process.env.NODE_EXEC === 'deno'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-let extraArgs = []
+const extraArgs = []
 
 if (isDenoRun) {
   extraArgs.push('--allow-env')
