@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 // @ts-check
 
-import * as nodefs from 'fs'
+import * as nodefs from 'node:fs'
 import { devNull } from 'node:os'
-import { pipeline } from 'stream/promises'
+import { pipeline } from 'node:stream/promises'
 import { createHeliaHTTP } from '@helia/http'
 import { unixfs, urlSource } from '@helia/unixfs'
 
