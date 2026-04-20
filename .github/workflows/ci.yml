@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   examples:
     runs-on: ubuntu-latest
     name: Test ${{ matrix.project }} on Node.js
@@ -30,6 +31,7 @@ jobs:
           - helia-nestjs
           - helia-nextjs
           - helia-parcel
+          - helia-remote-pinning
           - helia-script-tag
           - helia-ts-node
           - helia-typescript
@@ -42,18 +44,46 @@ jobs:
       run:
         working-directory: examples/${{ matrix.project }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
+        timeout-minutes: 10
       - name: Run tests
         run: npm run test
+        # This step has been observed to hang indefinitely when the browsers
+        # weren't correctly downloaded.
+        timeout-minutes: 10
+
+  deno:
+    runs-on: ubuntu-latest
+    name: Test ${{ matrix.project }} on Deno
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - helia-101
+    defaults:
+      run:
+        working-directory: examples/${{ matrix.project }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@4606d5cc6fb3f673efd4f594850e3f4b3e9d29cd # v2.0.0
+        with:
+          deno-version: v2.x
+      - name: Install dependencies
+        run: deno install --allow-scripts
+      - name: Run tests
+        run: NODE_EXEC=deno deno task test
         env:
           CI: true
+          NODE_EXEC: deno
 
   bun:
     runs-on: ubuntu-latest
@@ -85,22 +115,24 @@ jobs:
     runs-on: ubuntu-latest
     name: Test monorepo
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
       - name: Install Playwright
         run: npx -y playwright install --with-deps
+        # This step has been observed to either complete in under a minute or to
+        # hang indefinitely when failing to install browsers/os updates
+        timeout-minutes: 10
       - name: Run linting
         run: npm run lint
-        env:
-          CI: true
       - name: Run tests
         run: npm run test -- --concurrency 1
-        env:
-          CI: true
+        # This step has been observed to hang indefinitely when the browsers
+        # weren't correctly downloaded.
+        timeout-minutes: 10
 
   push-changes:
     name: Push changes
@@ -120,6 +152,7 @@ jobs:
           - helia-jest-typescript
           - helia-nestjs
           - helia-parcel
+          - helia-remote-pinning
           - helia-nextjs
           - helia-script-tag
           - helia-ts-node

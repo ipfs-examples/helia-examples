@@ -1,7 +1,7 @@
 import { createHelia } from 'helia'
-import type { HeliaLibp2p } from 'helia'
+import type { Helia } from 'helia'
 
-export async function createHeliaNode (): Promise<HeliaLibp2p> {
+export async function createHeliaNode (): Promise<Helia> {
   const node = await createHelia()
 
   return node

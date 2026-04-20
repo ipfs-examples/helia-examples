@@ -8,7 +8,9 @@ const IpfsComponent = () => {
 
   useEffect(() => {
     const init = async () => {
-      if (helia) return
+      if (helia) {
+        return
+      }
 
       const heliaNode = await createHelia()
 
@@ -29,8 +31,8 @@ const IpfsComponent = () => {
 
   return (
     <div>
-      <h4 data-test="id">ID: {id.toString()}</h4>
-      <h4 data-test="status">Status: {isOnline ? 'Online' : 'Offline'}</h4>
+      <h4 data-test='id'>ID: {id.toString()}</h4>
+      <h4 data-test='status'>Status: {isOnline ? 'Online' : 'Offline'}</h4>
     </div>
   )
 }

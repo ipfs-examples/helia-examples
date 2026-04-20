@@ -81,9 +81,9 @@ test.describe('Use Helia With react and vite', () => {
     expect(carFileCids).toStrictEqual([
       'bafybeifsknwjwoby7gmnqlzj236rcq47q5pskkum7svsevsod5a74caxry', // root CID
       expectedCIDs[0], // CID for filesToUpload[0]
-      expectedCIDs[1], // CID for filesToUpload[1]
       'bafkreida4xmb4fq4zgkm42xrox4oshesowi35e66kfiqsyv6xerymi3coq',
-      'bafkreicz7xeu5jx77kng5tbieuh2bp7ffzjzwn77wpwiy7d3oy6mrbbd4e'
+      'bafkreicz7xeu5jx77kng5tbieuh2bp7ffzjzwn77wpwiy7d3oy6mrbbd4e',
+      expectedCIDs[1] // CID for filesToUpload[1]
     ])
   })
 })

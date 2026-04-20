@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+// @ts-check
 
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
@@ -91,3 +92,6 @@ for await (const chunk of fs2.cat(cid)) {
 }
 
 console.log('Fetched file contents:', text)
+
+await node1.stop()
+await node2.stop()

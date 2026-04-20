@@ -1,17 +1,20 @@
 import { verifiedFetch } from '@helia/verified-fetch'
-import { fileTypeFromBuffer } from '@sgtpooki/file-type'
+import { fileTypeFromBuffer } from 'file-type'
 import { useCallback, useState } from 'react'
 import { Output } from './Output'
 import { helpText } from './constants'
+import * as dagCbor from '@ipld/dag-cbor'
+import * as dagJson from '@ipld/dag-json'
+import * as json from 'multiformats/codecs/json'
 
-function App (): JSX.Element {
+function App (): React.JSX.Element {
   const [path, setPath] = useState<string>('')
-  const [output, setOutput] = useState<string | JSX.Element>('')
+  const [output, setOutput] = useState<string | React.JSX.Element>('')
   const [err, setErr] = useState<string>('')
   const [loading, setLoadingTo] = useState<string>('')
   const [controller, setController] = useState<AbortController | null>(null)
 
-  const setSuccess = useCallback((message: string | JSX.Element) => {
+  const setSuccess = useCallback((message: string | React.JSX.Element) => {
     setOutput(message)
     setLoadingTo('')
     setErr('')
@@ -47,6 +50,18 @@ function App (): JSX.Element {
     }
   }, [])
 
+  const handleCborType = useCallback(async (resp: Response) => {
+    try {
+      setLoading('Waiting for full CBOR data...')
+      const buf = await resp.arrayBuffer()
+      const obj = dagCbor.decode(new Uint8Array(buf, 0, buf.byteLength))
+      const plainObj = json.decode(dagJson.encode(obj))
+      setSuccess(JSON.stringify(plainObj, null, 2))
+    } catch (err) {
+      setError((err as Error).message)
+    }
+  }, [])
+
   const handleVideoType = useCallback(async (resp: Response) => {
     try {
       controller?.abort() // abort any ongoing requests
@@ -59,50 +74,7 @@ function App (): JSX.Element {
     }
   }, [])
 
-  const onFetchJson = useCallback(async (jsonType: 'json' | 'dag-json' = 'json') => {
-    try {
-      controller?.abort() // abort any ongoing requests
-      setLoading(`Fetching ${jsonType} response...`)
-      const ctl = new AbortController()
-      setController(ctl)
-      const resp = await verifiedFetch(path, {
-        signal: ctl.signal,
-        headers: {
-          accept: jsonType === 'json' ? 'application/json' : 'application/vnd.ipld.dag-json'
-        }
-      })
-      await handleJsonType(resp)
-    } catch (err: any) {
-      // TODO: simplify AbortErr handling to use err.name once https://github.com/libp2p/js-libp2p/pull/2446 is merged
-      if (err?.code === 'ABORT_ERR') {
-        return
-      }
-      if (err instanceof Error) {
-        setError(err.message)
-      }
-    }
-  }, [path, handleJsonType])
-
-  const onFetchImage = useCallback(async () => {
-    try {
-      controller?.abort() // abort any ongoing requests
-      setLoading('Fetching image response...')
-      const ctl = new AbortController()
-      setController(ctl)
-      const resp = await verifiedFetch(path, { signal: ctl.signal })
-      await handleImageType(resp)
-    } catch (err: any) {
-      if (err?.code === 'ABORT_ERR') {
-        return
-      }
-      // Don't render AbortErrors since they are user intiated
-      if (err instanceof Error) {
-        setError(err.message)
-      }
-    }
-  }, [path, handleImageType])
-
-  const onFetchFile = useCallback(async () => {
+  const onDownload = useCallback(async () => {
     try {
       controller?.abort() // abort any ongoing requests
       setLoading('Fetching content to download...')
@@ -120,7 +92,7 @@ function App (): JSX.Element {
       if (err?.code === 'ABORT_ERR') {
         return
       }
-      // Don't render AbortErrors since they are user intiated
+      // Don't render AbortErrors since they are user initiated
       if (err instanceof Error) {
         setError(err.message)
       }
@@ -138,7 +110,7 @@ function App (): JSX.Element {
     setPath(e.target.value)
   }, [])
 
-  const onFetchAuto = useCallback(async () => {
+  const onFetch = useCallback(async () => {
     if (path == null) {
       setError('Invalid path')
       return
@@ -150,17 +122,24 @@ function App (): JSX.Element {
       setController(ctl)
       const resp = await verifiedFetch(path, { signal: ctl.signal })
       const buffer = await resp.clone().arrayBuffer()
-      let contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
-      if (!contentType) {
-        try {
-          // see if we can parse as json
-          await resp.clone().json()
-          contentType = 'application/json'
-        } catch (err) {
-          // ignore
-        }
+      let contentType: string | undefined | null = resp.headers.get('content-type')
+
+      if (contentType == null || contentType === 'application/octet-stream') {
+        contentType = (await fileTypeFromBuffer(new Uint8Array(buffer)))?.mime
       }
+
+      try {
+        // see if we can parse as json
+        await resp.clone().json()
+        contentType = 'application/json'
+      } catch (err) {
+        // ignore
+      }
+
       switch (true) {
+        case contentType?.includes('cbor'):
+          await handleCborType(resp)
+          break
         case contentType?.includes('image'):
           await handleImageType(resp)
           break
@@ -171,18 +150,18 @@ function App (): JSX.Element {
           await handleVideoType(resp)
           break
         default:
-          setError(`Unknown content-type: ${contentType}`)
+          onDownload()
       }
     } catch (err: any) {
       if (err?.code === 'ABORT_ERR') {
         return
       }
-      // Don't render AbortErrors since they are user intiated
+      // Don't render AbortErrors since they are user initiated
       if (err instanceof Error) {
         setError(err.message)
       }
     }
-  }, [path, handleImageType, handleJsonType, handleVideoType])
+  }, [path])
 
   return (
     <div className="">
@@ -215,42 +194,21 @@ function App (): JSX.Element {
             />
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="button-fetch-json"
-              onClick={async () => onFetchJson('json')}
+              id="button-fetch"
+              onClick={onFetch}
             >
-              🔑 Fetch as JSON
+              🔑 Fetch
             </button>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="button-fetch-dag-json"
-              onClick={async () => onFetchJson('dag-json')}
+              id="button-download"
+              onClick={onDownload}
             >
-              🔑 Fetch as dag-json
+              🔑 Download
             </button>
             <button
               className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="button-fetch-image"
-              onClick={onFetchImage}
-            >
-              🔑 Fetch as image
-            </button>
-            <button
-              className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="button-fetch-file"
-              onClick={onFetchFile}
-            >
-              🔑 Fetch & Download
-            </button>
-            <button
-              className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="button-fetch-auto"
-              onClick={onFetchAuto}
-            >
-              🔑 Fetch auto
-            </button>
-            <button
-              className="my-2 mr-2 btn btn-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              id="button-fetch-auto"
+              id="button-abort"
               onClick={onAbort}
             >
               ❌ Abort request
