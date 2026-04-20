@@ -24,6 +24,7 @@ jobs:
           - helia-101
           - helia-browser-verified-fetch
           - helia-cjs
+          - helia-create-react-app
           - helia-electron
           - helia-esbuild
           - helia-jest
@@ -94,8 +95,9 @@ jobs:
       matrix:
         project:
           - helia-101
-          - helia-cjs
           - helia-browser-verified-fetch
+          - helia-cjs
+          - helia-create-react-app
           - helia-electron
           - helia-esbuild
           - helia-jest
