@@ -80,9 +80,8 @@ jobs:
       - name: Install dependencies
         run: deno install --allow-scripts
       - name: Run tests
-        run: NODE_EXEC=deno deno task test
+        run: deno task test
         env:
-          CI: true
           NODE_EXEC: deno
 
   monorepo:
