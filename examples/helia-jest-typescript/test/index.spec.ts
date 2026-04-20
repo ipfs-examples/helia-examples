@@ -1,10 +1,8 @@
-/* eslint-env jest */
-
 import { createHeliaNode } from '../src/index.js'
-import type { HeliaLibp2p } from 'helia'
+import type { Helia } from 'helia'
 
 describe('Helia', () => {
-  let helia: HeliaLibp2p
+  let helia: Helia
 
   beforeEach(async () => {
     helia = await createHeliaNode()

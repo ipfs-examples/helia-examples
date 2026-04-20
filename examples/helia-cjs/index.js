@@ -2,10 +2,10 @@
 
 // this file is regular CommonJS
 
-async function main () {
-  const { createHelia } = await import('helia')
-  const { unixfs } = await import('@helia/unixfs')
+const { unixfs } = require('@helia/unixfs')
+const { createHelia } = require('helia')
 
+async function main () {
   // create a Helia node
   const helia = await createHelia()
 

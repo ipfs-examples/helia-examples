@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 import { createHeliaNode } from '../src/index.js'
 
 describe('Helia', () => {
@@ -17,6 +15,7 @@ describe('Helia', () => {
 
   describe('libp2p', () => {
     it('should have a peer id', async () => {
+      // eslint-disable-next-line no-undef
       expect(helia.libp2p.peerId).toBeTruthy()
     })
   })

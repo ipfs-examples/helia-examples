@@ -26,8 +26,8 @@ test.describe('bundle Helia with Webpack:', () => {
 
     const outputContent = await page.textContent(output)
 
-    expect(outputContent).toContain('bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi')
-    expect(outputContent).toContain('https://ipfs.io/ipfs/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi')
+    expect(outputContent).toContain('bafybeih3umafsqsc3dles2nd2bmdl4fv55nzg3hp5hzsuzanwa6gr55shq')
+    expect(outputContent).toContain('https://inbrowser.link/ipfs/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi')
     expect(outputContent).toContain(fileName)
     expect(outputContent).toContain(stringToUse)
   })

@@ -20,7 +20,7 @@ export default function FileUploader () {
         </a>
       </label>
       <input style={{ display: 'none' }} id='FileUploaderInput' type='file' multiple onChange={handleFileEvent} />
-      <div className="fileUploader-list" style={{ paddingTop: '1vh' }}>
+      <div className='fileUploader-list' style={{ paddingTop: '1vh' }}>
         {files.map((file, idx) => (
           <div key={idx}>
             {file.name}

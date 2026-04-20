@@ -13,42 +13,51 @@ function App () {
     committedText
   } = useCommitText()
 
+  let colour = 'green'
+
+  if (error) {
+    colour = 'red'
+  } else if (starting) {
+    colour = 'yellow'
+  }
+
   return (
-    <div className="App">
+    <div className='App'>
       <div
-        id="heliaStatus"
+        id='heliaStatus'
         style={{
-          border: `4px solid ${
-            error
-? 'red'
-            : starting ? 'yellow' : 'green'
-          }`,
+          border: `4px solid ${colour}`,
           paddingBottom: '4px'
         }}
-      >Helia Status</div>
+      >Helia Status
+      </div>
       <input
-        id="textInput"
+        id='textInput'
         value={text}
         onChange={(event) => setText(event.target.value)}
-        type="text" />
+        type='text'
+      />
       <button
-        id="commitTextButton"
+        id='commitTextButton'
         onClick={() => commitText(text)}
-      >Add Text To Node</button>
+      >Add Text To Node
+      </button>
       <div
-        id="cidOutput"
-      >textCid: {cidString}</div>
-      { cidString && (<>
-        <button
-          id="fetchCommittedTextButton"
-          onClick={() => fetchCommittedText()}
-        >Fetch Committed Text</button>
+        id='cidOutput'
+      >textCid: {cidString}
+      </div>
+      {cidString && (
+        <>
+          <button
+            id='fetchCommittedTextButton'
+            onClick={() => fetchCommittedText()}
+          >Fetch Committed Text
+          </button>
           <div
-            id="committedTextOutput"
-          >Committed Text: {committedText}</div>
-        </>)
-      }
-
+            id='committedTextOutput'
+          >Committed Text: {committedText}
+          </div>
+        </>)}
     </div>
   )
 }

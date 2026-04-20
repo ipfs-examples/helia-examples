@@ -28,7 +28,7 @@ test.describe('bundle ipfs with esbuild:', () => {
     await page.waitForSelector(`${output}:has-text("/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi")`)
 
     const outputContent = await page.textContent(output)
-    expect(outputContent).toContain('https://ipfs.io/ipfs/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi')
+    expect(outputContent).toContain('https://inbrowser.link/ipfs/bafkreigaknpexyvxt76zgkitavbwx6ejgfheup5oybpm77f3pxzrvwpfdi')
     expect(outputContent).toContain(fileName)
     expect(outputContent).toContain(fileContent)
   })
