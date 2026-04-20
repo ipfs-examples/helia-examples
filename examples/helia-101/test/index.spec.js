@@ -11,6 +11,7 @@ if (isDenoRun) {
   extraArgs.push('--allow-env')
   extraArgs.push('--allow-sys')
   extraArgs.push('--allow-ffi')
+  extraArgs.push('--allow-read')
 }
 
 await waitForOutput('Added file contents: Hello World 101', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../101-basics.js')])
