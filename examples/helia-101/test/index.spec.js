@@ -35,11 +35,8 @@ await waitForOutput('Fetched file contents: Hello from a private swarm example',
 
 await waitForOutput('Pinned CID', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../401-pinning.js')])
 
-// TODO: re-enable after https://github.com/libp2p/js-libp2p/pull/3425
-// await waitForOutput('CID provided to the DHT:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../402-providing.js')])
+await waitForOutput('CID provided to the DHT:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../402-providing.js')])
 
-// TODO: re-enable after https://github.com/libp2p/js-libp2p/pull/3425
-// await waitForOutput('Stats:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../403-block-brokers-routers.js')])
+await waitForOutput('Stats:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../403-block-brokers-routers.js')])
 
-// TODO: re-enable after https://github.com/libp2p/js-libp2p/pull/3425
-// await waitForOutput('Published IPNS record:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../501-ipns.js')])
+await waitForOutput('Published IPNS record:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../501-ipns.js')])
