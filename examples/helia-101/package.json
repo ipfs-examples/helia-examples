@@ -38,7 +38,7 @@
     "@libp2p/pnet": "^3.0.16",
     "@libp2p/prometheus-metrics": "^5.0.16",
     "@libp2p/tcp": "^11.0.15",
-    "blockstore-core": "^6.1.3",
+    "blockstore-core": "^7.0.1",
     "blockstore-fs": "^3.0.3",
     "datastore-core": "^11.0.3",
     "datastore-fs": "^11.0.3",
