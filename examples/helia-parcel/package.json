@@ -20,7 +20,7 @@
     "helia": "^6.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
+    "@babel/core": "^8.0.1",
     "@playwright/test": "^1.12.3",
     "parcel": "^2.9.1",
     "playwright": "^1.12.3",
