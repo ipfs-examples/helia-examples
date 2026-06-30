@@ -17,7 +17,7 @@
     "@ipld/dag-cbor": "^9.2.6",
     "@ipld/dag-json": "^10.2.7",
     "file-type": "^22.0.1",
-    "multiformats": "^13.4.2",
+    "multiformats": "^14.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
