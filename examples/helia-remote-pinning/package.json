@@ -28,7 +28,7 @@
     "helia": "^6.1.2",
     "it-drain": "^3.0.12",
     "libp2p": "^3.2.0",
-    "multiformats": "^13.4.2",
+    "multiformats": "^14.0.4",
     "uint8arrays": "^5.1.0"
   },
   "devDependencies": {
