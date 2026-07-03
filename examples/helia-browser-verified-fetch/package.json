@@ -13,7 +13,7 @@
     "test": "vite build -c ./test/vite.config.js && test-browser-example test"
   },
   "dependencies": {
-    "@helia/verified-fetch": "^7.2.5",
+    "@helia/verified-fetch": "^8.0.0",
     "@ipld/dag-cbor": "^9.2.6",
     "@ipld/dag-json": "^10.2.7",
     "file-type": "^22.0.1",
