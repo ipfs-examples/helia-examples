@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@helia/car": "^5.4.1",
-    "@helia/unixfs": "^7.2.1",
+    "@helia/unixfs": "^8.0.3",
     "@ipld/car": "^5.4.3",
     "helia": "^6.1.2",
     "prop-types": "^15.8.1",
