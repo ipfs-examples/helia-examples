@@ -17,7 +17,7 @@
   "browserslist": "last 1 Chrome version",
   "dependencies": {
     "@helia/unixfs": "^7.2.1",
-    "helia": "^6.1.2"
+    "helia": "^7.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
