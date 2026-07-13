@@ -27,7 +27,7 @@
     "@helia/block-brokers": "^5.2.3",
     "@helia/car": "^5.4.1",
     "@helia/dag-cbor": "^5.1.1",
-    "@helia/http": "^3.1.2",
+    "@helia/http": "^4.0.5",
     "@helia/ipns": "^9.2.1",
     "@helia/routers": "^5.1.1",
     "@helia/unixfs": "^7.2.1",
