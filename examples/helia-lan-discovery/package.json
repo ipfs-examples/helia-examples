@@ -10,7 +10,7 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "@helia/dag-cbor": "^5.1.1",
+    "@helia/dag-cbor": "^6.0.4",
     "@libp2p/utils": "^7.0.15",
     "helia": "^6.1.2",
     "multiformats": "^13.4.2"
