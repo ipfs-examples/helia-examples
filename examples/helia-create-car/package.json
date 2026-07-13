@@ -13,7 +13,7 @@
     "test": "npm run build && test-browser-example test"
   },
   "dependencies": {
-    "@helia/car": "^5.4.1",
+    "@helia/car": "^6.0.4",
     "@helia/unixfs": "^7.2.1",
     "@ipld/car": "^5.4.3",
     "helia": "^6.1.2",
