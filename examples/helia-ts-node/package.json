@@ -9,7 +9,7 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^6.1.2"
+    "helia": "^7.1.1"
   },
   "devDependencies": {
     "test-ipfs-example": "^1.2.0",
