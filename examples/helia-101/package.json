@@ -28,7 +28,7 @@
     "@helia/car": "^5.4.1",
     "@helia/dag-cbor": "^5.1.1",
     "@helia/http": "^3.1.2",
-    "@helia/ipns": "^9.2.1",
+    "@helia/ipns": "^10.0.6",
     "@helia/routers": "^5.1.1",
     "@helia/unixfs": "^7.2.1",
     "@libp2p/bootstrap": "^12.0.16",
