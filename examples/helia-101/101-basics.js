@@ -94,7 +94,7 @@ try {
     // 👇 stream file to the console
     // process.stdout,
     // 👇 stream to a file on the local file system
-    // createWriteStream('./war_and_peace.html'),
+    // nodefs.createWriteStream('./war_and_peace.html'),
   )
 } catch (err) {
   console.error('Pipeline failed', err)
