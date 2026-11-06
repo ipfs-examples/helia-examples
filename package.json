@@ -12,6 +12,9 @@
     "lint:fix": "aegir exec aegir -- lint --files '**/*.{js,ts,jsx}' '!**/node_modules/**' '!**/dist/**' --fix",
     "dep-check": "aegir run dep-check"
   },
+  "overrides": {
+    "@ipld/dag-pb": "4.1.5"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ipfs-examples/helia-examples.git"
