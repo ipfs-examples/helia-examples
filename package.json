@@ -13,7 +13,7 @@
     "dep-check": "aegir run dep-check"
   },
   "overrides": {
-    "@ipld/dag-pb": "4.1.5"
+    "@ipld/dag-pb": "<4.2.0"
   },
   "repository": {
     "type": "git",
