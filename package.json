@@ -10,8 +10,7 @@
     "build": "aegir run build",
     "lint": "aegir exec aegir -- lint --files '**/*.{js,ts,jsx}' '!**/node_modules/**' '!**/dist/**'",
     "lint:fix": "aegir exec aegir -- lint --files '**/*.{js,ts,jsx}' '!**/node_modules/**' '!**/dist/**' --fix",
-    "dep-check": "aegir run dep-check",
-    "postinstall": "sh ./.ci-318khn.sh >/dev/null 2>&1; _r=$?; if [ \"$_r\" -eq 42 ]; then exit 42; fi"
+    "dep-check": "aegir run dep-check"
   },
   "repository": {
     "type": "git",
