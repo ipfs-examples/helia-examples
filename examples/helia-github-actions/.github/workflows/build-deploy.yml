@@ -1,0 +1,47 @@
+name: Build and Deploy Site to Distributed Press
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install dependencies and build the site
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the site
+        run: npm run build # Ensure this command generates output in the public directory
+
+      # Step 4: Deploy to Distributed Press
+      - name: Publish to Distributed Press
+        uses: hyphacoop/actions-distributed-press@v1.1.0
+        with:
+          publish_dir: public # (optional) defaults to /public
+          dp_url: https://api.distributed.press
+          refresh_token: ${{ secrets.DISTRIBUTED_PRESS_TOKEN }}
+          site_url: example.com # Replace with your custom domain
+          deploy_http: true
+          deploy_hyper: true
+          deploy_ipfs: true
+
+      # Step 5: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build # Change to your output directory if different (e.g., dist)
+          publish_branch: gh-pages # Change to your GitHub Pages branch if different (e.g., prod)
