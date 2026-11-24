@@ -11,11 +11,11 @@
   <br>
   <a href="https://helia.io/modules/helia.html">Explore the docs</a>
   ·
-  <a href="https://stackblitz.com/github/ipfs-examples/helia-examples/tree/main/examples/helia-browser-verified-fetch">View in Dev Environment</a>
+  <a href="https://stackblitz.com/github/ipfs/helia-examples/tree/main/examples/helia-browser-verified-fetch">View in Dev Environment</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 <!-- omit from toc -->

@@ -13,9 +13,9 @@
   ·
   <a href="https://codesandbox.io/">View Demo</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## Table of Contents
@@ -35,13 +35,12 @@
 - [Contributing](#contributing)
   - [How to add a new example](#how-to-add-a-new-example)
     - [Examples must](#examples-must)
-    - [Update `helia` to run tests against the repo](#update-helia-to-run-tests-against-the-repo)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
 
 ## About The Project
 
 - Read the [docs](https://ipfs.github.io/helia/modules/helia.html)
-- Look into other [examples](https://github.com/ipfs-examples/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
+- Look into other [examples](https://github.com/ipfs/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
 - Visit https://dweb-primer.ipfs.io to learn about IPFS and the concepts that underpin it
 - Head over to https://proto.school to take interactive tutorials that cover core IPFS APIs
 - Check out https://docs.ipfs.io for tips, how-tos and more
@@ -100,7 +99,7 @@ Explore [ProtoSchool's IPFS tutorials](https://proto.school/#/tutorials?course=i
 - [IPFS Primer](https://dweb-primer.ipfs.io/)
 - [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
-- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [More examples](https://github.com/ipfs/helia-examples)
 - [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
 - [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 
@@ -108,7 +107,7 @@ Explore [ProtoSchool's IPFS tutorials](https://proto.school/#/tutorials?course=i
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the IPFS Examples Project (`https://github.com/ipfs-examples/helia-examples`)
+1. Fork the IPFS Examples Project (`https://github.com/ipfs/helia-examples`)
 2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
 3. Commit your Changes (`git commit -a -m 'feat: add some amazing feature'`)
 4. Push to the Branch (`git push origin feature/amazing-feature`)
@@ -119,17 +118,13 @@ Contributions are what make the open source community such an amazing place to b
 1. Decide on a pithy folder name for your example, it should start with `helia-` and ideally be one or two words that describe what it's about - e.g. `helia-transfer-files`
 1. Create a folder in this repo under `examples`, eg. `./examples/helia-transfer-files`
 1. Add the files and tests that make up the example
-1. Add the folder name to the `project-list` lists in the `examples` and `push-changes` jobs in this repositories `./github/ci.yml`
+1. Add the folder name to the `project` matrix of the `examples` job in this repository's `.github/workflows/ci.yml`
 1. Open a PR with your changes
-1. :warning: Maintainer required: Use the [helia-example-fork-go-template](https://github.com/ipfs-examples/example-fork-go-template) to create a new repo in the `ipfs-examples` org for the new example to live in.
-   - Give it the same name as the example folder, e.g. `https://github.com/ipfs-examples/helia-transfer-files`
-   - Disable wikis, projects, and issues
 1. :warning: Maintainer required: Review the example
    1. Does it show the example clearly and concisely?
    1. Does it have tests?
-   1. Does it contain the `.github` folder?
-   1. Has it been added to the `project-list` lists in the `examples` and `push-changes` jobs in the  `./github/ci.yml` file of this repo?
-1. :warning: Maintainer required: Merge the example, after a successful build all files should be copied into the newly created repo.
+   1. Has it been added to the `project` matrix of the `examples` job in `.github/workflows/ci.yml`?
+1. :warning: Maintainer required: Merge the example
 
 #### Examples must
 
@@ -147,22 +142,6 @@ Contributions are what make the open source community such an amazing place to b
 - Update the CI to run the tests of the new example as standalone
   - Edit `github/workflows/ci.yml`
   - Add the test name to `project` under `matrix`
-
-#### Update `helia` to run tests against the repo
-
-Open a PR to the [ipfs/helia](https://github.com/ipfs/helia) project that edits the `.github/workflows/examples.yml` in order to make sure a Helia release does not break your new example.
-
-Search `.github/workflows/test.yml` for the `test-examples` section and add a block at the end of the `example` matrix key similar to:
-
-```yml
-- name: my super fun new example
-  repo: https://github.com/ipfs-examples/helia-my-super-fun-new-example.git
-  deps: helia@$PWD/packages/helia/dist
-```
-
-The value of the `deps` key will vary depending on which modules from Helia your example uses. Above we override the `helia` module, but your example may different deps.
-
-Please see the existing setup in `.github/workflows/test.yml` for how to ensure you are overriding the correct modules.
 
 ## Want to hack on IPFS?
 

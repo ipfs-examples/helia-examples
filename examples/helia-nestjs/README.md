@@ -11,9 +11,9 @@
   <br>
   <a href="https://ipfs.github.io/helia/modules/helia.html">Explore the docs</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## About
@@ -25,15 +25,15 @@ This demo was created by running the `nest new` command to bootstrap a basic pro
 A few changes to the default project config were necessary:
 
 1. Ensure TypeScript outputs ESM and not CJS
-    - Please see the [helia-typescript](https://github.com/ipfs-examples/helia-typescript) example for more information
+    - Please see the [helia-typescript](https://github.com/ipfs/helia-examples/tree/main/examples/helia-typescript) example for more information
 2. Ensure Jest can run TypeScript ESM tests
-    - Please see the [helia-jest-typescript](https://github.com/ipfs-examples/helia-jest-typescript) example for more information
+    - Please see the [helia-jest-typescript](https://github.com/ipfs/helia-examples/tree/main/examples/helia-jest-typescript) example for more information
 
 ## Getting Started
 
 ### Prerequisites
 
-https://github.com/ipfs-examples/helia-examples#prerequisites
+https://github.com/ipfs/helia-examples#prerequisites
 
 ### Installation and Running example
 
@@ -89,7 +89,7 @@ To learn more about NestJS, take a look at the following resources:
 - [IPFS Primer](https://dweb-primer.ipfs.io/)
 - [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
-- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [More examples](https://github.com/ipfs/helia-examples)
 - [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
 - [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 

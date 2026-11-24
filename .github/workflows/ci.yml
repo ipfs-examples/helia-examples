@@ -106,39 +106,3 @@ jobs:
         # This step has been observed to hang indefinitely when the browsers
         # weren't correctly downloaded.
         timeout-minutes: 10
-
-  push-changes:
-    name: Push changes
-    runs-on: ubuntu-latest
-    needs: [monorepo, examples]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    strategy:
-      fail-fast: true
-      matrix:
-        project:
-          - helia-101
-          - helia-cjs
-          - helia-browser-verified-fetch
-          - helia-electron
-          - helia-esbuild
-          - helia-jest
-          - helia-jest-typescript
-          - helia-nestjs
-          - helia-parcel
-          - helia-remote-pinning
-          - helia-nextjs
-          - helia-script-tag
-          - helia-ts-node
-          - helia-typescript
-          - helia-vite
-          - helia-vue
-          - helia-webpack
-          - helia-create-car
-          - helia-lan-discovery
-    steps:
-      - uses: convictional/trigger-workflow-and-wait@f69fa9eedd3c62a599220f4d5745230e237904be
-        with:
-          owner: ipfs-examples
-          repo: ${{ matrix.project }}
-          github_token: ${{ secrets.REPO_PULL_TOKEN }}
-          workflow_file_name: sync.yml

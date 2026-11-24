@@ -13,9 +13,9 @@
   ·
   <a href="https://codesandbox.io/p/sandbox/infallible-haibt-e3lcd4">View Demo</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## Table of Contents
@@ -36,7 +36,7 @@
 ## About The Project
 
 - Read the [docs](https://ipfs.github.io/helia/modules/helia.html)
-- Look into other [examples](https://github.com/ipfs-examples/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
+- Look into other [examples](https://github.com/ipfs/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
 - Visit https://dweb-primer.ipfs.io to learn about IPFS and the concepts that underpin it
 - Head over to https://proto.school to take interactive tutorials that cover core IPFS APIs
 - Check out https://docs.ipfs.io for tips, how-tos and more
@@ -114,7 +114,7 @@ _For more examples, please refer to the [Documentation](#documentation)_
 - [IPFS Primer](https://dweb-primer.ipfs.io/)
 - [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
-- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [More examples](https://github.com/ipfs/helia-examples)
 - [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
 - [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 

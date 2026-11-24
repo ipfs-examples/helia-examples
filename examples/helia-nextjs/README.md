@@ -13,20 +13,20 @@
   ·
   <a href="https://codesandbox.io/">View Demo</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## Table of Contents
 
-See https://github.com/ipfs-examples/helia-examples#table-of-contents for more information about Helia examples.
+See https://github.com/ipfs/helia-examples#table-of-contents for more information about Helia examples.
 
 ## Getting Started
 
 ### Prerequisites
 
-https://github.com/ipfs-examples/helia-examples#prerequisites
+https://github.com/ipfs/helia-examples#prerequisites
 
 ### Installation and Running example
 
@@ -79,14 +79,14 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-_For more examples, please refer to the [Documentation](https://github.com/ipfs-examples/helia-examples#documentation)_
+_For more examples, please refer to the [Documentation](https://github.com/ipfs/helia-examples#documentation)_
 
 ## Documentation
 
 - [IPFS Primer](https://dweb-primer.ipfs.io/)
 - [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
-- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [More examples](https://github.com/ipfs/helia-examples)
 - [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
 - [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 

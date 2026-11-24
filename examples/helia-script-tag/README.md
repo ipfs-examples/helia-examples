@@ -13,9 +13,9 @@
   .
   <a href="https://codesandbox.io/p/sandbox/helia-script-tag-vptxml">View codesandbox Demo</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## Table of Contents
@@ -32,7 +32,7 @@
 ## About The Project
 
 - Read the [docs](https://ipfs.github.io/helia/modules/helia.html)
-- Look into other [examples](https://github.com/ipfs-examples/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
+- Look into other [examples](https://github.com/ipfs/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
 - Visit https://dweb-primer.ipfs.io to learn about IPFS and the concepts that underpin it
 - Head over to https://proto.school to take interactive tutorials that cover core IPFS APIs
 - Check out https://docs.ipfs.io for tips, how-tos and more
@@ -59,13 +59,13 @@ Then open your browser to http://localhost:8888.
 
 ## Usage
 
-This example is basic demo and proof of concept for using helia via script tags. Other examples use build-scripts that may be too complicated for your needs. If you have a website where you manage your dependencies via script tags in an HTML file, you may benefit from looking at this example instead of the others at https://github.com/ipfs-examples/helia-examples/tree/main/examples.
+This example is basic demo and proof of concept for using helia via script tags. Other examples use build-scripts that may be too complicated for your needs. If you have a website where you manage your dependencies via script tags in an HTML file, you may benefit from looking at this example instead of the others at https://github.com/ipfs/helia-examples/tree/main/examples.
 
 If you are seeing errors like `ERR_REQUIRE_ESM` or `ERR_PACKAGE_PATH_NOT_EXPORTED` when trying to use this example, please check out `/examples/helia-cjs` instead.
 
 The main areas of focus should be two files: `index.html` and `src/index.js`.
 
-If you're confused about what the different methods under 'Some Suggestions' are doing, you may want to check out [helia-101](https://github.com/ipfs-examples/helia-101) for a full breakdown of the code.
+If you're confused about what the different methods under 'Some Suggestions' are doing, you may want to check out [helia-101](https://github.com/ipfs/helia-examples/tree/main/examples/helia-101) for a full breakdown of the code.
 
 ### Using the example
 
@@ -94,7 +94,7 @@ _For more examples, please refer to the [Documentation](#documentation)_
 - [IPFS Primer](https://dweb-primer.ipfs.io/)
 - [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
-- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [More examples](https://github.com/ipfs/helia-examples)
 - [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
 - [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 
