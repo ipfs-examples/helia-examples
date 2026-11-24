@@ -35,6 +35,7 @@
 - [Contributing](#contributing)
   - [How to add a new example](#how-to-add-a-new-example)
     - [Examples must](#examples-must)
+    - [Update `helia` to run tests against the repo](#update-helia-to-run-tests-against-the-repo)
 - [Want to hack on IPFS?](#want-to-hack-on-ipfs)
 
 ## About The Project
@@ -138,6 +139,26 @@ Contributions are what make the open source community such an amazing place to b
   - Link to `Codesandbox.com` for one-click running demonstration
   - References for documentation/tutorials used to build the example
   - _Optional:_ Screenshots, gifs, etc... under `img/` folder
+
+#### Update `helia` to run tests against the repo
+
+Open a PR to the [ipfs/helia](https://github.com/ipfs/helia) project that edits `.github/workflows/examples.yml` in order to make sure a Helia release does not break your new example.
+
+Add a block at the end of the `example` matrix key similar to:
+
+```yml
+- name: helia-my-super-fun-new-example
+  repo: https://github.com/ipfs/helia-examples.git
+  path: examples/helia-my-super-fun-new-example
+  deps:
+    - 'helia@$PWD/packages/helia'
+```
+
+All examples live in this repo, so `repo` is the same for every entry and `path` points at the example's folder.
+
+The value of the `deps` key will vary depending on which modules from Helia your example uses. Above we override the `helia` module, but your example may use different deps. Only list modules your example depends on, otherwise the test run will fail.
+
+Please see the existing entries in `.github/workflows/examples.yml` for how to ensure you are overriding the correct modules.
 
 ## Want to hack on IPFS?
 
