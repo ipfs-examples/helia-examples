@@ -78,7 +78,7 @@ FAIL  test/index.spec.ts
   Cannot find module 'helia' from '../src/index.ts'
 
   Require stack:
-    /Users/alex/Documents/Workspaces/ipfs/helia-examples/examples/helia-jest-typescript/src/index.ts
+    /Users/alex/Documents/Workspaces/ipfs-examples/helia-examples/examples/helia-jest-typescript/src/index.ts
     index.spec.ts
 
   > 1 | import { createHelia } from 'helia'
