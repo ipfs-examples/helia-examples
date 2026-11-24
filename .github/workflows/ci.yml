@@ -74,7 +74,7 @@ jobs:
         working-directory: examples/${{ matrix.project }}
     steps:
       - uses: actions/checkout@v3
-      - uses: denoland/setup-deno@4606d5cc6fb3f673efd4f594850e3f4b3e9d29cd # v2.0.0
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
         with:
           deno-version: v2.x
       - name: Install dependencies
