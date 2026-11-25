@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^11.0.12",
-    "@nestjs/core": "^11.0.12",
+    "@nestjs/core": "^12.6.0",
     "@nestjs/platform-express": "^11.0.2",
     "helia": "^6.1.2",
     "reflect-metadata": "^0.2.1",
