@@ -7,7 +7,7 @@ const { createHelia } = require('helia')
 
 async function main () {
   // create a Helia node
-  const helia = await createHelia()
+  const helia = await createHelia().start()
 
   // print out our node's PeerId
   console.log(helia.libp2p.peerId)
