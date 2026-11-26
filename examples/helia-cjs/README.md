@@ -13,9 +13,9 @@
   ·
   <a href="https://codesandbox.io/">View Demo</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Report Bug</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Report Bug</a>
   ·
-  <a href="https://github.com/ipfs-examples/helia-examples/issues">Request Feature/Example</a>
+  <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
 ## Table of Contents
@@ -33,7 +33,7 @@
 ## About The Project
 
 - Read the [docs](https://ipfs.github.io/helia/modules/helia.html)
-- Look into other [examples](https://github.com/ipfs-examples/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
+- Look into other [examples](https://github.com/ipfs/helia-examples) to learn how to spawn a Helia node in Node.js and in the Browser
 - Visit https://dweb-primer.ipfs.io to learn about IPFS and the concepts that underpin it
 - Head over to https://proto.school to take interactive tutorials that cover core IPFS APIs
 - Check out https://docs.ipfs.io for tips, how-tos and more
@@ -58,7 +58,7 @@ Make sure you have installed all of the following prerequisites on your developm
 
 ## Usage
 
-This tutorial is a port of [helia-101](https://github.com/ipfs-examples/helia-101)
+This tutorial is a port of [helia-101](https://github.com/ipfs/helia-examples/tree/main/examples/helia-101)
 but the main file is [CommonJS](https://en.wikipedia.org/wiki/CommonJS) and not
 [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
 
@@ -76,7 +76,7 @@ entry points.
 The example consists of one file, `index.js` which is a CommonJS file that loads
 Helia using `require`.
 
-Everything else is the same as the [helia-101](https://github.com/ipfs-examples/helia-101).
+Everything else is the same as the [helia-101](https://github.com/ipfs/helia-examples/tree/main/examples/helia-101).
 Please see that example for a full breakdown of the code.
 
 _For more examples, please refer to the [Documentation](#documentation)_
@@ -86,7 +86,7 @@ _For more examples, please refer to the [Documentation](#documentation)_
 - [IPFS Primer](https://dweb-primer.ipfs.io/)
 - [IPFS Docs](https://docs.ipfs.io/)
 - [Tutorials](https://proto.school)
-- [More examples](https://github.com/ipfs-examples/helia-examples)
+- [More examples](https://github.com/ipfs/helia-examples)
 - [API - Helia](https://ipfs.github.io/helia/modules/helia.html)
 - [API - @helia/unixfs](https://ipfs.github.io/helia-unixfs/modules/helia.html)
 

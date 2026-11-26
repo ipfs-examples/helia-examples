@@ -12,7 +12,7 @@ const ipns = IPNS(helia)
 // Use dag-cbor to encode a
 const cid = await dcbor.add({
   message: 'IPNS can be used to publish mutable pointers to immutable data',
-  repo: 'https://github.com/ipfs-examples/helia-examples'
+  repo: 'https://github.com/ipfs/helia-examples'
 })
 
 try {

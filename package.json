@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ipfs-examples/helia-examples.git"
+    "url": "git+https://github.com/ipfs/helia-examples.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ipfs-examples/helia-examples/issues"
+    "url": "https://github.com/ipfs/helia-examples/issues"
   },
-  "homepage": "https://github.com/ipfs-examples/helia-examples#readme",
+  "homepage": "https://github.com/ipfs/helia-examples#readme",
   "devDependencies": {
     "aegir": "^47.1.5"
   },
