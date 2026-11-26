@@ -363,9 +363,10 @@ To run it, use the following command:
 
 ### 403 - Block Brokers
 
-The [403-block-brokers.js](./403-block-brokers.js) example demonstrates how to:
-- Configure different block brokers (Bitswap and Trustless Gateway)
-- Set up routing options (libp2p and HTTP Gateway)
+The [403-block-brokers-routers.js](./403-block-brokers-routers.js) example demonstrates how to:
+- Start from a bare node with `createHeliaLight` and add only the networking you need
+- Configure different block brokers (Bitswap with `@helia/bitswap` and Trustless Gateway with `@helia/trustless-gateway-client`)
+- Set up routing options (delegated HTTP routing with `@helia/delegated-routing-client` and IPFS gateways with `@helia/fallback-router`)
 
 To run it, use the following command:
 
