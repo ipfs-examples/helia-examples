@@ -79,6 +79,8 @@ PeerId: 12D3KooWMUv1MYSYrgsEg3ykfZ6nDZwaT72LtVCheRNhH15kzroz
 
 That's it! You just ran an ESM-only module using ts-node with JIT compilation!
 
+Note: `npm start` runs `node src/index.ts` instead, which uses Node's native type stripping rather than ts-node. The ts-node command above is shown to demonstrate ts-node itself.
+
 _For more examples, please refer to the [Documentation](#documentation)_
 
 ## Documentation
