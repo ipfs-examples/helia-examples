@@ -6,7 +6,7 @@ import { createHelia } from 'helia'
 import { CID } from 'multiformats/cid'
 import { PROTOCOL } from './utils.js'
 
-const helia = await createHelia()
+const helia = await createHelia().start()
 const heliaDagCbor = dagCbor(helia)
 
 // dial every peer we discover

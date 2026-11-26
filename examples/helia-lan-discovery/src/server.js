@@ -5,7 +5,7 @@ import { lpStream } from '@libp2p/utils'
 import { createHelia } from 'helia'
 import { PROTOCOL } from './utils.js'
 
-const helia = await createHelia()
+const helia = await createHelia().start()
 const heliaDagCbor = dagCbor(helia)
 
 const str = `${new Date().toLocaleString()}: My test string that you only know if I send you the CID for it or you could guess but you'd have to be very lucky`
