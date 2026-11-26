@@ -17,7 +17,7 @@ export const HeliaProviderPlugin = {
       fs
     })
     try {
-      const instance = await createHelia()
+      const instance = await createHelia().start()
       loading.value = false
       helia.value = instance
       fs.value = unixfs(instance)
