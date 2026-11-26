@@ -5,6 +5,8 @@
 
     "moduleResolution": "nodenext",
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "types": [
       "jest"
     ],

@@ -1,4 +1,4 @@
-import { createHeliaNode } from '../src/index.js'
+import { createHeliaNode } from '../src/index.ts'
 import type { HeliaWithLibp2p } from '@helia/libp2p'
 
 describe('Helia', () => {
