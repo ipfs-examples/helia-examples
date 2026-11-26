@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "webpack --env production",
-    "serve": "webpack serve --mode=development",
+    "build": "webpack-cli --env production",
+    "serve": "webpack-cli serve --mode=development",
     "start": "npm run serve",
     "test": "npm run build && test-browser-example test"
   },
