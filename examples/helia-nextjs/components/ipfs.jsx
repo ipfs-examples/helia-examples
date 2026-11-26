@@ -12,7 +12,7 @@ const IpfsComponent = () => {
         return
       }
 
-      const heliaNode = await createHelia()
+      const heliaNode = await createHelia().start()
 
       const nodeId = heliaNode.libp2p.peerId.toString()
       const nodeIsOnline = heliaNode.libp2p.status === 'started'
