@@ -47,7 +47,6 @@
     "datastore-fs": "^12.0.1",
     "datastore-level": "^13.0.1",
     "helia": "^7.1.16",
-    "libp2p": "^3.5.2",
     "multiformats": "^14.0.8",
     "prom-client": "^15.1.3"
   },

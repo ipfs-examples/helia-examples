@@ -39,7 +39,7 @@
   - [304 - Private Network](#304---private-network)
   - [401 - Pinning](#401---pinning)
   - [402 - Providing](#402---providing)
-  - [403 - Block Brokers](#403---block-brokers)
+  - [403 - Block Brokers and Routers](#403---block-brokers-and-routers)
   - [501 - IPNS](#501---ipns)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
@@ -208,7 +208,7 @@ import { createHelia } from 'helia'
 import { identify } from '@libp2p/identify'
 import { noise } from '@libp2p/noise'
 import { yamux } from '@libp2p/yamux'
-import { webSockets } from '@libp2p/websockets'
+import { tcp } from '@libp2p/tcp'
 import { bootstrap } from '@libp2p/bootstrap'
 import { MemoryDatastore } from 'datastore-core'
 
@@ -219,8 +219,13 @@ const datastore = new MemoryDatastore()
 const helia = await createHelia({
   datastore,
   libp2p: {
+    addresses: {
+      listen: [
+        '/ip4/127.0.0.1/tcp/0'
+      ]
+    },
     transports: [
-      webSockets()
+      tcp()
     ],
     connectionEncrypters: [
       noise()
@@ -244,6 +249,8 @@ const helia = await createHelia({
   }
 }).start()
 ```
+
+Keys passed under `libp2p` replace Helia's defaults for that key (they are not merged), so the listen addresses and transports above must match each other.
 
 ### 302 - Local Peer Discovery
 
@@ -361,7 +368,7 @@ To run it, use the following command:
 > npm run 402-providing
 ```
 
-### 403 - Block Brokers
+### 403 - Block Brokers and Routers
 
 The [403-block-brokers-routers.js](./403-block-brokers-routers.js) example demonstrates how to:
 - Start from a bare node with `createHeliaLight` and add only the networking you need
