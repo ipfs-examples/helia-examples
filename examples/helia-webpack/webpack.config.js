@@ -149,7 +149,14 @@ const common = {
                   }
                 }
               ],
-              '@babel/preset-react'
+              [
+                '@babel/preset-react',
+                {
+                  // Babel 8 defaults to the development JSX runtime (jsxDEV),
+                  // which React's production build does not export
+                  development: false
+                }
+              ]
             ]
           }
         }
