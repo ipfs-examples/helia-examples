@@ -83,7 +83,7 @@ const dev = {
 /**
  * @type {Partial<import('webpack').Configuration>}
  */
-const common = {
+const createCommon = (production) => ({
 // Where webpack looks to start building the bundle
   entry: [paths.src + '/index.jsx'],
 
@@ -153,8 +153,9 @@ const common = {
                 '@babel/preset-react',
                 {
                   // Babel 8 defaults to the development JSX runtime (jsxDEV),
-                  // which React's production build does not export
-                  development: false
+                  // which React's production build does not export, so only
+                  // use it in development mode
+                  development: !production
                 }
               ]
             ]
@@ -182,11 +183,11 @@ const common = {
 
   // fix: https://github.com/webpack/webpack-dev-server/issues/2758
   target: 'web'
-}
+})
 
 export default (cmd) => {
   const production = cmd.production
   const config = production ? prod : dev
 
-  return merge(common, config)
+  return merge(createCommon(production), config)
 }
