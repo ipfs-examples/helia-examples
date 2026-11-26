@@ -36,7 +36,7 @@ Require stack:
   index.spec.ts
 
 > 1 | import { createHelia } from 'helia'
-  2 | import type { Helia } from '@helia/interface'
+  2 | import type { HeliaWithLibp2p } from '@helia/libp2p'
 ```
 
 In this example we are going to cover the config necessary to use Jest with TypeScript that compiles to ESM modules.
@@ -83,7 +83,7 @@ FAIL  test/index.spec.ts
 
   > 1 | import { createHelia } from 'helia'
       | ^
-    2 | import type { Helia } from '@helia/interface'
+    2 | import type { HeliaWithLibp2p } from '@helia/libp2p'
 ```
 
 To fix this it is necessary to tell Jest to use the `ts-jest` `default-esm` preset:
