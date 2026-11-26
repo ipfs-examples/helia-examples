@@ -8,9 +8,9 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
-    "helia": "^6.1.2"
+    "helia": "^7.1.16"
   },
   "devDependencies": {
-    "jest": "^30.3.0"
+    "jest": "^30.5.2"
   }
 }
