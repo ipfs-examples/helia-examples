@@ -4,8 +4,9 @@
 import * as nodefs from 'node:fs'
 import { pipeline } from 'node:stream/promises'
 import { car as CAR } from '@helia/car'
-import { createHeliaHTTP } from '@helia/http'
+import { withHTTP } from '@helia/http'
 import { unixfs, globSource } from '@helia/unixfs'
+import { createHeliaLight } from 'helia'
 
 // This is a script showing how to use globSource to merkelize files
 // and directories from your local file system into a CAR file.
@@ -28,7 +29,7 @@ if (!nodefs.existsSync(path)) {
   process.exit(1)
 }
 
-const helia = await createHeliaHTTP()
+const helia = await withHTTP(createHeliaLight()).start()
 
 // UnixFS allows you to encode files and directories such that they are
 // addressed by CIDs and can be retrieved by other nodes on the network

@@ -4,14 +4,18 @@
 import * as nodefs from 'node:fs'
 import { devNull } from 'node:os'
 import { pipeline } from 'node:stream/promises'
-import { createHeliaHTTP } from '@helia/http'
+import { withHTTP } from '@helia/http'
 import { unixfs, urlSource } from '@helia/unixfs'
+import { createHeliaLight } from 'helia'
 
-// `@helia/http` is an light http-only version Helia with the same API,
-// which is useful for simple use cases, where you don't need p2p networking to
-// provide data to other nodes. Since this example is focused on UnixFS without
-// p2p networking, we can use the `@helia/http` package.
-const helia = await createHeliaHTTP()
+// `createHeliaLight` creates a bare Helia node with no networking, and
+// `withHTTP` from `@helia/http` adds HTTP-only networking to it (trustless
+// gateways and delegated routing). The result has the same API as a full
+// Helia node, which is useful for simple use cases where you don't need p2p
+// networking to provide data to other nodes. Since this example is focused on
+// UnixFS without p2p networking, we can use `@helia/http`.
+// `createHeliaLight` returns an unstarted node, so we call `.start()` on it.
+const helia = await withHTTP(createHeliaLight()).start()
 
 // UnixFS allows you to encode files and directories such that they are
 // addressed by CIDs and can be retrieved by other nodes on the network
@@ -94,7 +98,7 @@ try {
     // 👇 stream file to the console
     // process.stdout,
     // 👇 stream to a file on the local file system
-    // createWriteStream('./war_and_peace.html'),
+    // nodefs.createWriteStream('./war_and_peace.html'),
   )
 } catch (err) {
   console.error('Pipeline failed', err)

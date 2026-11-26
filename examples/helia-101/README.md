@@ -204,41 +204,45 @@ With libp2p configured you can retrieve blocks from remote peers, and those peer
 [libp2p][] is the networking layer that IPFS works on top of.  It is a modular system, comprising of transports, connection encrypters, stream multiplexers, etc.
 
 ```js
-import { createLibp2p } from 'libp2p'
-import { identifyService } from 'libp2p/identify'
-import { noise } from '@chainsafe/libp2p-noise'
-import { yamux } from '@chainsafe/libp2p-yamux'
+import { createHelia } from 'helia'
+import { identify } from '@libp2p/identify'
+import { noise } from '@libp2p/noise'
+import { yamux } from '@libp2p/yamux'
 import { webSockets } from '@libp2p/websockets'
 import { bootstrap } from '@libp2p/bootstrap'
 import { MemoryDatastore } from 'datastore-core'
 
 const datastore = new MemoryDatastore()
 
-const libp2p = await createLibp2p({
+// Helia creates the libp2p node from the config passed as `libp2p`.
+// `createHelia` returns an unstarted node, so call `.start()` on it.
+const helia = await createHelia({
   datastore,
-  transports: [
-    webSockets()
-  ],
-  connectionEncrypters: [
-    noise()
-  ],
-  streamMuxers: [
-    yamux()
-  ],
-  peerDiscovery: [
-    bootstrap({
-      list: [
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
-      ]
-    })
-  ],
-  services: {
-    identify: identifyService()
+  libp2p: {
+    transports: [
+      webSockets()
+    ],
+    connectionEncrypters: [
+      noise()
+    ],
+    streamMuxers: [
+      yamux()
+    ],
+    peerDiscovery: [
+      bootstrap({
+        list: [
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
+        ]
+      })
+    ],
+    services: {
+      identify: identify()
+    }
   }
-})
+}).start()
 ```
 
 ### 302 - Local Peer Discovery
@@ -251,13 +255,15 @@ This allows Helia nodes on the same local network to automatically discover each
 import { mdns } from '@libp2p/mdns'
 
 // Configure libp2p with mDNS discovery
-const libp2p = await createLibp2p({
-  // ... other configuration ...
-  peerDiscovery: [
-    mdns()
-  ],
-  // ... rest of configuration ...
-})
+const node = await createHelia({
+  libp2p: {
+    // ... other configuration ...
+    peerDiscovery: [
+      mdns()
+    ],
+    // ... rest of configuration ...
+  }
+}).start()
 
 // Listen for peer discovery events
 node.libp2p.addEventListener('peer:discovery', (evt) => {
@@ -287,7 +293,7 @@ const helia = await createHelia({
   libp2p: {
     metrics: prometheusMetrics(),
   }
-})
+}).start()
 
 // Create a simple HTTP server to expose metrics
 const metricsServer = createServer((req, res) => {
