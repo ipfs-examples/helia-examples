@@ -35,7 +35,7 @@ export const HeliaProvider = ({ children }) => {
     } else {
       try {
         console.info('Starting Helia')
-        const helia = await createHelia()
+        const helia = await createHelia().start()
         setHelia(helia)
         setFs(unixfs(helia))
         setStarting(false)
