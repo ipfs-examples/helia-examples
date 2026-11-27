@@ -36,7 +36,7 @@ Require stack:
   index.spec.ts
 
 > 1 | import { createHelia } from 'helia'
-  2 | import type { Helia } from '@helia/interface'
+  2 | import type { HeliaWithLibp2p } from '@helia/libp2p'
 ```
 
 In this example we are going to cover the config necessary to use Jest with TypeScript that compiles to ESM modules.
@@ -83,7 +83,7 @@ FAIL  test/index.spec.ts
 
   > 1 | import { createHelia } from 'helia'
       | ^
-    2 | import type { Helia } from '@helia/interface'
+    2 | import type { HeliaWithLibp2p } from '@helia/libp2p'
 ```
 
 To fix this it is necessary to tell Jest to use the `ts-jest` `default-esm` preset:
@@ -98,15 +98,26 @@ To fix this it is necessary to tell Jest to use the `ts-jest` `default-esm` pres
 
 ### 4. Importing other files from the same project
 
-When authoring ESM, [file extensions are mandatory](https://nodejs.org/api/esm.html#esm_mandatory_file_extensions), however `ts-jest` will not resolve (for example) `./index.ts` when importing `./index.js`:
+When authoring ESM, [file extensions are mandatory](https://nodejs.org/api/esm.html#esm_mandatory_file_extensions). This example imports files with their real `.ts` extension (for example `../src/index.ts`), which is what aegir's linting requires. TypeScript only allows that when `allowImportingTsExtensions` is enabled, and that option requires `noEmit` (or `emitDeclarationOnly`), so set both in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
+}
+```
+
+Without a mapper, `ts-jest` will not resolve such an import, for example:
 
 ```
-Cannot find module '../src/index.js' from 'index.spec.ts'
+Cannot find module '../src/index.ts' from 'index.spec.ts'
 
   at Resolver._throwModNotFoundError (../../../node_modules/jest-resolve/build/resolver.js:427:11)
 ```
 
-The solution is to use a module name mapper to remove the file extension from relative imports and then Jest can fall back to it's version of the Node.js [require.resolve algorithm](https://nodejs.org/api/modules.html#all-together) which will locate `index.ts` from an `index.js` import:
+The solution is to use a module name mapper to remove the file extension from relative imports and then Jest can fall back to it's version of the Node.js [require.resolve algorithm](https://nodejs.org/api/modules.html#all-together) which will locate `index.ts` from either an `index.ts` or an `index.js` import:
 
 **jest.config.json**
 

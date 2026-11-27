@@ -83,7 +83,7 @@ const instantiateHeliaNode = async () => {
   heliaInstance = await Helia.createHelia({
     datastore,
     blockstore
-  })
+  }).start()
   addToLog('Created Helia instance')
 
   return heliaInstance

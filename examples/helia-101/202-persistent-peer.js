@@ -10,7 +10,8 @@ const datastore = new FsDatastore('./datastore')
 // Load or create a private key from the filesystem datastore
 const privateKey = await loadOrCreateSelfKey(datastore)
 
-// Create a new Helia node with the private key
+// Create a new Helia node with the private key. `createHelia` returns an
+// unstarted node, so we call `.start()` on it
 const helia = await createHelia({
   datastore,
   libp2p: {
@@ -18,7 +19,7 @@ const helia = await createHelia({
     // will not load it from the datastore automatically
     privateKey
   }
-})
+}).start()
 
 console.log(`Started Helia node with Peer ID: ${helia.libp2p.peerId.toString()}`)
 

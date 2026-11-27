@@ -1,8 +1,8 @@
-import { createHeliaNode } from '../src/index.js'
-import type { Helia } from 'helia'
+import { createHeliaNode } from '../src/index.ts'
+import type { HeliaWithLibp2p } from '@helia/libp2p'
 
 describe('Helia', () => {
-  let helia: Helia
+  let helia: HeliaWithLibp2p
 
   beforeEach(async () => {
     helia = await createHeliaNode()

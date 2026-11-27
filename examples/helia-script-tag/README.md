@@ -81,8 +81,7 @@ The page you will see is broken up into 4 sections:
       * Connected Peers - The count of peers your helia node is connected to. Also, a list of their `PeerId`s will render if the count is > 0.
 3. Suggestions: Try out these code snippets in your browser terminal, in order.
 4. Event Log: Elapsed-TimeStamped messages showing you some of what Helia and it's managed libp2p node are doing. This event log shows:
-   * instantiation of the libp2p instance passed to helia
-   * instantiation of the Helia node
+   * creation of the Helia node (Helia creates and starts its own libp2p node)
    * peer discovery
    * peer connection
    * peer disconnection

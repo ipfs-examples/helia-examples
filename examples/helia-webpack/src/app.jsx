@@ -36,7 +36,7 @@ function App () {
     if (!helia) {
       showStatus('Creating Helia node...', COLORS.active)
 
-      node = await createHelia()
+      node = await createHelia().start()
 
       setHelia(node)
     }

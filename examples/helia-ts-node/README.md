@@ -71,13 +71,15 @@ Because TypeScript outputs [CommonJS](https://en.wikipedia.org/wiki/CommonJS) by
 You can run ts code using ts-node:
 
 ```bash
-> npx ts-node ./src/index.ts
+> npx ts-node --esm ./src/index.ts
 
 Helia is running
 PeerId: 12D3KooWMUv1MYSYrgsEg3ykfZ6nDZwaT72LtVCheRNhH15kzroz
 ```
 
 That's it! You just ran an ESM-only module using ts-node with JIT compilation!
+
+Note: `npm start` runs `node src/index.ts` instead, which uses Node's native type stripping rather than ts-node. The ts-node command above is shown to demonstrate ts-node itself.
 
 _For more examples, please refer to the [Documentation](#documentation)_
 

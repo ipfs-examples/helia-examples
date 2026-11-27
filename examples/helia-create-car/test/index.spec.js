@@ -1,7 +1,7 @@
 import { createReadStream } from 'node:fs'
 import { unixfs } from '@helia/unixfs'
 import { CarReader } from '@ipld/car'
-import { createHelia } from 'helia'
+import { createHeliaLight } from 'helia'
 import { setup, expect } from 'test-ipfs-example/browser'
 
 // Setup
@@ -29,9 +29,7 @@ test.describe('Use Helia With react and vite', () => {
   test.beforeEach(async ({ servers, page }) => {
     await page.goto(servers[0].url)
 
-    helia = await createHelia({
-      start: false
-    })
+    helia = createHeliaLight()
     heliaFs = unixfs(helia)
 
     expectedCIDs = await Promise.all(filesToUpload.map(async (file) => {

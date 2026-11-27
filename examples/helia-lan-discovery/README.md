@@ -78,7 +78,7 @@ This example shows how you can use mdns to connect two nodes. Either server/clie
 
 Both scripts (src/server.js & src/client.js) will create a helia node.  Once the client discovers the server it will open a connection on a custom protocol.  The server will send a CID which the client will use to fetch some data from the server.  The client will tell the server it has fetched the data and then both will shut down.
 
-Note: No WAN functionality is enabled, so only nodes on your local network can help with peer-discovery, and only nodes on your local network can be discovered as the code currently stands.. If you want to enable connecting to nodes outside of your WAN, you will need to connect to a bootstrap node and add the `kadDHT` service from `@libp2p/kad-dht`.
+Note: both scripts call `createHelia()` with no options, so the node uses Helia's default libp2p config. That already includes mDNS (used here for local discovery), bootstrap peers, the `kadDHT` service and the tcp, websockets and WebRTC transports, so the nodes can also discover and connect to peers outside your local network. If you pass a `libp2p` option to `createHelia`, each top-level key you set (for example `peerDiscovery` or `services`) replaces Helia's default for that key rather than being merged with it.
 
 ### General flow
 

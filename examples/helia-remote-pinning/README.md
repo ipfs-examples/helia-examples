@@ -18,6 +18,8 @@
   <a href="https://github.com/ipfs/helia-examples/issues">Request Feature/Example</a>
 </p>
 
+> **Note:** This example stays on Helia v6 until `@helia/remote-pinning` ships a release for Helia v7.
+
 ## About
 
 When we add content to an IPFS node, it needs to remain online in order for

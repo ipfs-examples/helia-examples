@@ -8,12 +8,13 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
-    "helia": "^6.1.2"
+    "@helia/libp2p": "^2.1.5",
+    "helia": "^7.1.16"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "jest": "^30.3.0",
-    "ts-jest": "^29.1.1",
-    "typescript": "^6.0.2"
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.15",
+    "typescript": "^6.0.3"
   }
 }

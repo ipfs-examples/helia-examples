@@ -5,7 +5,7 @@ import { dagCbor } from '@helia/dag-cbor'
 import { ipns as IPNS } from '@helia/ipns'
 import { createHelia } from 'helia'
 
-const helia = await createHelia()
+const helia = await createHelia().start()
 const dcbor = dagCbor(helia)
 const ipns = IPNS(helia)
 

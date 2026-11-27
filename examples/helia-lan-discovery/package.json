@@ -10,10 +10,10 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "@helia/dag-cbor": "^5.1.1",
-    "@libp2p/utils": "^7.0.15",
-    "helia": "^6.1.2",
-    "multiformats": "^13.4.2"
+    "@helia/dag-cbor": "^6.0.6",
+    "@libp2p/utils": "^7.4.6",
+    "helia": "^7.1.16",
+    "multiformats": "^14.0.8"
   },
   "devDependencies": {
     "test-ipfs-example": "^1.3.3"

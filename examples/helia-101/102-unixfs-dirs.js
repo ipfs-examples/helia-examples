@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 // @ts-check
 
-import { createHeliaHTTP } from '@helia/http'
+import { withHTTP } from '@helia/http'
 import { unixfs as UnixFS } from '@helia/unixfs'
+import { createHeliaLight } from 'helia'
 
-const helia = await createHeliaHTTP()
+const helia = await withHTTP(createHeliaLight()).start()
 
 // UnixFS allows you to encode files and directories such that they are
 // addressed by CIDs
@@ -47,8 +48,11 @@ await listDirectoryContents(rootDirectoryCid)
 // Function to list directory contents recursively
 async function listDirectoryContents (cid, indent = '') {
   for await (const entry of unixfs.ls(cid)) {
-    console.log(`${indent}${entry.name} (${entry.type})`)
-    if (entry.type === 'directory') {
+    // directory entries only hold the name, CID and size of each child, so
+    // stat the child to find out whether it is a file or a directory
+    const { type } = await unixfs.stat(entry.cid)
+    console.log(`${indent}${entry.name} (${type})`)
+    if (type === 'directory') {
       await listDirectoryContents(entry.cid, indent + '  ')
     }
   }

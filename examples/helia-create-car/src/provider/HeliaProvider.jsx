@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { unixfs } from '@helia/unixfs'
-import { createHelia } from 'helia'
+import { createHeliaLight } from 'helia'
 import PropTypes from 'prop-types'
 import {
   React,
@@ -35,7 +35,7 @@ export const HeliaProvider = ({ children }) => {
     } else {
       try {
         console.info('Starting Helia')
-        const helia = await createHelia()
+        const helia = await createHeliaLight().start()
         setHelia(helia)
         setFs(unixfs(helia))
         setStarting(false)

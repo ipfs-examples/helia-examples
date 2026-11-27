@@ -3,7 +3,7 @@
 import { unixfs } from '@helia/unixfs'
 import { createHelia } from 'helia'
 
-const helia = await createHelia()
+const helia = await createHelia().start()
 
 // log when our addresses changes
 helia.libp2p.addEventListener('self:peer:update', (evt) => {

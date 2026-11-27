@@ -9,11 +9,11 @@
     "test": "test-node-example test/*"
   },
   "dependencies": {
-    "helia": "^6.1.2"
+    "helia": "^7.1.16"
   },
   "devDependencies": {
-    "test-ipfs-example": "^1.2.0",
+    "test-ipfs-example": "^1.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }

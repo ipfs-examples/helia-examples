@@ -45,8 +45,8 @@ The normal way to load one TypeScript module from another is to use the ESM-look
 ```ts
 import { createHelia } from 'helia'
 
-createHelia()
-  .then(() => {
+createHelia().start()
+  .then(helia => {
     console.info('Helia is running')
     console.info('PeerId:', helia.libp2p.peerId.toString())
   })
@@ -57,7 +57,7 @@ createHelia()
 ```js
 Object.defineProperty(exports, "__esModule", { value: true });
 const helia_1 = require("helia");
-(0, helia_1.createHelia)().then(() => {
+(0, helia_1.createHelia)().start().then(helia => {
     console.info('Helia is running');
     console.info('PeerId:', helia.libp2p.peerId.toString());
 });
@@ -112,9 +112,10 @@ If in doubt, look at the compiled code your application generates.  If you see u
 ```ts
 import { createHelia } from 'helia'
 
-createHelia()
-  .then(() => {
+createHelia().start()
+  .then(helia => {
     console.info('Helia is running')
+    console.info('PeerId:', helia.libp2p.peerId.toString())
   })
 ```
 
@@ -122,7 +123,7 @@ createHelia()
 
 ```js
 import { createHelia } from 'helia';
-createHelia()
+createHelia().start()
     .then(helia => {
     console.info('Helia is running');
     console.info('PeerId:', helia.libp2p.peerId.toString());

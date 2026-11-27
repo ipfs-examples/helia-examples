@@ -39,7 +39,7 @@
   - [304 - Private Network](#304---private-network)
   - [401 - Pinning](#401---pinning)
   - [402 - Providing](#402---providing)
-  - [403 - Block Brokers](#403---block-brokers)
+  - [403 - Block Brokers and Routers](#403---block-brokers-and-routers)
   - [501 - IPNS](#501---ipns)
   - [Putting it all together](#putting-it-all-together)
 - [Documentation](#documentation)
@@ -204,42 +204,53 @@ With libp2p configured you can retrieve blocks from remote peers, and those peer
 [libp2p][] is the networking layer that IPFS works on top of.  It is a modular system, comprising of transports, connection encrypters, stream multiplexers, etc.
 
 ```js
-import { createLibp2p } from 'libp2p'
-import { identifyService } from 'libp2p/identify'
-import { noise } from '@chainsafe/libp2p-noise'
-import { yamux } from '@chainsafe/libp2p-yamux'
-import { webSockets } from '@libp2p/websockets'
+import { createHelia } from 'helia'
+import { identify } from '@libp2p/identify'
+import { noise } from '@libp2p/noise'
+import { yamux } from '@libp2p/yamux'
+import { tcp } from '@libp2p/tcp'
 import { bootstrap } from '@libp2p/bootstrap'
 import { MemoryDatastore } from 'datastore-core'
 
 const datastore = new MemoryDatastore()
 
-const libp2p = await createLibp2p({
+// Helia creates the libp2p node from the config passed as `libp2p`.
+// `createHelia` returns an unstarted node, so call `.start()` on it.
+const helia = await createHelia({
   datastore,
-  transports: [
-    webSockets()
-  ],
-  connectionEncrypters: [
-    noise()
-  ],
-  streamMuxers: [
-    yamux()
-  ],
-  peerDiscovery: [
-    bootstrap({
-      list: [
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
-        "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
+  libp2p: {
+    addresses: {
+      listen: [
+        '/ip4/127.0.0.1/tcp/0'
       ]
-    })
-  ],
-  services: {
-    identify: identifyService()
+    },
+    transports: [
+      tcp()
+    ],
+    connectionEncrypters: [
+      noise()
+    ],
+    streamMuxers: [
+      yamux()
+    ],
+    peerDiscovery: [
+      bootstrap({
+        list: [
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN",
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa",
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb",
+          "/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt"
+        ]
+      })
+    ],
+    services: {
+      identify: identify()
+    }
   }
-})
+}).start()
 ```
+
+Keys passed under `libp2p` replace Helia's defaults for that key (they are not merged), so the listen addresses and transports above must match each other.
 
 ### 302 - Local Peer Discovery
 
@@ -251,13 +262,15 @@ This allows Helia nodes on the same local network to automatically discover each
 import { mdns } from '@libp2p/mdns'
 
 // Configure libp2p with mDNS discovery
-const libp2p = await createLibp2p({
-  // ... other configuration ...
-  peerDiscovery: [
-    mdns()
-  ],
-  // ... rest of configuration ...
-})
+const node = await createHelia({
+  libp2p: {
+    // ... other configuration ...
+    peerDiscovery: [
+      mdns()
+    ],
+    // ... rest of configuration ...
+  }
+}).start()
 
 // Listen for peer discovery events
 node.libp2p.addEventListener('peer:discovery', (evt) => {
@@ -287,7 +300,7 @@ const helia = await createHelia({
   libp2p: {
     metrics: prometheusMetrics(),
   }
-})
+}).start()
 
 // Create a simple HTTP server to expose metrics
 const metricsServer = createServer((req, res) => {
@@ -355,11 +368,12 @@ To run it, use the following command:
 > npm run 402-providing
 ```
 
-### 403 - Block Brokers
+### 403 - Block Brokers and Routers
 
-The [403-block-brokers.js](./403-block-brokers.js) example demonstrates how to:
-- Configure different block brokers (Bitswap and Trustless Gateway)
-- Set up routing options (libp2p and HTTP Gateway)
+The [403-block-brokers-routers.js](./403-block-brokers-routers.js) example demonstrates how to:
+- Start from a bare node with `createHeliaLight` and add only the networking you need
+- Configure different block brokers (Bitswap with `@helia/bitswap` and Trustless Gateway with `@helia/trustless-gateway-client`)
+- Set up routing options (delegated HTTP routing with `@helia/delegated-routing-client` and IPFS gateways with `@helia/fallback-router`)
 
 To run it, use the following command:
 

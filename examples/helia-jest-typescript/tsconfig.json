@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "module": "node20",
+    "module": "nodenext",
     "target": "ES2022",
 
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "types": [
       "jest"
     ],

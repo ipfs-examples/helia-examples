@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
 // @ts-check
 
-import { noise } from '@chainsafe/libp2p-noise'
-import { yamux } from '@chainsafe/libp2p-yamux'
 import { unixfs } from '@helia/unixfs'
 import { bootstrap } from '@libp2p/bootstrap'
 import { identify } from '@libp2p/identify'
+import { noise } from '@libp2p/noise'
 import { tcp } from '@libp2p/tcp'
+import { yamux } from '@libp2p/yamux'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
-import { createLibp2p } from 'libp2p'
 
 async function createNode () {
   // the blockstore is where we store the blocks that make up files
@@ -19,43 +18,42 @@ async function createNode () {
   // application-specific data lives in the datastore
   const datastore = new MemoryDatastore()
 
-  // libp2p is the networking layer that underpins Helia
-  const libp2p = await createLibp2p({
-    datastore,
-    addresses: {
-      listen: [
-        '/ip4/127.0.0.1/tcp/0'
-      ]
-    },
-    transports: [
-      tcp()
-    ],
-    connectionEncrypters: [
-      noise()
-    ],
-    streamMuxers: [
-      yamux()
-    ],
-    peerDiscovery: [
-      bootstrap({
-        list: [
-          '/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
-          '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
-          '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
-          '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
-        ]
-      })
-    ],
-    services: {
-      identify: identify()
-    }
-  })
-
+  // libp2p is the networking layer that underpins Helia. Helia creates the
+  // libp2p node from this config, and the keys passed here replace Helia's
+  // default libp2p config for those keys
   return await createHelia({
     datastore,
     blockstore,
-    libp2p
-  })
+    libp2p: {
+      addresses: {
+        listen: [
+          '/ip4/127.0.0.1/tcp/0'
+        ]
+      },
+      transports: [
+        tcp()
+      ],
+      connectionEncrypters: [
+        noise()
+      ],
+      streamMuxers: [
+        yamux()
+      ],
+      peerDiscovery: [
+        bootstrap({
+          list: [
+            '/dnsaddr/bootstrap.libp2p.io/p2p/QmNnooDu7bfjPFoTZYxMNLWUQJyrVwtbZg5gBMjTezGAJN',
+            '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+            '/dnsaddr/bootstrap.libp2p.io/p2p/QmbLHAnMoJPWSCR5Zhtx6BHJX9KiKNN6tpvbUcqanj75Nb',
+            '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt'
+          ]
+        })
+      ],
+      services: {
+        identify: identify()
+      }
+    }
+  }).start()
 }
 
 // create two helia nodes

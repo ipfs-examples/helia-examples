@@ -14,7 +14,7 @@ const helia = await createHelia({
   libp2p: {
     metrics: prometheusMetrics()
   }
-})
+}).start()
 
 // log when our addresses changes
 helia.libp2p.addEventListener('self:peer:update', (evt) => {

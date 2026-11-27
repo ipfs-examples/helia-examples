@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
 // @ts-check
 
-import { noise } from '@chainsafe/libp2p-noise'
-import { yamux } from '@chainsafe/libp2p-yamux'
 import { unixfs } from '@helia/unixfs'
 import { identify } from '@libp2p/identify'
+import { noise } from '@libp2p/noise'
 import { preSharedKey, generateKey } from '@libp2p/pnet'
 import { tcp } from '@libp2p/tcp'
+import { yamux } from '@libp2p/yamux'
 import { MemoryBlockstore } from 'blockstore-core'
 import { MemoryDatastore } from 'datastore-core'
 import { createHelia } from 'helia'
-import { createLibp2p } from 'libp2p'
 
 async function createPrivateSwarmNode (pnetKey) {
   // the blockstore is where we store the blocks that make up files
@@ -19,36 +18,38 @@ async function createPrivateSwarmNode (pnetKey) {
   // application-specific data lives in the datastore
   const datastore = new MemoryDatastore()
 
-  // libp2p is the networking layer that underpins Helia
-  const libp2p = await createLibp2p({
-    datastore,
-    addresses: {
-      listen: [
-        '/ip4/127.0.0.1/tcp/0'
-      ]
-    },
-    transports: [
-      tcp()
-    ],
-    connectionEncrypters: [
-      noise()
-    ],
-    streamMuxers: [
-      yamux()
-    ],
-    connectionProtector: preSharedKey({
-      psk: pnetKey
-    }),
-    services: {
-      identify: identify()
-    }
-  })
-
+  // libp2p is the networking layer that underpins Helia. Helia creates the
+  // libp2p node from this config, and the keys passed here replace Helia's
+  // default libp2p config for those keys
   return await createHelia({
     datastore,
     blockstore,
-    libp2p
-  })
+    libp2p: {
+      addresses: {
+        listen: [
+          '/ip4/127.0.0.1/tcp/0'
+        ]
+      },
+      transports: [
+        tcp()
+      ],
+      connectionEncrypters: [
+        noise()
+      ],
+      streamMuxers: [
+        yamux()
+      ],
+      // disable Helia's default peer discovery (mDNS and the public bootstrap
+      // nodes), since peers outside the private swarm cannot connect anyway
+      peerDiscovery: [],
+      connectionProtector: preSharedKey({
+        psk: pnetKey
+      }),
+      services: {
+        identify: identify()
+      }
+    }
+  }).start()
 }
 
 // Create a Uint8Array and write the swarm key to it

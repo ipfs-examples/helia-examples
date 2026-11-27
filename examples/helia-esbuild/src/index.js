@@ -99,7 +99,7 @@ const App = async () => {
 
   showStatus('Creating Helia node', COLORS.active)
 
-  const helia = await createHelia()
+  const helia = await createHelia().start()
 
   showStatus('Helia node ready', COLORS.active)
 
