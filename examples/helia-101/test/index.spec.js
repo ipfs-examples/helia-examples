@@ -43,3 +43,8 @@ await waitForOutput('Pinned CID', process.env.NODE_EXEC ?? 'node', [...extraArgs
 
 // TODO: re-enable after https://github.com/libp2p/js-libp2p/pull/3425
 // await waitForOutput('Published IPNS record:', process.env.NODE_EXEC ?? 'node', [...extraArgs, path.resolve(__dirname, '../501-ipns.js')])
+
+// under Deno the spawned example processes are not always killed after their
+// output is seen, which keeps this process alive - every check above passed by
+// the time we get here, so exit cleanly
+process.exit(0)
