@@ -7,6 +7,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 await waitForOutput('PeerId', 'electron', [
   // fixes otherwise fatal setuid_sandbox_host.cc error on linux
   '--no-sandbox',
+  // render offscreen so no window opens on the developer's desktop
+  '--ozone-platform=headless',
+  '--disable-gpu',
   path.resolve(`${__dirname}/../main.js`)
 ])
 
